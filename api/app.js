@@ -4,6 +4,7 @@ const logger = require('morgan');
 const client = require('./models/connection');
 const developersRouter = require('./routes/developers');
 const pizzaRouter = require('./routes/pizzas');
+const jobOffersRouteur = require('./routes/jobOffers');
 
 const app = express();
 client.connect();
@@ -13,6 +14,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use('/developers', developersRouter);
+app.use('/jobOffers', jobOffersRouteur);
 app.use('/pizzas', pizzaRouter);
 
 module.exports = app;

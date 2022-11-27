@@ -12,7 +12,7 @@ const getAllDevelopers = async () =>
     dev.mail,
     dev.birth_date,
     dev.tel,
-    tof.name AS offre_required
+    tof.type_offer AS offer_required
     FROM webproject.developers dev,
     webproject.type_offers tof
     WHERE dev.type_offer_required= tof.id_type_offer`,
@@ -35,7 +35,6 @@ const getDevByMail = async (mail) =>
         reject(err.message);
         console.log(err.message);
       } else if (result.rowCount !== 0) {
-          console.log(result);
           resolve(result.rows[0]);
         } else {
           console.log('User not found');
