@@ -1,0 +1,7 @@
+@baseUrl = http://localhost:3000
+
+### Read all developers
+GET {{baseUrl}}/developers
+
+### Read developers by his mail return his password 
+GET {{baseUrl}}/developers/login/brahim.abid@student.vinci.be
