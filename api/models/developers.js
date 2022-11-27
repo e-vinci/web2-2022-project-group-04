@@ -29,16 +29,19 @@ const getAllDevelopers = async () =>
 
 const getDevByMail = async (mail) =>
   new Promise((resolve, reject) => {
-    const select = `SELECT mail , password FROM webproject.developers where mail = $1`
-    client.query(select , [mail],
-      (err, result) => {
-        if (!err) {
+    const select = `SELECT mail , password FROM webproject.developers where mail = $1`;
+    client.query(select, [mail], (err, result) => {
+      if (err) {
+        reject(err.message);
+        console.log(err.message);
+      } else if (result.rowCount !== 0) {
+          console.log(result);
           resolve(result.rows[0]);
         } else {
-          reject(err.message);
+          console.log('User not found');
+          
         }
-      },
-    );
+    });
   });
 
 module.exports = { getAllDevelopers, getDevByMail };

@@ -14,9 +14,9 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/login/:mail', async (req, res) => {
-  const dev = await getDevByMail(req.params.mail);
-  
-  return res.json(dev);
+  const devFound = await getDevByMail(req.params.mail);
+  if(!devFound ) return res.status(400);
+  return res.json(devFound);
 });
 
 module.exports = router;
