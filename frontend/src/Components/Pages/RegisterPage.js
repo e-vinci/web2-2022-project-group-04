@@ -23,8 +23,6 @@ const renderRegisterFormDevPage = () => {
 };
 
 
-
-                         
 const RegisterFormDevPage = () => {
     clearPage();
     renderRegisterFormDevPage();
