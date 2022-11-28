@@ -1,4 +1,32 @@
 .container{
-    margin-top: 25%;
+    padding-top: 10%;
+    padding-bottom: 15%;
+    height: 100%;
+}
+
+.sloganText1{
+    font-size: 400%;
+    font-weight: bold;
+    margin-bottom: 4%;
+}
+
+.sloganText2{
+    margin-bottom: 4%;
+}
+
+#signUpButton{
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 200px;
+    height: 50px;
+    font-size: 200%;
+    text-align: center;
+    background: rgba(89, 160, 207, 0.536);
+    border: none;
+}
+
+.homePageDiv{
+    background-image: url(../assets/homePageImage.jpg);
     height: 100%;
 }
