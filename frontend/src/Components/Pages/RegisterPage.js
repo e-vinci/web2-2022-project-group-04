@@ -1,6 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { clearPage } from "../../utils/render";
 
-const registerFormDevPage = `<div class="form-group">
+const main = document.querySelector('main')
+
+const registerFormDevPage =`<form id ="registerFormDevelopper">
+                            <div class="form-group">
                                 <label for="exampleInputEmail1">Email address</label>
                                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
@@ -13,9 +17,19 @@ const registerFormDevPage = `<div class="form-group">
                                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
                             </div>
-                            <button type="submit" class="btn btn-primary">Submit</button>`;
-const RegisterFormDevPage = () => {
-    const form = document.getElementById('registerFormDevelopper');
-    form.innerHTML = registerFormDevPage;
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>`;
+
+
+RegisterFormDevPage();
+                         
+
+function RegisterFormDevPage(){
+    clearPage();
+    main.innerHTML = registerFormDevPage;
 }
+
+export default RegisterFormDevPage;
+
+  
                             
