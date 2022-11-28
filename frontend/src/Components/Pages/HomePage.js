@@ -1,5 +1,5 @@
-import { clearPage } from "../../utils/render";
-import Navigate from "../Router/Navigate";
+import { clearPage } from '../../utils/render';
+import Navigate from '../Router/Navigate';
 
 const renderHomePage = () => {
   const main = document.querySelector('main');
@@ -11,19 +11,14 @@ const renderHomePage = () => {
                           </h1>
                           <h3 class="sloganText2">Créé par des devs pour des devs
                           </h3>
-                          <button id="btn-register" data-uri="/login id="signUpButton" type="button" class="btn btn-primary btn-lgg">S'inscrire</button>
+                          <button id="btn-register" data-uri="/registerPage type="button" class="btn btn-primary btn-lgg">S'inscrire</button>
                         </div>
                       </div>
-                    </div>`;
-
-const registerButton = document.getElementById('btn-register');
-registerButton.addEventListener(onclick, (e) => {
+                    </div>`;const registerButton = document.getElementById('btn-register');
+registerButton.addEventListener('click', (e) => {
   e.preventDefault();
-  const uri = e.target?.dataset?.uri;
-  Navigate(uri);
-}
-);
-
+  Navigate('/registerPage');
+});
 };
 
 
@@ -32,7 +27,5 @@ const Homepage = () => {
   clearPage();
   renderHomePage();
 };
-
-
 
 export default Homepage;
