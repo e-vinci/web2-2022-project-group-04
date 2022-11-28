@@ -3,7 +3,8 @@ import { clearPage } from "../../utils/render";
 
 const main = document.querySelector('main')
 
-const registerFormDevPage =`<form id ="registerFormDevelopper">
+const renderRegisterFormDevPage = () => {
+    main.innerHTML = `<form id ="registerFormDevelopper">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Email address</label>
                                 <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
@@ -19,15 +20,15 @@ const registerFormDevPage =`<form id ="registerFormDevelopper">
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
                             </form>`;
+};
 
 
 
                          
-
-function RegisterFormDevPage(){
+const RegisterFormDevPage = () => {
     clearPage();
-    main.innerHTML = registerFormDevPage;
-}
+    renderRegisterFormDevPage();
+  };
 
 export default RegisterFormDevPage;
 
