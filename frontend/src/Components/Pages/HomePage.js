@@ -10,9 +10,7 @@ const renderHomePage = () => {
                           </h1>
                           <h3 class="sloganText2">Créé par des devs pour des devs
                           </h3>
-                          <a href="" data-uri="/RegisterPage>
-                            <button id="signUpButton" type="button" class="btn btn-primary btn-lgg">S'inscrire</button>
-                          </a>
+                          <button data-uri="/login id="signUpButton" type="button" class="btn btn-primary btn-lgg">S'inscrire</button>
                         </div>
                       </div>
                     </div>`;
