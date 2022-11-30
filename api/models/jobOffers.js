@@ -1,4 +1,4 @@
-const client = require('./connection');
+const client = require('../connection');
 
 const getAllOffers =()=> new Promise((resolve, reject) => {
     const select = `SELECT c.company_name , t.type_offer, j.title, j.description , j.upload_date 

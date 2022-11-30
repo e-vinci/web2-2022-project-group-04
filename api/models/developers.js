@@ -1,7 +1,7 @@
 /* eslint-disable spaced-comment */
 /* eslint-disable no-console */
 
-const client = require('./connection');
+const client = require('../connection');
 
 const getAllDevelopers = async () =>
   new Promise((resolve, reject) => {
