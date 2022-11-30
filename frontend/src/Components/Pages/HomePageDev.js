@@ -1,25 +1,26 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
 
 const renderAllJobOffersAsString = (jobOffers) => {
-  let allOffers = '';
+  let allOffers = '<div class = "container">';
 
   jobOffers?.forEach((offer) => {
-    allOffers += `<table class="table table-sm my-5">
-      <tbody>
-      <tr>
+    const date = new Date(offer.upload_date);
+    allOffers += `<div class="container-fluid">
+      <h2>${offer.title}</h2>
+      <h3>Nom de l'entreprise : ${offer.company_name}</h3>
+
+      <h3>Type d'offre : ${offer.type_offer}</h3>
+      
+      <h4>Description : ${offer.description}</h4>
+
+      <p>Publié le ${date.getDay() + 1}/${date.getMonth() + 1}/${date.getFullYear()} </p>
         
-        <td>${offer.company_name}</td>
-        <td>${offer.type_offer}</td>
-        <td>${offer.title}</td>
-        <td>${offer.description}</td>
-        <td>${offer.upload_date}</td>
-      </tr>
-        
-    </tbody>
-  </table>
-          `;
+    
+  </div> `;
   });
-  
+
+  allOffers+='</div>'
+
   return allOffers;
 };
 
@@ -29,7 +30,7 @@ const renderAllOffers = (jobOffers) => {
   main.innerHTML += tablesAllOffers;
 };
 
-async function getAllOffersFromAPI(){
+async function getAllOffersFromAPI() {
   try {
     const response = await fetch('/api/jobOffers');
 
@@ -43,18 +44,16 @@ async function getAllOffersFromAPI(){
     console.error('HomePageDev  error: ', error);
     throw error;
   }
-};
+}
 
 const HomePageDev = async () => {
   try {
     clearPage();
     renderPageTitle('Home Page Dev');
 
-    const AllOffers = await getAllOffersFromAPI()
+    const AllOffers = await getAllOffersFromAPI();
 
     renderAllOffers(AllOffers);
-
-    
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('HomePage::error: ', error);
