@@ -7,7 +7,7 @@ const Router = () => {
 };
 
 function onNavBarClick() {
-  const navItems = document.querySelectorAll('.nav-link');
+  const navItems = document.querySelectorAll('.nav-link, .navbar-brand');
 
   navItems.forEach((item) => {
     item.addEventListener('click', (e) => {
