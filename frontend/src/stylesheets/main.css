@@ -30,4 +30,20 @@
     background-image: url(../img/Background.png);
     height: 100%;
 }
+/* register page */
 
+#registerFormDevelopper{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 25vh;
+    width: 40vh;
+    border-radius: 12px;
+
+}
+/*temporaire */
+
+.white{
+    background-color: rgba(248, 248, 248, 0.635);
+}
