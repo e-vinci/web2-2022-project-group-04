@@ -15,3 +15,7 @@ Content-Type: application/json
 ### Read all job offers from company
 GET {{baseUrl}}/jobOffers/allJobOfferFromCompany/1
 
+
+### Read All developers intersted of one jobOffer
+GET {{baseUrl}}/jobOffers/allDevelopersInterstedOffer/1
+

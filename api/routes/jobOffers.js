@@ -1,5 +1,10 @@
 const express = require('express');
-const { getAllOffers, addToIntersted, getAllJobOffersFromCompany } = require('../models/jobOffers');
+const {
+  getAllOffers,
+  addToIntersted,
+  getAllJobOffersFromCompany,
+  getAllDevInterestedForOffer,
+} = require('../models/jobOffers');
 
 const router = express.Router();
 
@@ -18,12 +23,24 @@ router.post('/addToInterstedDev', async (req, res) => {
 });
 
 router.get('/allJobOfferFromCompany/:idCompany', async (req, res) => {
-    const {idCompany} = req.params;
-    const allOffersFromCompany = await getAllJobOffersFromCompany(idCompany);
+  const { idCompany } = req.params;
+  const allOffersFromCompany = await getAllJobOffersFromCompany(idCompany);
 
-    if(allOffersFromCompany === undefined || !allOffersFromCompany) return res.status(400);
-  
-    return res.json(allOffersFromCompany);
-  });
+  if (allOffersFromCompany === undefined || !allOffersFromCompany) return res.status(400);
+
+  return res.json(allOffersFromCompany);
+});
+
+router.get('/allDevelopersInterstedOffer/:idOffer', async (req, res) => {
+  const { idOffer } = req.params;
+  const devsInterested = await getAllDevInterestedForOffer(idOffer);
+
+  // eslint-disable-next-line no-console
+  console.log(devsInterested);
+
+  if (devsInterested === undefined || !devsInterested) return res.status(400);
+
+  return res.json(devsInterested);
+});
 
 module.exports = router;

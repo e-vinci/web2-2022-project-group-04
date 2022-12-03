@@ -44,6 +44,27 @@ const getAllJobOffersFromCompany = async(idCompany)=> new Promise((resolve, reje
     
 })
 
+const getAllDevInterestedForOffer = async(idOffer)=> new Promise((resolve, reject) => {
+    const select = `SELECT d.id_developer, d.lastname, d.firstname, d.mail, d.birth_date, d.tel, t.type_offer
+
+    FROM webproject.matches m
+             JOIN webproject.developers d on d.id_developer = m.developer
+             JOIN webproject.job_offers jo on jo.id_offer = m.job_offer
+            JOIN webproject.type_offers t on t.id_type_offer = d.type_offer_required
+    
+        AND m.developer_is_interested = true AND m.job_offer = $1`;
+
+        client.query(select,[idOffer],(err,result)=>{
+            if (err) {
+                reject(err.message)
+            } else {
+                
+                resolve(result.rows)
+            }
+        })
+    
+})
 
 
-module.exports = {getAllOffers,addToIntersted,getAllJobOffersFromCompany}
+
+module.exports = {getAllOffers,addToIntersted,getAllJobOffersFromCompany , getAllDevInterestedForOffer}
