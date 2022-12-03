@@ -1,4 +1,7 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
+import { setAuthenticatedUser } from '../../utils/auths';
+import Navbar from '../Navbar/Navbar';
+import Navigate from '../Router/Navigate';
 
 const LoginPage = () => {
     clearPage();
@@ -11,17 +14,64 @@ const LoginPage = () => {
   function renderLoginPage(){
 
      const main = document.querySelector('main');
-    main.innerHTML =
-     `
-    <label for="inputPassword5" class="form-label">Password</label>
-<input type="password" id="inputPassword5" class="form-control" aria-describedby="passwordHelpBlock">
-<div id="passwordHelpBlock" class="form-text">
-  Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
-</div>
-`
+     
+     const form = document.createElement('form');
+     form.className = 'p-5';
+     const email = document.createElement('input');
+     email.type = 'text';
+     email.id = 'username';
+     email.placeholder = 'Indiquez votre adresse mail';
+     email.required = true;
+     email.className = 'form-control mb-3';
+     const password = document.createElement('input');
+     password.type = 'password';
+     password.id = 'password';
+     password.required = true;
+     password.placeholder = 'Indiquez votre mot de passe';
+     password.className = 'form-control mb-3';
+     const submit = document.createElement('input');
+     submit.value = 'Login';
+     submit.type = 'submit';
+     submit.className = 'btn btn-primary';
+     form.appendChild(email);
+     form.appendChild(password);
+     form.appendChild(submit);
+     main.appendChild(form);
+     form.addEventListener('submit', Login);
   }
 
 
+  async function Login(e) {
+    e.preventDefault();
+  
+    const email = document.querySelector('#email').value;
+    const password = document.querySelector('#password').value;
+  
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+  
+    const response = await fetch('/api/auths/login', options);
+  
+    // if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+  
+    const authenticatedUser = await response.json();
+  
+    console.log('Authenticated user : ', authenticatedUser);
+  
+    setAuthenticatedUser(authenticatedUser);
+  
+    Navbar();
+  
+    Navigate('/jobOffers');
+  }
 
 
 
