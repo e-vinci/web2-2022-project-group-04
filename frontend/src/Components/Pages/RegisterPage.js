@@ -17,13 +17,35 @@ const renderRegisterFormDevPage = () => {
                             </div>
 
                             <div class="form-group">
-                                <label for="email">E-mail</label>
+                                <label for="Email">E-mail</label>
                                 <input type="email" class="form-control" id="idEmail" placeholder="ex: johndoe@outlook.com">
                             </div>
 
                             <div class="form-group">
-                                <label for="Password">Mot de passe</label>
+                                <label for="MotDePasse">Mot de passe</label>
                                 <input type="password" class="form-control" id="idPassword" placeholder="(min. 8 caractères, 1 majuscule et 1 chiffre)">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="DateDeNaissance">Date de naissance</label>
+                                <input type="date" class="form-control" id="idDate" placeholder="">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="Telephone">Téléphone</label>
+                                <input type="tel" class="form-control" id="idTelephone" placeholder="">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="TypeDOffre">Type d'offre</label>
+                                <input list="TypeOffre">
+                                    <datalist id="TypeOffre">
+                                        <option value="CDI">
+                                        <option value="CDD">
+                                        <option value="Stage">
+                                        <option value="Formation">
+                                        <option value="Etudiant">
+                                    </datalist>
                             </div>
 
                             <div class="form-check">
