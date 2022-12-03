@@ -2,3 +2,12 @@
 
 ### Read all job offers
 GET {{baseUrl}}/jobOffers
+
+### CREATE INTERSTED FOR DEV
+POST {{baseUrl}}/jobOffers/addToInterstedDev
+Content-Type: application/json
+
+{
+    "idOffer":"1",
+    "idDeveloper":"1"
+}

@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const client = require('../connection');
 
 const getAllOffers =()=> new Promise((resolve, reject) => {
@@ -15,6 +16,20 @@ const getAllOffers =()=> new Promise((resolve, reject) => {
     })
 })
 
+const addToIntersted = async( idOffer , idDeveloper) => {
+
+    const insert = `insert into webproject.matches(job_offer, developer) values ($1,$2) `
+
+    client.query(insert,[idOffer,idDeveloper],(err,result)=>{
+        if (err) {
+            console.log(err.message);
+            
+        }else  {
+            console.log(result.rows[0]);
+        }
+    })
+}
 
 
-module.exports = {getAllOffers}
+
+module.exports = {getAllOffers,addToIntersted}
