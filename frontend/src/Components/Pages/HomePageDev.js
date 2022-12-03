@@ -1,11 +1,28 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
 
-const renderAllJobOffersAsString = (jobOffers) => {
-  let allOffers = '<div class = "container">';
+const HomePageDev = async () => {
+  try {
+    clearPage();
+    renderPageTitle('Home Page Dev');
+
+    const AllOffers = await getAllOffersFromAPI();
+
+    renderAllOffers(AllOffers);
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    // console.error('HomePage::error: ', error);
+    const errorText = document.querySelector('main');
+    errorText.innerHTML = 'Erreur dans le chargement des offres D emploi ';
+  }
+};
+
+function renderAllJobOffersAsString(jobOffers) {
+  let allOffers = `
+  <div class="container">`;
 
   jobOffers?.forEach((offer) => {
     const date = new Date(offer.upload_date);
-    allOffers += `<div class="container-fluid">
+    allOffers += ` 
       <h2>${offer.title}</h2>
       <h3>Nom de l'entreprise : ${offer.company_name}</h3>
 
@@ -13,22 +30,22 @@ const renderAllJobOffersAsString = (jobOffers) => {
       
       <h4>Description : ${offer.description}</h4>
 
-      <p>Publié le ${date.getDay() + 1}/${date.getMonth() + 1}/${date.getFullYear()} </p>
-        
-    
-  </div> `;
+      <p>Publié le ${date.toLocaleDateString()}</p>
+     
+     
+  <hr>  `;
   });
 
-  allOffers+='</div>'
+  allOffers += `</div>`;
 
   return allOffers;
-};
+}
 
-const renderAllOffers = (jobOffers) => {
+function renderAllOffers(jobOffers) {
   const tablesAllOffers = renderAllJobOffersAsString(jobOffers);
   const main = document.querySelector('main');
   main.innerHTML += tablesAllOffers;
-};
+}
 
 async function getAllOffersFromAPI() {
   try {
@@ -45,19 +62,5 @@ async function getAllOffersFromAPI() {
     throw error;
   }
 }
-
-const HomePageDev = async () => {
-  try {
-    clearPage();
-    renderPageTitle('Home Page Dev');
-
-    const AllOffers = await getAllOffersFromAPI();
-
-    renderAllOffers(AllOffers);
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('HomePage::error: ', error);
-  }
-};
 
 export default HomePageDev;
