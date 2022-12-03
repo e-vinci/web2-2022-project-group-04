@@ -11,3 +11,7 @@ Content-Type: application/json
     "idOffer":"1",
     "idDeveloper":"1"
 }
+
+### Read all job offers from company
+GET {{baseUrl}}/jobOffers/allJobOfferFromCompany/1
+

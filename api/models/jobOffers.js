@@ -30,6 +30,20 @@ const addToIntersted = async( idOffer , idDeveloper) => {
     })
 }
 
+const getAllJobOffersFromCompany = async(idCompany)=> new Promise((resolve, reject) => {
+    const select =`SELECT j.* FROM  webproject.job_offers j join webproject.compagnies c on c.id_company = j.company
+    WHERE c.id_company= $1`;
+
+    client.query(select,[idCompany], (err,result)=>{
+        if (err) {
+            reject(err.message);
+        } else {
+            resolve(result.rows)
+        }
+    })
+    
+})
 
 
-module.exports = {getAllOffers,addToIntersted}
+
+module.exports = {getAllOffers,addToIntersted,getAllJobOffersFromCompany}
