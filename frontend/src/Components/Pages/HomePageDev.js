@@ -13,20 +13,19 @@ const HomePageDev = async () => {
     // eslint-disable-next-line no-console
     // console.error('HomePage::error: ', error);
     const errorText = document.querySelector('main');
-    errorText.innerHTML = 'Erreur dans le chargement des offres D emploi ';
+    errorText.innerHTML = `<div class="alert alert-danger" role="alert">
+    Erreur dans le chargemnt de cette page
+    </div>`;
   }
-
-  
 };
 
-  function attachListenerToButton() {
+function attachListenerToButton() {
   const buttonInterested = document.querySelector('.buttonInterested');
   buttonInterested.addEventListener('click', (e) => {
     e.preventDefault();
-    buttonInterested.className='btn btn-primary buttonInterested'
-    
+    buttonInterested.className = 'btn btn-primary buttonInterested';
   });
-}  
+}
 
 function renderAllJobOffersAsString(jobOffers) {
   let allOffers = `
@@ -74,7 +73,6 @@ function renderAllOffers(jobOffers) {
   const tablesAllOffers = renderAllJobOffersAsString(jobOffers);
   const main = document.querySelector('main');
   main.innerHTML += tablesAllOffers;
-  
 }
 
 async function getAllOffersFromAPI() {
