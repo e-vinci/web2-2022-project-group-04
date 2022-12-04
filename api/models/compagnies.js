@@ -15,16 +15,36 @@ const getAllCompagnies = async () =>
     });
   });
 
-const getOneCompany=(idCompany)=> new Promise((resolve, reject) => {
+const getOneCompany = (idCompany) =>
+  new Promise((resolve, reject) => {
     const select = `select company_name, description,
     adress , mail from webproject.compagnies where id_company = $1`;
-    client.query(select,[idCompany],(err,result)=>{
-        if (err) {
-            reject(err.message);
-          } else {
-            resolve(result.rows[0]);
-          }
-    })
-})
+    client.query(select, [idCompany], (err, result) => {
+      if (err) {
+        reject(err.message);
+      } else {
+        resolve(result.rows[0]);
+      }
+    });
+  });
 
-module.exports = { getAllCompagnies , getOneCompany};
+const registerCompany = async (data) =>
+  new Promise((resolve, reject) => {
+    const insert = `insert into webproject.compagnies(company_name, description, adress, mail, password)
+  VALUES ($1,$2,$3,$4,$5) RETURNING id_company`;
+
+    client.query(
+      insert,
+      [data.companyName, data.description, data.adress, data.mail, data.password],
+      (err, result) => {
+        if (err) {
+          reject(err.message);
+        } else {
+          console.log(result.rows);
+          resolve(result.rows[0]);
+        }
+      },
+    );
+  });
+
+module.exports = { getAllCompagnies, getOneCompany , registerCompany };
