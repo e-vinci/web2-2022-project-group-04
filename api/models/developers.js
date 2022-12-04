@@ -1,7 +1,11 @@
 /* eslint-disable spaced-comment */
 /* eslint-disable no-console */
 
+
+//const bcrypt = require('bcrypt');
 const client = require('../connection');
+//const saltRounds = 10;
+
 
 const getAllDevelopers = async () =>
   new Promise((resolve, reject) => {
@@ -43,4 +47,27 @@ const getDevByMail = async (mail) =>
     });
   });
 
-module.exports = { getAllDevelopers, getDevByMail };
+  const registerDev = async (lastname, firstname,email, password, date, tel, typeOffer) =>
+    new Promise((resolve, reject) => {
+      const insert = `INSERT INTO webproject.developers(lastname, firstname, mail, password, birth_date, tel, type_offer_required)
+      VALUES ($1, $2, $3, $4, $5, $6, $7) 
+      RETURNING id_developer` ;
+    client.query(insert, [lastname, firstname,email, password, date, tel, typeOffer], (err, result) => {
+      if(err){
+        reject(err.message);
+        console.log(err.message);
+      }
+      else {
+      resolve(result.rows[0]);
+      }})
+    });
+  
+
+
+  
+
+  
+
+  
+
+module.exports = { getAllDevelopers, getDevByMail, registerDev };
