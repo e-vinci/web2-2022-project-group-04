@@ -1,0 +1,12 @@
+@baseUrl = http://localhost:3000
+
+### Read all compagnies 
+GET {{baseUrl}}/compagnies
+
+### Read company with id 1
+GET {{baseUrl}}/compagnies/1
+
+
+
+
+
