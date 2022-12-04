@@ -65,6 +65,20 @@ const getAllDevInterestedForOffer = async(idOffer)=> new Promise((resolve, rejec
     
 })
 
+const createJobOffer = (jobOffer) => new Promise((resolve, reject) => {
+    const insert = `insert into webproject.job_offers(company, title, type_offer, description) 
+    VALUES ($1,$2,$3,$4) RETURNING id_offer`;
+    client.query(insert,[jobOffer.idCompany,jobOffer.title , jobOffer.typeOffer, jobOffer.description],(err, result)=>{
+        if(err){
+            reject(err.message)
+        }else{
+            resolve(result.rows)
+        }
+    })
+})
+
+    
 
 
-module.exports = {getAllOffers,addToIntersted,getAllJobOffersFromCompany , getAllDevInterestedForOffer}
+
+module.exports = {getAllOffers,addToIntersted,getAllJobOffersFromCompany , getAllDevInterestedForOffer , createJobOffer} 

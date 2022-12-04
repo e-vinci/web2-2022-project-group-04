@@ -19,3 +19,15 @@ GET {{baseUrl}}/jobOffers/allJobOfferFromCompany/1
 ### Read All developers intersted of one jobOffer
 GET {{baseUrl}}/jobOffers/allDevelopersInterstedOffer/1
 
+
+### CREATE job offer
+POST {{baseUrl}}/jobOffers/create
+Content-Type: application/json
+
+{
+    "idCompany": "2",
+    "typeOffer": "4",
+    "title": "recherche developpeur full-stack ",
+    "description": "DESCRIPTION .........."
+}
+

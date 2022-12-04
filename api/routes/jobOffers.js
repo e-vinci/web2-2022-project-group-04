@@ -4,6 +4,7 @@ const {
   addToIntersted,
   getAllJobOffersFromCompany,
   getAllDevInterestedForOffer,
+  createJobOffer,
 } = require('../models/jobOffers');
 
 const router = express.Router();
@@ -41,6 +42,23 @@ router.get('/allDevelopersInterstedOffer/:idOffer', async (req, res) => {
   if (devsInterested === undefined || !devsInterested) return res.status(400);
 
   return res.json(devsInterested);
+});
+
+router.post('/create', async (req, res) => {
+  const idCompany = req?.body?.idCompany;
+  const typeOffer = req?.body?.typeOffer;
+  const title = req?.body?.title;
+  const description = req?.body?.description;
+
+  // eslint-disable-next-line no-console
+  console.log(idCompany, typeOffer, title, description);
+  const idOffer = await createJobOffer({
+    idCompany,
+    typeOffer,
+    title,
+    description,
+  });
+  res.json(idOffer);
 });
 
 module.exports = router;
