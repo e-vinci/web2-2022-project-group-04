@@ -64,6 +64,7 @@ const LoginPage = () => {
   
     const authenticatedUser = await response.json();
   
+    // eslint-disable-next-line no-console
     console.log('Authenticated user : ', authenticatedUser);
   
     setAuthenticatedUser(authenticatedUser);
