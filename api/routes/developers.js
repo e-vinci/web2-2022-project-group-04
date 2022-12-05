@@ -1,9 +1,5 @@
 const express = require('express');
-<<<<<<< HEAD
-const { getAllDevelopers, getDevByMail, registerDev ,login} = require('../models/developers');
-=======
 const { getAllDevelopers, getDevByMail, registerDev, login } = require('../models/developers');
->>>>>>> 860ee05195b4ba15412170408e107a2b6aa66fac
 
 const router = express.Router();
 
@@ -26,12 +22,12 @@ router.get('/login/:mail', async (req, res) => {
 
 /* Login a user */
 router.post('/login', async (req, res) => {
-  const username = req?.body?.username?.length !== 0 ? req.body.username : undefined;
+  const mail = req?.body?.mail?.length !== 0 ? req.body.mail : undefined;
   const password = req?.body?.password?.length !== 0 ? req.body.password : undefined;
 
-  if (!username || !password) return res.sendStatus(400); // 400 Bad Reques
+  if (!mail || !password) return res.sendStatus(400); // 400 Bad Reques
 
-  const authenticatedUser = await login(username, password);
+  const authenticatedUser = await login(mail, password);
 
   if (!authenticatedUser) return res.sendStatus(401); // 401 Unauthorized
 
