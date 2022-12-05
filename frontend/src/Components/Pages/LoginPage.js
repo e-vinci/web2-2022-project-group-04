@@ -53,14 +53,11 @@ const LoginPage = () => {
         email,
         password,
       }),
-      headers: {
-        'Content-Type': 'application/json',
-      },
     };
   
-    const response = await fetch('/api/auths/login', options);
+    const response = await fetch('/localhost3000/login', options);
   
-    // if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
   
     const authenticatedUser = await response.json();
   
@@ -71,7 +68,7 @@ const LoginPage = () => {
   
     Navbar();
   
-    Navigate('/jobOffers');
+    Navigate('/');
   }
 
 

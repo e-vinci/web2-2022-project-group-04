@@ -1,12 +1,11 @@
 /* eslint-disable spaced-comment */
 /* eslint-disable no-console */
-
-
-//const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
 const client = require('../connection');
+
+// eslint-disable-next-line no-undef
 jwtSecret = 'MatteoLeBg';
 //const saltRounds = 10;
-
 
 const getAllDevelopers = async () =>
   new Promise((resolve, reject) => {
@@ -95,4 +94,4 @@ const getDevByMail = async (mail) =>
 
   
 
-module.exports = { getAllDevelopers, getDevByMail, registerDev };
+module.exports = { getAllDevelopers, getDevByMail, registerDev,login };
