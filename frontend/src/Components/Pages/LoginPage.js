@@ -32,22 +32,24 @@ const LoginPage = () => {
      submit.value = 'Login';
      submit.type = 'submit';
      submit.className = 'btn btn-primary';
-     const h3 = document.createElement('p');
-     h3.id = 'id1';
-     h3.innerHTML = 'rerere';
-     main.appendChild(h3);
      form.appendChild(email);
      form.appendChild(password);
      form.appendChild(submit);
      main.appendChild(form);
-     form.addEventListener('submit', Login);
+     form.addEventListener('submit', login);
   }
-function renderErrorLogin(){
-  const h3 = document.getElementById('id1');
-  h3.innerHTML = "testststtstststststtttttttttttttttttttttttttttt"; 
+
+
+  function renderErrorLogin(){
+  const main = document.querySelector('main');
+  const h3 = document.createElement('h3');
+  main.appendChild(h3);
+   h3.id = 'idh3';
+   const idh3 = document.getElementById('idh3');
+  idh3.innerHTML = 'Utilisateur ou mot de passe erroné';
 }
 
-  async function Login(e) {
+  async function login(e) {
     e.preventDefault();
   
     const email = document.querySelector('#email').value;
@@ -61,9 +63,9 @@ function renderErrorLogin(){
       }),
     };
   
-    let response = await fetch('/localhost3000/login', options);
-    response= undefined;
-    if (response === undefined){
+    const response = await fetch('api/login', options);
+
+    if (!response.ok){
       renderErrorLogin();
      throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
     }
