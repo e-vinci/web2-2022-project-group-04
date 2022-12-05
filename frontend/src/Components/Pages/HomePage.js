@@ -11,13 +11,13 @@ const renderHomePage = () => {
                           </h1>
                           <h3 class="sloganText2">
                           </h3>
-                          <button id="btn-register" data-uri="/registerPage type="button" class="btn btn-primary btn-lgg">S'inscrire</button>
+                          <button id="btn-register" data-uri="/register type="button" class="btn btn-primary btn-lgg">S'inscrire</button>
                         </div>
                       </div>
                     </div>`;const registerButton = document.getElementById('btn-register');
 registerButton.addEventListener('click', (e) => {
   e.preventDefault();
-  Navigate('/registerPage');
+  Navigate('/register');
 });
 };
 
