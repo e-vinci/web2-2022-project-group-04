@@ -43,4 +43,28 @@ const getDevByMail = async (mail) =>
     });
   });
 
+
+  async function login(mail, password) {
+    const userFound = getDevByMail(mail);
+    if (!userFound) return undefined;
+  
+    const passwordMatch = await bcrypt.compare(password, userFound.password);
+    if (!passwordMatch) return undefined;
+  
+    const token = jwt.sign(
+      { username }, // session data added to the payload (payload : part 2 of a JWT)
+      jwtSecret, // secret used for the signature (signature part 3 of a JWT)
+      { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
+    );
+  
+    const authenticatedUser = {
+      mail,
+      token,
+    };
+  
+    return authenticatedUser;
+  }
+
+
+
 module.exports = { getAllDevelopers, getDevByMail };
