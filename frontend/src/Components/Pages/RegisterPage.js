@@ -5,7 +5,7 @@ const main = document.querySelector('main');
 
 function renderRegisterFormDevPageAsString() {
   return `<div class="container-fluid 
-  bg-warning row justify-content-evenly">
+   row justify-content-evenly">
   <div class="col-6 text-center bg-secondary text-white " id="clickForFormDev">
  Développeur
 </div>
@@ -13,7 +13,9 @@ function renderRegisterFormDevPageAsString() {
 Entreprise
 </div>
   </div>
+
   <form id="registerFormDevelopper" class="white p-3 container">
+
   <div class="form-group">
     <label for="Nom">Nom</label>
     <input
@@ -44,9 +46,18 @@ Entreprise
       id="idEmail"
       placeholder="ex: johndoe@outlook.com"
     />
-    <small id="emailHelp" class="form-text text-muted"
-      >Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre.</small
-    >
+   
+  </div>
+
+  <div class="form-group">
+    <label for="tel">numéro de téléphone</label>
+    <input
+      type="tel"
+      class="form-control"
+      id="idPhoneNumber"
+      placeholder="ex: 0412 34 56 90"
+    />
+   
   </div>
 
   <div class="form-group">
@@ -71,16 +82,13 @@ Entreprise
 </form>`;
 }
 const renderRegisterFormDevPage = () => {
-  clearPage();
-
-  // eslint-disable-next-line no-console
-  console.log('affiche Form Dev Page');
+  clearPage()
   main.innerHTML += renderRegisterFormDevPageAsString();
   attachListeners();
 };
 function renderRegisterFormCompaniesPageAsString() {
   return `<div class="container-fluid 
-  bg-warning row justify-content-evenly">
+   row justify-content-evenly">
   <div class="col-6 text-center bg-light   " id="clickForFormDev">
  Développeur
 </div>
@@ -96,32 +104,43 @@ Entreprise
       class="form-control"
       id="idNom"
       aria-describedby="lastNameHelp"
-      placeholder="Entrez votre nom dentreprise"
+      placeholder="Entrez votre nom d'entreprise"
     />
   </div>
 
   <div class="form-group">
-    <label for="Prenom">Prénom</label>
-    <input
-      type="text"
-      class="form-control"
-      id="idPrenom"
-      aria-describedby="firstNameHelp"
-      placeholder="Entrez votre prénom"
-    />
-  </div>
+  <label for="email">E-mail</label>
+  <input
+    type="email"
+    class="form-control"
+    id="idEmail"
+    placeholder="ex: johndoe@outlook.com"
+  />
 
   <div class="form-group">
-    <label for="email">E-mail</label>
-    <input
-      type="email"
-      class="form-control"
-      id="idEmail"
-      placeholder="ex: johndoe@outlook.com"
-    />
-    <small id="emailHelp" class="form-text text-muted"
-      >Nous ne partagerons jamais votre e-mail avec quelqu'un d'autre.</small
-    >
+  <label for="adress">adresse</label>
+  <textarea
+    type="text"
+    class="form-control"
+    id="idAdress"
+    aria-describedby="adressHelp"
+    placeholder="Entrez l'adresse d'entreprise"
+  ></textarea>
+</div>
+
+<div class="form-group">
+  <label for="adress">description</label>
+  <textarea
+    type="text"
+    class="form-control"
+    id="idDescription"
+    aria-describedby="adressHelp"
+    placeholder="Entrez une breve description de votre entreprise"
+  ></textarea>
+</div>
+
+
+    
   </div>
 
   <div class="form-group">
@@ -145,11 +164,8 @@ Entreprise
   <button type="submit" class="btn btn-primary">S'enregistrer</button>
 </form>`;
 }
-// eslint-disable-next-line no-unused-vars
 const renderRegisterFormCompaniesPage = () => {
   clearPage();
-  // eslint-disable-next-line no-console
-  console.log('affiche Form Companies Page');
 
   main.innerHTML += renderRegisterFormCompaniesPageAsString();
   attachListeners();
