@@ -1,5 +1,9 @@
 const express = require('express');
+<<<<<<< HEAD
 const { getAllDevelopers, getDevByMail, registerDev ,login} = require('../models/developers');
+=======
+const { getAllDevelopers, getDevByMail, registerDev, login } = require('../models/developers');
+>>>>>>> 860ee05195b4ba15412170408e107a2b6aa66fac
 
 const router = express.Router();
 

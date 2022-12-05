@@ -1,10 +1,12 @@
 /* eslint-disable spaced-comment */
 /* eslint-disable no-console */
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const client = require('../connection');
 
 // eslint-disable-next-line no-undef
-jwtSecret = 'MatteoLeBg';
+const jwtSecret = 'MatteoLeBg';
+const lifetimeJwt = 24 * 60 * 60 * 1000;
 //const saltRounds = 10;
 
 const getAllDevelopers = async () =>
@@ -94,4 +96,4 @@ const getDevByMail = async (mail) =>
 
   
 
-module.exports = { getAllDevelopers, getDevByMail, registerDev,login };
+module.exports = { getAllDevelopers, getDevByMail, registerDev, login };
