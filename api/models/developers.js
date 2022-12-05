@@ -1,11 +1,13 @@
 /* eslint-disable spaced-comment */
 /* eslint-disable no-console */
-
-
-//const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const client = require('../connection');
-//const saltRounds = 10;
 
+// eslint-disable-next-line no-undef
+const jwtSecret = 'MatteoLeBg';
+const lifetimeJwt = 24 * 60 * 60 * 1000;
+//const saltRounds = 10;
 
 const getAllDevelopers = async () =>
   new Promise((resolve, reject) => {
@@ -47,6 +49,30 @@ const getDevByMail = async (mail) =>
     });
   });
 
+
+  async function login(mail, password) {
+    const userFound = await getDevByMail(mail);
+    if (!userFound) return undefined;
+  
+    const passwordMatch = await bcrypt.compare(password, userFound.password);
+    if (!passwordMatch) return undefined;
+  
+    const token = jwt.sign(
+      { mail }, // session data added to the payload (payload : part 2 of a JWT)
+      jwtSecret, // secret used for the signature (signature part 3 of a JWT)
+      { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
+    );
+  
+    const authenticatedUser = {
+      mail,
+      token,
+    };
+  
+    return authenticatedUser;
+  }
+
+
+
   const registerDev = async (lastname, firstname,email, password, date, tel, typeOffer) =>
     new Promise((resolve, reject) => {
       const insert = `INSERT INTO webproject.developers(lastname, firstname, mail, password, birth_date, tel, type_offer_required)
@@ -70,4 +96,4 @@ const getDevByMail = async (mail) =>
 
   
 
-module.exports = { getAllDevelopers, getDevByMail, registerDev };
+module.exports = { getAllDevelopers, getDevByMail, registerDev, login };
