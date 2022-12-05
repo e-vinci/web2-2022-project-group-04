@@ -5,3 +5,18 @@ GET {{baseUrl}}/developers
 
 ### Read developers by his mail return his password 
 GET {{baseUrl}}/developers/login/brahim.abid@student.vinci.be
+
+
+### Read developers register
+POST {{baseUrl}}/developers/registerDev
+Content-Type: application/json
+
+{
+    "lastname":"a",
+    "firstname": "o",
+    "mail":"test@teste.be",
+    "password":"password",
+    "birth_date": "2000-01-02",
+    "tel":"0487878787",
+    "type_offer_required": "1" 
+}

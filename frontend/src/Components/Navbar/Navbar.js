@@ -13,7 +13,7 @@ const Navbar = () => {
   const navbar = `
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="">DevJob</a>
+          <a class="navbar-brand" href="" data-uri="/">DevJob</a>
           <button
             class="navbar-toggler"
             type="button"

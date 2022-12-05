@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { clearPage } from '../../utils/render';
 
 const main = document.querySelector('main');
+main.style = 'background-color : azure;';
 
 function renderRegisterFormDevPageAsString() {
   return `<div class="container-fluid 
@@ -82,6 +83,7 @@ Entreprise
 </form>`;
 }
 const renderRegisterFormDevPage = () => {
+
   clearPage()
   main.innerHTML += renderRegisterFormDevPageAsString();
   attachListeners();
@@ -186,3 +188,4 @@ function attachListeners() {
 }
 
 export default RegisterFormPage;
+
