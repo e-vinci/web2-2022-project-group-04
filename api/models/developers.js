@@ -1,8 +1,7 @@
 /* eslint-disable spaced-comment */
 /* eslint-disable no-console */
-
-
-//const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const client = require('../connection');
 jwtSecret = 'MatteoLeBg';
 //const saltRounds = 10;
