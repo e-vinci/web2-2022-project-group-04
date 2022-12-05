@@ -20,3 +20,14 @@ Content-Type: application/json
     "tel":"0487878787",
     "type_offer_required": "1" 
 }
+
+###
+
+POST {{baseUrl}}/developers/login
+Content-Type: application/json
+
+{
+    "email":"brahim.abid@student.vinci.be",
+    "password":"password",
+ 
+}

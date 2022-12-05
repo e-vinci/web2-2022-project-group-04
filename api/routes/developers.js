@@ -22,11 +22,11 @@ router.get('/login/:mail', async (req, res) => {
 
 /* Login a user */
 router.post('/login', async (req, res) => {
-  const username = req?.body?.username?.length !== 0 ? req.body.username : undefined;
+  console.log("heheh");
+  const username = req?.body?.email?.length !== 0 ? req.body.email : undefined;
   const password = req?.body?.password?.length !== 0 ? req.body.password : undefined;
-
   if (!username || !password) return res.sendStatus(400); // 400 Bad Reques
-
+  console.log("test");
   const authenticatedUser = await login(username, password);
 
   if (!authenticatedUser) return res.sendStatus(401); // 401 Unauthorized

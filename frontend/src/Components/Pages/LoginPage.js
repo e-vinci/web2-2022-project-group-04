@@ -62,8 +62,8 @@ const LoginPage = () => {
         password,
       }),
     };
-  
-    const response = await fetch('api/login', options);
+
+    const response = await fetch('/api/developers/login', options);
 
     if (!response.ok){
       renderErrorLogin();
