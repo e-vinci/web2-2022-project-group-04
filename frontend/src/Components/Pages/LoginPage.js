@@ -16,12 +16,12 @@ const LoginPage = () => {
      const main = document.querySelector('main');
      const form = document.createElement('form');
      form.className = 'p-5';
-     const email = document.createElement('input');
-     email.type = 'text';
-     email.id = 'email';
-     email.placeholder = 'Indiquez votre adresse mail';
-     email.required = true;
-     email.className = 'form-control mb-3';
+     const mail = document.createElement('input');
+     mail.type = 'text';
+     mail.id = 'mail';
+     mail.placeholder = 'Indiquez votre adresse mail';
+     mail.required = true;
+     mail.className = 'form-control mb-3';
      const password = document.createElement('input');
      password.type = 'password';
      password.id = 'password';
@@ -32,7 +32,7 @@ const LoginPage = () => {
      submit.value = 'Login';
      submit.type = 'submit';
      submit.className = 'btn btn-primary';
-     form.appendChild(email);
+     form.appendChild(mail);
      form.appendChild(password);
      form.appendChild(submit);
      main.appendChild(form);
@@ -52,13 +52,13 @@ const LoginPage = () => {
   async function login(e) {
     e.preventDefault();
   
-    const email = document.querySelector('#email').value;
+    const mail = document.querySelector('#mail').value;
     const password = document.querySelector('#password').value;
   
     const options = {
       method: 'POST',
       body: JSON.stringify({
-        email,
+        mail,
         password,
       }),
     };

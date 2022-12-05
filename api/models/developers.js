@@ -51,7 +51,7 @@ const getDevByMail = async (mail) =>
 
 
   async function login(mail, password) {
-    const userFound = getDevByMail(mail);
+    const userFound = await getDevByMail(mail);
     if (!userFound) return undefined;
   
     const passwordMatch = await bcrypt.compare(password, userFound.password);

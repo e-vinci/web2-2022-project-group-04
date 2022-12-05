@@ -9,7 +9,7 @@ const routes = {
   '/': HomePage,
   '/login': LoginPage,
   '/new': NewPage,
-  '/registerPage' : RegisterPage,
+  '/register' : RegisterPage,
   '/jobOffers' : HomePageDev,
   '/devPage'  : DevPage,
  };

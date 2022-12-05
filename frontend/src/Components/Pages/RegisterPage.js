@@ -1,10 +1,15 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { clearPage } from '../../utils/render';
+import { clearPage, renderPageTitle } from '../../utils/render';
+import { setAuthenticatedUser } from'../../utils/auths';
+import Navbar from '../Navbar/Navbar';
+import Navigate from '../Router/Navigate';
+
 
 const main = document.querySelector('main');
-main.style = 'background-color : azure;';
+
 
 const renderRegisterFormDevPage = () => {
+
   main.innerHTML = `<form id ="registerFormDevelopper">
                             <div class="form-group">
                                 <label for="Nom">Nom</label>
@@ -18,12 +23,12 @@ const renderRegisterFormDevPage = () => {
 
                             <div class="form-group">
                                 <label for="Email">E-mail</label>
-                                <input type="email" class="form-control" id="idEmail" placeholder="ex: johndoe@outlook.com">
+                                <input type="email" class="form-control" id="mail" placeholder="ex: johndoe@outlook.com">
                             </div>
 
                             <div class="form-group">
                                 <label for="MotDePasse">Mot de passe</label>
-                                <input type="password" class="form-control" id="idPassword" placeholder="(min. 8 caractères, 1 majuscule et 1 chiffre)">
+                                <input type="password" class="form-control" id="password" placeholder="(min. 8 caractères, 1 majuscule et 1 chiffre)">
                             </div>
 
                             <div class="form-group">
@@ -33,12 +38,12 @@ const renderRegisterFormDevPage = () => {
 
                             <div class="form-group">
                                 <label for="Telephone">Téléphone</label>
-                                <input type="tel" class="form-control" id="idTelephone" placeholder="">
+                                <input type="tel" class="form-control" id="idPhone" placeholder="">
                             </div>
 
                             <div class="form-group">
                                 <label for="TypeDOffre">Type d'offre</label>
-                                <input list="TypeOffre">
+                                <input list="TypeOffre" id="idOffer">
                                     <datalist id="TypeOffre">
                                         <option value="CDI">
                                         <option value="CDD">
@@ -54,10 +59,71 @@ const renderRegisterFormDevPage = () => {
                             </div>
                             <button id="register" type="submit" class="btn btn-primary">S'enregistrer</button>
                             </form>`;
+
+
+
+const form = document.getElementById('registerFormDevelopper');
+form.style = 'background-color : azure;';
+form.addEventListener('submit', onRegister);
+async function onRegister(e) {
+    e.preventDefault();
+const lastname =document.getElementById('idLastname').value;
+const firstname =document.getElementById('idFirstname').value;
+const mail = document.getElementById('mail').value;
+const password = document.getElementById('password').value;
+const birthDate =document.getElementById('idDate').value;
+const tel =document.getElementById('idPhone').value;
+const typeOfferRequired =document.getElementById('idOffer').value;
+
+const options = {
+  method: 'POST',
+  body: JSON.stringify({
+    lastname,
+    firstname,
+    mail,
+    password,
+    birth_date : birthDate,
+    tel,
+    type_offer_required : typeOfferRequired
+  }),
+  headers: {
+    'Content-Type': 'application/json',
+  },
 };
+
+
+const response = await fetch('/api/developers/registerDev', options);
+
+  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+  const authenticatedUser = await response.json();
+
+  // eslint-disable-next-line no-console
+  console.log('Newly registered & authenticated user : ', authenticatedUser);
+
+  setAuthenticatedUser(authenticatedUser);
+
+  Navbar();
+
+  Navigate('/');
+}
+};
+
+
+
 const RegisterFormDevPage = () => {
   clearPage();
+  renderPageTitle('Register');
   renderRegisterFormDevPage();
 };
 
+
+
+
+
+
+
+
 export default RegisterFormDevPage;
+
+

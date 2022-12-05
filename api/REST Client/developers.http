@@ -12,9 +12,9 @@ POST {{baseUrl}}/developers/registerDev
 Content-Type: application/json
 
 {
-    "lastname":"a",
+    "lastname":"A",
     "firstname": "o",
-    "mail":"test@teste.be",
+    "mail":"email@test.be",
     "password":"password",
     "birth_date": "2000-01-02",
     "tel":"0487878787",
