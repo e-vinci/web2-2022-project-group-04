@@ -95,4 +95,4 @@ const getDevByMail = async (mail) =>
 
   
 
-module.exports = { getAllDevelopers, getDevByMail, registerDev };
+module.exports = { getAllDevelopers, getDevByMail, registerDev, login };
