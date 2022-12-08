@@ -31,3 +31,7 @@ Content-Type: application/json
     "description": "DESCRIPTION .........."
 }
 
+
+### Read All type offer
+GET {{baseUrl}}/jobOffers/allTypeOffer
+
