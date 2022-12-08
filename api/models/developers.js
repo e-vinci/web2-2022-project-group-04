@@ -20,7 +20,7 @@ const getAllDevelopers = async () =>
     dev.mail,
     dev.birth_date,
     dev.tel,
-    tof.type_offer AS offer_required
+    tof.name AS offer_required
     FROM webproject.developers dev,
     webproject.type_offers tof
     WHERE dev.type_offer_required= tof.id_type_offer`,

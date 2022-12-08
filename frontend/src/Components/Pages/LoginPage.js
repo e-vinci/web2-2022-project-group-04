@@ -14,15 +14,14 @@ const LoginPage = () => {
   function renderLoginPage(){
 
      const main = document.querySelector('main');
-     
      const form = document.createElement('form');
      form.className = 'p-5';
-     const email = document.createElement('input');
-     email.type = 'text';
-     email.id = 'username';
-     email.placeholder = 'Indiquez votre adresse mail';
-     email.required = true;
-     email.className = 'form-control mb-3';
+     const mail = document.createElement('input');
+     mail.type = 'text';
+     mail.id = 'mail';
+     mail.placeholder = 'Indiquez votre adresse mail';
+     mail.required = true;
+     mail.className = 'form-control mb-3';
      const password = document.createElement('input');
      password.type = 'password';
      password.id = 'password';
@@ -33,32 +32,43 @@ const LoginPage = () => {
      submit.value = 'Login';
      submit.type = 'submit';
      submit.className = 'btn btn-primary';
-     form.appendChild(email);
+     form.appendChild(mail);
      form.appendChild(password);
      form.appendChild(submit);
      main.appendChild(form);
-     form.addEventListener('submit', Login);
+     form.addEventListener('submit', login);
   }
 
 
-  async function Login(e) {
+  function renderErrorLogin(){
+  const main = document.querySelector('main');
+  const h3 = document.createElement('h3');
+  main.appendChild(h3);
+   h3.id = 'idh3';
+   const idh3 = document.getElementById('idh3');
+  idh3.innerHTML = 'Utilisateur ou mot de passe erroné';
+}
+
+  async function login(e) {
     e.preventDefault();
   
-    const email = document.querySelector('#email').value;
+    const mail = document.querySelector('#mail').value;
     const password = document.querySelector('#password').value;
   
     const options = {
       method: 'POST',
       body: JSON.stringify({
-        email,
+        mail,
         password,
       }),
     };
-  
-    const response = await fetch('/localhost3000/login', options);
-  
-    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-  
+
+    const response = await fetch('/api/developers/login', options);
+
+    if (!response.ok){
+      renderErrorLogin();
+     throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+    }
     const authenticatedUser = await response.json();
   
     // eslint-disable-next-line no-console

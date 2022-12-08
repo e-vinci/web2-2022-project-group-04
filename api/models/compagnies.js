@@ -3,7 +3,7 @@ const client = require('../connection');
 
 const getAllCompagnies = async () =>
   new Promise((resolve, reject) => {
-    const select = `select id_company , description,
+    const select = `select id_company ,company_name, description,
     adress , mail
      from webproject.compagnies`;
     client.query(select, (err, result) => {

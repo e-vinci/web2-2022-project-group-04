@@ -75,10 +75,23 @@ const createJobOffer = (jobOffer) => new Promise((resolve, reject) => {
             resolve(result.rows)
         }
     })
+});
+
+
+const getAllTypeOffer = async()=> new Promise((resolve, reject) => {
+    const select= `SELECT * FROM webproject.type_offers`;
+    client.query(select,(err,result)=>{
+        if (err) {
+            reject(err.message)
+        } else {
+            resolve(result.rows)
+        }
+    })
 })
 
     
 
 
 
-module.exports = {getAllOffers,addToIntersted,getAllJobOffersFromCompany , getAllDevInterestedForOffer , createJobOffer} 
+module.exports = {getAllOffers,addToIntersted,getAllJobOffersFromCompany 
+    , getAllDevInterestedForOffer , createJobOffer , getAllTypeOffer} 

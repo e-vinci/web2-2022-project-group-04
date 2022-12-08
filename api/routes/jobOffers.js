@@ -5,6 +5,7 @@ const {
   getAllJobOffersFromCompany,
   getAllDevInterestedForOffer,
   createJobOffer,
+  getAllTypeOffer
 } = require('../models/jobOffers');
 
 const router = express.Router();
@@ -60,5 +61,19 @@ router.post('/create', async (req, res) => {
   });
   res.json(idOffer);
 });
+
+router.get('/allTypeOffer', async(req,res)=>{
+
+  const allTypeOffer = await getAllTypeOffer();
+
+  if (allTypeOffer === undefined) {
+    return res.sendStatus(400);
+    
+  }
+
+  return res.json(allTypeOffer);
+})
+
+
 
 module.exports = router;
