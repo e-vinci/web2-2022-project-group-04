@@ -1,10 +1,12 @@
 /* eslint-disable spaced-comment */
 /* eslint-disable no-console */
+// eslint-disable-next-line no-undef
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const client = require('../connection');
 
-// eslint-disable-next-line no-undef
+const saltRounds = 10;
+
 const jwtSecret = 'MatteoLeBg';
 const lifetimeJwt = 24 * 60 * 60 * 1000;
 //const saltRounds = 10;
@@ -33,8 +35,9 @@ const getAllDevelopers = async () =>
     );
   });
 
-const getDevByMail = async (mail) =>
+const getDevByMail = (mail) =>
   new Promise((resolve, reject) => {
+    
     const select = `SELECT mail , password FROM webproject.developers where mail = $1`;
     client.query(select, [mail], (err, result) => {
       if (err) {
@@ -54,8 +57,9 @@ const getDevByMail = async (mail) =>
     const userFound = await getDevByMail(mail);
     if (!userFound) return undefined;
   
-    const passwordMatch = await bcrypt.compare(password, userFound.password);
-    if (!passwordMatch) return undefined;
+    //const passwordMatch =  await bcrypt.compare(password, userFound.password);
+    //const passwordMatch =  (password === userFound.password);
+    if (!(password === userFound.password)) return undefined;
   
     const token = jwt.sign(
       { mail }, // session data added to the payload (payload : part 2 of a JWT)
@@ -74,11 +78,12 @@ const getDevByMail = async (mail) =>
 
 
   const registerDev = async (lastname, firstname,email, password, date, tel, typeOffer) =>
+    
     new Promise((resolve, reject) => {
       const insert = `INSERT INTO webproject.developers(lastname, firstname, mail, password, birth_date, tel, type_offer_required)
       VALUES ($1, $2, $3, $4, $5, $6, $7) 
       RETURNING id_developer` ;
-    client.query(insert, [lastname, firstname,email, password, date, tel, typeOffer], (err, result) => {
+    client.query(insert, [lastname, firstname,email, hashedPassword, date, tel, typeOffer], (err, result) => {
       if(err){
         reject(err.message);
         console.log(err.message);
@@ -88,6 +93,7 @@ const getDevByMail = async (mail) =>
       }})
     });
   
+
 
 
   
