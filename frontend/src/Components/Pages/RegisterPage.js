@@ -105,7 +105,7 @@ const response = await fetch('/api/developers/registerDev', options);
 
   Navbar();
 
-  Navigate('/');
+  Navigate('/devPage');
 }
 };
 

@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const client = require('../connection');
 
+const saltRounds = 10;
+
 // eslint-disable-next-line no-undef
 const jwtSecret = 'MatteoLeBg';
 const lifetimeJwt = 24 * 60 * 60 * 1000;
@@ -73,20 +75,21 @@ const getDevByMail = async (mail) =>
 
 
 
-  const registerDev = async (lastname, firstname,email, password, date, tel, typeOffer) =>
-    new Promise((resolve, reject) => {
+  const registerDev = async (lastname, firstname,email, password, date, tel, typeOffer) => {
       const insert = `INSERT INTO webproject.developers(lastname, firstname, mail, password, birth_date, tel, type_offer_required)
       VALUES ($1, $2, $3, $4, $5, $6, $7) 
       RETURNING id_developer` ;
-    client.query(insert, [lastname, firstname,email, password, date, tel, typeOffer], (err, result) => {
-      if(err){
-        reject(err.message);
-        console.log(err.message);
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      try {
+        const res = await client.query(insert, [lastname, firstname,email, hashedPassword, date, tel, typeOffer]);
+        return res.rows[0];
+      
+      } catch (err) {
+          console.log(err.message);
       }
-      else {
-      resolve(result.rows[0]);
-      }})
-    });
+      return undefined;
+     
+  };
   
 
 
