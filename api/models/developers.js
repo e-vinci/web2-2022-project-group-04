@@ -1,5 +1,6 @@
 /* eslint-disable spaced-comment */
 /* eslint-disable no-console */
+// eslint-disable-next-line no-undef
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const client = require('../connection');
@@ -35,8 +36,9 @@ const getAllDevelopers = async () =>
     );
   });
 
-const getDevByMail = async (mail) =>
+const getDevByMail = (mail) =>
   new Promise((resolve, reject) => {
+    
     const select = `SELECT mail , password FROM webproject.developers where mail = $1`;
     client.query(select, [mail], (err, result) => {
       if (err) {
@@ -56,7 +58,7 @@ const getDevByMail = async (mail) =>
     const userFound = await getDevByMail(mail);
     if (!userFound) return undefined;
   
-    const passwordMatch = await bcrypt.compare(password, userFound.password);
+    const passwordMatch =  await bcrypt.compare(password, userFound.password);
     if (!passwordMatch) return undefined;
   
     const token = jwt.sign(
@@ -91,6 +93,7 @@ const getDevByMail = async (mail) =>
      
   };
   
+
 
 
   
