@@ -4,6 +4,7 @@ import LoginPage from '../Pages/LoginPage';
 import RegisterPage from '../Pages/RegisterPage';
 import HomePageDev from '../Pages/HomePageDev';
 import DevPage from '../Pages/DevPage';
+import CreateOfferFormPage from '../Pages/CreateOfferFormPage';
 
 const routes = {
   '/': HomePage,
@@ -12,6 +13,7 @@ const routes = {
   '/register' : RegisterPage,
   '/jobOffers' : HomePageDev,
   '/devPage'  : DevPage,
+  '/createOfferPage' : CreateOfferFormPage
  };
 
 export default routes;

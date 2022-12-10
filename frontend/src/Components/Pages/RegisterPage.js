@@ -1,15 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { clearPage, renderPageTitle } from '../../utils/render';
-import { setAuthenticatedUser } from'../../utils/auths';
+import { setAuthenticatedUser } from '../../utils/auths';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 
-
 const main = document.querySelector('main');
 
-
 const renderRegisterFormDevPage = () => {
-
   main.innerHTML = `<form id ="registerFormDevelopper">
                             <div class="form-group">
                                 <label for="Nom">Nom</label>
@@ -60,56 +57,51 @@ const renderRegisterFormDevPage = () => {
                             <button id="register" type="submit" class="btn btn-primary">S'enregistrer</button>
                             </form>`;
 
-
-
-const form = document.getElementById('registerFormDevelopper');
-form.style = 'background-color : azure;';
-form.addEventListener('submit', onRegister);
-async function onRegister(e) {
+  const form = document.getElementById('registerFormDevelopper');
+  form.style = 'background-color : azure;';
+  form.addEventListener('submit', onRegister);
+  async function onRegister(e) {
     e.preventDefault();
-const lastname =document.getElementById('idLastname').value;
-const firstname =document.getElementById('idFirstname').value;
-const mail = document.getElementById('mail').value;
-const password = document.getElementById('password').value;
-const birthDate =document.getElementById('idDate').value;
-const tel =document.getElementById('idPhone').value;
-const typeOfferRequired =document.getElementById('idOffer').value;
+    const lastname = document.getElementById('idLastname').value;
+    const firstname = document.getElementById('idFirstname').value;
+    const mail = document.getElementById('mail').value;
+    const password = document.getElementById('password').value;
+    const birthDate = document.getElementById('idDate').value;
+    const tel = document.getElementById('idPhone').value;
+    const typeOfferRequired = document.getElementById('idOffer').value;
 
-const options = {
-  method: 'POST',
-  body: JSON.stringify({
-    lastname,
-    firstname,
-    mail,
-    password,
-    birth_date : birthDate,
-    tel,
-    type_offer_required : typeOfferRequired
-  }),
-  headers: {
-    'Content-Type': 'application/json',
-  },
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({
+        lastname,
+        firstname,
+        mail,
+        password,
+        birth_date: birthDate,
+        tel,
+        type_offer_required: typeOfferRequired,
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const response = await fetch('/api/developers/registerDev', options);
+
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+    const authenticatedUser = await response.json();
+
+    // eslint-disable-next-line no-console
+    console.log('Newly registered & authenticated user : ', authenticatedUser);
+
+    setAuthenticatedUser(authenticatedUser);
+
+    Navbar();
+
+    Navigate('/devPage');
+  }
 };
-
-
-const response = await fetch('/api/developers/registerDev', options);
-
-  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-
-  const authenticatedUser = await response.json();
-
-  // eslint-disable-next-line no-console
-  console.log('Newly registered & authenticated user : ', authenticatedUser);
-
-  setAuthenticatedUser(authenticatedUser);
-
-  Navbar();
-
-  Navigate('/devPage');
-}
-};
-
-
 
 const RegisterFormDevPage = () => {
   clearPage();
@@ -117,13 +109,4 @@ const RegisterFormDevPage = () => {
   renderRegisterFormDevPage();
 };
 
-
-
-
-
-
-
-
 export default RegisterFormDevPage;
-
-
