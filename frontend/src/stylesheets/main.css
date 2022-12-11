@@ -27,8 +27,40 @@
 }
 
 .homePageDiv{
-    background-image: url(../img/background.png);
+    background-image: url(../img/background.jpg);
+    color : white;
     height: 100%;
+}
+
+.homepage_grid{
+	display: grid;
+	grid-template-columns: 1fr 2fr 1fr;
+}
+
+.row2_col1 {
+	grid-row: 2;
+	grid-column: 1 / span 1;
+	width: 100%;
+	text-align: center;
+	animation: showUp 800ms ease-in-out;
+}
+
+
+.row2_col2 {
+	grid-row: 2;
+	grid-column: 2 / span 1;
+	width: 100%;
+	opacity: 0;
+	animation: showUp 800ms forwards 200ms ease-in-out;
+	position: relative;
+}
+
+.row2_col3 {
+	grid-row: 2;
+	grid-column: 3 / span 1;
+	width: 100%;
+	text-align: center;
+	animation: showUp 800ms ease-in-out;
 }
 
 h3 {

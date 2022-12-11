@@ -3,7 +3,12 @@ import Navigate from '../Router/Navigate';
 
 const renderHomePage = () => {
   const main = document.querySelector('main');
-  main.innerHTML = `<div class="homePageDiv">
+  main.innerHTML = `
+                <div class="homepage_grid">
+                <div class="row2_col1">
+                <div class="row2_col2">
+                <div class="row2_col3">
+                    <div class="homePageDiv">
                       <div class="container">
                         <div class="text-center">
                           <h1 class="sloganText1">Facilitez vous la vie,<br> 
@@ -14,7 +19,12 @@ const renderHomePage = () => {
                           <button id="btn-register" data-uri="/register type="button" class="btn btn-primary btn-lgg">S'inscrire</button>
                         </div>
                       </div>
-                    </div>`;const registerButton = document.getElementById('btn-register');
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                  </div>`;
+  const registerButton = document.getElementById('btn-register');
 registerButton.addEventListener('click', (e) => {
   e.preventDefault();
   Navigate('/register');
