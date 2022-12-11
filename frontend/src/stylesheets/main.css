@@ -1,4 +1,4 @@
-.container{
+#containerHomePage{
     padding-top: 10%;
     padding-bottom: 15%;
     height: 100%;
@@ -64,5 +64,5 @@
 }
 
 h3 {
-    color: red;
+    color: rgb(215, 215, 215);
 }
