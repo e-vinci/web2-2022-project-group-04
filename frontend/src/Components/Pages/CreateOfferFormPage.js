@@ -22,12 +22,8 @@ const renderOfferFormPage = () => {
                                 <label for="TypeDOffre">Type d'offre</label>
                                 <input list="TypeOffre" id="idOfferType">
                                     <datalist id="TypeOffre">
-                                    {{#each type_offers}}
-                                        <option value="{{this.id_type_offer}}">
-                                        <option value="{{this.id_type_offer}}">
-                                        <option value="{{this.id_type_offer}}">
-                                        <option value="{{this.id_type_offer}}">
-                                        {{/each}}
+                                      <div id="TypeOffreList">
+                                      </div>
                                     </datalist>
                             </div>
 
@@ -39,6 +35,21 @@ const renderOfferFormPage = () => {
   const form = document.getElementById('offerForm');
   form.style = 'background-color : azure;';
   form.addEventListener('submit', onCreateForm);
+  const categoriesOffer = document.getElementById('TypeOffreList');
+  const categorie1 = document.createElement('option');
+  const categorie2 = document.createElement('option');
+  const categorie3 = document.createElement('option');
+  const categorie4 = document.createElement('option');
+  const typeOfferList = getAllTypeOffer();
+  typeOfferList();
+
+
+  categoriesOffer.appendChild(categorie1);
+  categoriesOffer.appendChild(categorie2);
+  categoriesOffer.appendChild(categorie3);
+  categoriesOffer.appendChild(categorie4);
+  
+
   async function onCreateForm(e) {
     e.preventDefault();
     const company = 1;
@@ -72,10 +83,26 @@ const renderOfferFormPage = () => {
   }
 };
 
+ async function getAllTypeOffer() {
+  try {
+    const response = await fetch('/api/jobOffers/allTypeOffer');
+
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+    const categories = await response.json();
+
+    return categories;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('getAllTypeOffer::error: ', err);
+    throw err;
+  }
+} 
+
 const CreateOfferFormPage = () => {
   clearPage();
   renderPageTitle('CreateOfferForm');
   renderOfferFormPage();
-};
+}; 
 
 export default CreateOfferFormPage;
