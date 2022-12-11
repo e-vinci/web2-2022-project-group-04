@@ -7,7 +7,12 @@ import Navigate from '../Router/Navigate';
 const main = document.querySelector('main');
 
 const renderRegisterFormDevPage = () => {
-  main.innerHTML = `<form id ="registerFormDevelopper">
+  main.innerHTML = `
+
+  <div class="container" id="contreg">
+                        <div class="text-center">
+  
+                    <form id ="registerFormDevelopper">
                             <div class="form-group">
                                 <label for="Nom">Nom</label>
                                 <input type="text" class="form-control" id="idLastname" aria-describedby="lastNameHelp" placeholder="Entrez votre nom">
@@ -55,10 +60,13 @@ const renderRegisterFormDevPage = () => {
                                 <label class="form-check-label" for="exampleCheck1">Se souvenir de moi</label>
                             </div>
                             <button id="register" type="submit" class="btn btn-primary">S'enregistrer</button>
-                            </form>`;
+                            </form>
+                            </div></div>
+                            `
+                            ;
 
   const form = document.getElementById('registerFormDevelopper');
-  form.style = 'background-color : azure;';
+  form.style = 'background-color : #ffffff';
   form.addEventListener('submit', onRegister);
   async function onRegister(e) {
     e.preventDefault();

@@ -27,42 +27,35 @@
 }
 
 .homePageDiv{
-    background-image: url(../img/background.jpg);
-    color : white;
+    background-image: url(../img/background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 100%;
 }
 
-.homepage_grid{
-	display: grid;
-	grid-template-columns: 1fr 2fr 1fr;
+
+h1 {
+    opacity:0.5;
+    color: green;
 }
 
-.row2_col1 {
-	grid-row: 2;
-	grid-column: 1 / span 1;
-	width: 100%;
-	text-align: center;
-	animation: showUp 800ms ease-in-out;
+#team {
+    background-image: url(../img/team.jpg);
+    background-size: cover;
 }
 
-
-.row2_col2 {
-	grid-row: 2;
-	grid-column: 2 / span 1;
-	width: 100%;
-	opacity: 0;
-	animation: showUp 800ms forwards 200ms ease-in-out;
-	position: relative;
+main{
+    background-color: #F4CFDF;
 }
 
-.row2_col3 {
-	grid-row: 2;
-	grid-column: 3 / span 1;
-	width: 100%;
-	text-align: center;
-	animation: showUp 800ms ease-in-out;
+#registerFormDevelopper{
+    opacity: 0.8;
 }
 
-h3 {
-    color: red;
+#contreg{
+    background-image: url(../img/registerimg.jpg);
+    padding-top: 10%;
+    padding-bottom: 15%;
+    height: 100%;
+    background-size: cover;
 }
