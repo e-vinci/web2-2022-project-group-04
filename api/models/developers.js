@@ -54,7 +54,6 @@ const getDevByMail = (mail) =>
 
 
   async function login(mail, password) {
-    console.log("aaaaaaaaaaaaaaa")
     const userFound = await getDevByMail(mail);
     if (!userFound) return undefined;
   

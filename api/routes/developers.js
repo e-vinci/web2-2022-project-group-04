@@ -23,7 +23,6 @@ router.get('/login/:mail', async (req, res) => {
 
 /* Login a user */
 router.post('/login', async (req, res) => {
-  console.log("aaaa")
   const mail = req?.body?.mail?.length !== 0 ? req.body.mail : undefined;
   const password = req?.body?.password?.length !== 0 ? req.body.password : undefined;
 
