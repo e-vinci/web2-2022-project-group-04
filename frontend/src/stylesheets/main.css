@@ -27,7 +27,7 @@
 }
 
 .homePageDiv{
-    background-image: url(../img/Background.png);
+    background-image: url(../img/background.png);
     height: 100%;
 }
 /* register page */
@@ -46,4 +46,7 @@
 
 .white{
     background-color: rgba(248, 248, 248, 0.635);
+}
+h3 {
+    color: red;
 }

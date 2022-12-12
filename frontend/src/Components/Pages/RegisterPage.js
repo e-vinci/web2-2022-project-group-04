@@ -1,4 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { clearPage, renderPageTitle } from '../../utils/render';
+import { setAuthenticatedUser } from'../../utils/auths';
+import Navbar from '../Navbar/Navbar';
+import Navigate from '../Router/Navigate';
+
+
 import { clearPage } from '../../utils/render';
 
 const main = document.querySelector('main');
@@ -58,6 +64,7 @@ Entreprise
       placeholder="ex: 0412 34 56 90"
     />
    
+
   </div>
 
   <div class="form-group">
@@ -82,7 +89,8 @@ Entreprise
 </form>`;
 }
 const renderRegisterFormDevPage = () => {
-  clearPage()
+
+clearPage()
   main.innerHTML += renderRegisterFormDevPageAsString();
   attachListeners();
 };
@@ -102,7 +110,7 @@ Entreprise
     <input
       type="text"
       class="form-control"
-      id="idNom"
+      id="idLastname"
       aria-describedby="lastNameHelp"
       placeholder="Entrez votre nom d'entreprise"
     />

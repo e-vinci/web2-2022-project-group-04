@@ -1,0 +1,24 @@
+@baseUrl = http://localhost:3000
+
+### Read all compagnies 
+GET {{baseUrl}}/compagnies
+
+### Read company with id 1
+GET {{baseUrl}}/compagnies/1
+
+### Register Company
+POST {{baseUrl}}/compagnies/register
+Content-Type: application/json
+
+{
+    "company_name": "Embie",
+    "description": "DESCRIPTION ..........",
+    "adress" : "rue ........",
+    "mail" : "mail@gmail.com",
+    "password": "motdepasse123456789"    
+}
+
+
+
+
+
