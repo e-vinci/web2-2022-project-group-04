@@ -18,7 +18,7 @@ client.connect((err) => {
 });
 
 const expiryDateIn3Months = new Date(Date.now() + 1000 * 60 * 60 * 24 * 30 * 3);
-const cookieSecreteKey = 'YouWouldnot!not!like!mypizza';
+const cookieSecreteKey = 'Matteo!est!tellement!intelligent';
 app.use(
   cookieSession({
     name: 'user',

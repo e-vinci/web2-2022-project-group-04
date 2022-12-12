@@ -4,7 +4,7 @@ import Navigate from '../Router/Navigate';
 
 const main = document.querySelector('main');
 
-const renderOfferFormPage = () => {
+const renderOfferFormPage = async () => {
   main.innerHTML = `<form id ="offerForm">
                             <div><h2>Poster une nouvelle offre</h2><div>
 
@@ -20,43 +20,45 @@ const renderOfferFormPage = () => {
 
                             <div class="offerList">
                                 <label for="TypeDOffre">Type d'offre</label>
-                                <input list="TypeOffre" id="idOfferType">
-                                    <datalist id="TypeOffre">
+                                 <select id="TypeOffre">
                                       <div id="TypeOffreList">
                                       </div>
-                                    </datalist>
+                                    </select>
                             </div>
 
                             <button id="createOffer" type="submit" class="btn btn-primary">Poster l'offre</button>
                             </form>`;
 
-
-
   const form = document.getElementById('offerForm');
   form.style = 'background-color : azure;';
   form.addEventListener('submit', onCreateForm);
-  const categoriesOffer = document.getElementById('TypeOffreList');
+  const typeOfferList = await getAllTypeOffer();
+  const categoriesOffer = document.getElementById('TypeOffre');
+  const typeOfferAsString = allTypeOfferAsString(typeOfferList);
+  categoriesOffer.innerHTML += typeOfferAsString;
+
+  /*
   const categorie1 = document.createElement('option');
   const categorie2 = document.createElement('option');
   const categorie3 = document.createElement('option');
   const categorie4 = document.createElement('option');
-  const typeOfferList = getAllTypeOffer();
-  typeOfferList();
-
+  
 
   categoriesOffer.appendChild(categorie1);
   categoriesOffer.appendChild(categorie2);
   categoriesOffer.appendChild(categorie3);
-  categoriesOffer.appendChild(categorie4);
-  
+  categoriesOffer.appendChild(categorie4); */
 
   async function onCreateForm(e) {
     e.preventDefault();
     const company = 1;
-    const typeOffer = document.getElementById('idOfferType').value;
+    const typeOffer = document.getElementById('TypeOffre').value;
+    // eslint-disable-next-line no-console
+    console.log(typeOffer);
+
     const title = document.getElementById('idTitle').value;
     const description = document.getElementById('idDescription').value;
-    
+
     const options = {
       method: 'POST',
       body: JSON.stringify({
@@ -73,7 +75,7 @@ const renderOfferFormPage = () => {
     const response = await fetch('/api/jobOffers/create', options);
 
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
-   
+
     const validOffer = await response.json();
 
     // eslint-disable-next-line no-console
@@ -83,7 +85,7 @@ const renderOfferFormPage = () => {
   }
 };
 
- async function getAllTypeOffer() {
+async function getAllTypeOffer() {
   try {
     const response = await fetch('/api/jobOffers/allTypeOffer');
 
@@ -97,12 +99,24 @@ const renderOfferFormPage = () => {
     console.error('getAllTypeOffer::error: ', err);
     throw err;
   }
-} 
+}
 
-const CreateOfferFormPage = () => {
+function allTypeOfferAsString(allTypeOffer) {
+  let typeOfferList = ' ';
+
+  // eslint-disable-next-line no-console
+  console.log(allTypeOffer);
+  allTypeOffer?.forEach((typeOffer) => {
+    typeOfferList += `<option value="${typeOffer.id_type_offer}"> ${typeOffer.type_offer} </option>`;
+  });
+
+  return typeOfferList;
+}
+
+const createOfferFormPage = () => {
   clearPage();
   renderPageTitle('CreateOfferForm');
   renderOfferFormPage();
-}; 
+};
 
-export default CreateOfferFormPage;
+export default createOfferFormPage;
