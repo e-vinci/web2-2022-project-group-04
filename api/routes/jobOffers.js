@@ -77,3 +77,7 @@ router.get('/allTypeOffer', async(req,res)=>{
 
 
 module.exports = router;
+
+
+
+
