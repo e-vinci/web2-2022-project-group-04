@@ -1,0 +1,80 @@
+#containerHomePage{
+    padding-top: 10%;
+    padding-bottom: 15%;
+    height: 100%;
+}
+
+.sloganText1{
+    font-size: 400%;
+    font-weight: bold;
+    margin-bottom: 4%;
+}
+
+.sloganText2{
+    margin-bottom: 4%;
+}
+
+#signUpButton{
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 200px;
+    height: 50px;
+    font-size: 200%;
+    text-align: center;
+    background: rgba(89, 160, 207, 0.536);
+    border: none;
+}
+
+.homePageDiv{
+    background-image: url(../img/background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+/* register page */
+
+#registerFormDevelopper{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 25vh;
+    width: 40vh;
+    border-radius: 12px;
+
+}
+/*temporaire */
+
+
+h1 {
+    opacity:0.5;
+    color: green;
+}
+
+#team {
+    background-image: url(../img/team.jpg);
+    background-size: cover;
+}
+
+main{
+    background-color: rgb(189, 228, 228);
+}
+
+#registerFormDevelopper{
+    opacity: 0.8;
+}
+
+.white{
+    background-color: rgba(248, 248, 248, 0.635);
+}
+h3 {
+    color: rgb(215, 215, 215);
+}
+#contreg{
+    background-image: url(../img/registerimg.jpg);
+    padding-top: 10%;
+    padding-bottom: 15%;
+    height: 100%;
+    background-size: cover;
+}

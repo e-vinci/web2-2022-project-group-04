@@ -1,0 +1,37 @@
+@baseUrl = http://localhost:3000
+
+### Read all job offers
+GET {{baseUrl}}/jobOffers
+
+### CREATE INTERSTED FOR DEV
+POST {{baseUrl}}/jobOffers/addToInterstedDev
+Content-Type: application/json
+
+{
+    "idOffer":"1",
+    "idDeveloper":"1"
+}
+
+### Read all job offers from company
+GET {{baseUrl}}/jobOffers/allJobOfferFromCompany/1
+
+
+### Read All developers intersted of one jobOffer
+GET {{baseUrl}}/jobOffers/allDevelopersInterstedOffer/1
+
+
+### CREATE job offer
+POST {{baseUrl}}/jobOffers/create
+Content-Type: application/json
+
+{
+    "idCompany": "1",
+    "typeOffer": "4",
+    "title": "recherche developpeur full-stack ",
+    "description": "DESCRIPTION .........."
+}
+
+
+### Read All type offer
+GET {{baseUrl}}/jobOffers/allTypeOffer
+

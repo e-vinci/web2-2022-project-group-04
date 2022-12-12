@@ -63,3 +63,5 @@
 
 ## Revues de projets par les pairs
 - Une fois votre projet soumis, vous devrez réaliser un minimum de 5 revues qui vous seront attribuées automatiquement via le site du cours.
+
+valider par soulaimane 
