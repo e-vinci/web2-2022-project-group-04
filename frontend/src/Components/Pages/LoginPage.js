@@ -55,12 +55,16 @@ const LoginPage = () => {
     const mail = document.querySelector('#mail').value;
     const password = document.querySelector('#password').value;
     
+
     const options = {
       method: 'POST',
       body: JSON.stringify({
         mail,
         password,
       }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     };
 
     const response = await fetch('/api/developers/login', options);

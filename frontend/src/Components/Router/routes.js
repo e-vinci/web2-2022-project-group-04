@@ -6,6 +6,7 @@ import HomePageDev from '../Pages/HomePageDev';
 import DevPage from '../Pages/DevPage';
 import CreateOfferFormPage from '../Pages/CreateOfferFormPage';
 import CompanyPage from '../Pages/CompanyPage';
+import Logout from '../Logout/Logout';
 
 const routes = {
   '/': HomePage,
@@ -15,7 +16,8 @@ const routes = {
   '/jobOffers' : HomePageDev,
   '/devPage'  : DevPage,
   '/createOfferPage' : CreateOfferFormPage,
-  '/companyPage' : CompanyPage
+  '/companyPage' : CompanyPage,
+  '/logout': Logout
  };
 
 export default routes;

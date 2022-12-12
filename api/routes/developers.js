@@ -35,7 +35,7 @@ router.post('/login', async (req, res) => {
 
   createCookieSessionData(req, authenticatedUser);
 
-  return res.json([{"id" :authenticatedUser}]);
+  return res.json({"id" :authenticatedUser});
 });
 
 
@@ -61,6 +61,18 @@ router.post('/registerDev', async (req, res) => {
   return res.json([{"id" :authenticatedUser}, {"email" :email}]);
 });
 
+
+
+/* Logout a user */
+router.get('/logout', (req, res) => {
+  req.session = null;
+  return res.sendStatus();
+});
+
+function createCookieSessionData(req, authenticatedUser) {
+  req.session.mail = authenticatedUser.mail;
+  req.session.token = authenticatedUser.token;
+}
 
 
 module.exports = router;
