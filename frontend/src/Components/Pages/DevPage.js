@@ -1,16 +1,17 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
+import { getAuthenticatedUser } from '../../utils/auths';
 
 const developerPage = () => {
   clearPage();
   renderPageTitle('Dev Page');
-
-   renderDevPage();
+  renderDevPage();
 };
 
  async function renderDevPage() {
   
   const descriptionDev= await getDescriptionDev();
   const masteredLanguagesDev= await getmasteredLanguageByIdDev();
+
 
   const main = document.querySelector('main');
   main.innerHTML += descriptionDev;
@@ -19,6 +20,7 @@ const developerPage = () => {
 
 async function getDescriptionDev() {
   try {
+  
     const response = await fetch(`/api/developers/profileDev/1`);
     
     if (!response.ok) throw new Error('fetch error : ', response.status, response.statusText);
