@@ -32,6 +32,19 @@
     background-size: cover;
     height: 100%;
 }
+/* register page */
+
+#registerFormDevelopper{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 25vh;
+    width: 40vh;
+    border-radius: 12px;
+
+}
+/*temporaire */
 
 
 h1 {
@@ -52,6 +65,9 @@ main{
     opacity: 0.8;
 }
 
+.white{
+    background-color: rgba(248, 248, 248, 0.635);
+}
 h3 {
     color: rgb(215, 215, 215);
 }
