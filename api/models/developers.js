@@ -38,7 +38,7 @@ const getAllDevelopers = async () =>
 const getDevByMail = (mail) =>
   new Promise((resolve, reject) => {
     
-    const select = `SELECT mail , password FROM webproject.developers where mail = $1`;
+    const select = `SELECT * FROM webproject.developers where mail = $1`;
     client.query(select, [mail], (err, result) => {
       if (err) {
         reject(err.message);
@@ -69,7 +69,7 @@ const getDevByMail = (mail) =>
     );
   
     const authenticatedUser = {
-      mail,
+      id,
       token,
     };
   
