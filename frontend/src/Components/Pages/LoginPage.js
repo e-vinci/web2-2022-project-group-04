@@ -78,7 +78,7 @@ const LoginPage = () => {
   
     Navbar();
   
-    Navigate('/');
+    Navigate('/devPage');
   }
 
 

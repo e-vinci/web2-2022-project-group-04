@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllDevelopers, getDevByMail, registerDev, login } = require('../models/developers');
+const { getAllDevelopers, getDevByMail, registerDev, login,getDevById,getmasteredLanguageByIdDev } = require('../models/developers');
 
 const router = express.Router();
 
@@ -33,7 +33,6 @@ router.post('/login', async (req, res) => {
 
   if (!authenticatedUser) return res.sendStatus(401); // 401 Unauthorized
 
-  createCookieSessionData(req, authenticatedUser);
 
   return res.json([{"id" :authenticatedUser}]);
 });
@@ -56,11 +55,28 @@ router.post('/registerDev', async (req, res) => {
 
   if (!authenticatedUser) return res.sendStatus(409); // 409 Conflict
 
-  createCookieSessionData(req, authenticatedUser);
 
   return res.json([{"id" :authenticatedUser}, {"email" :email}]);
 });
 
+
+
+router.get('/profileDev/:id', async (req, res) => {
+  
+  const devFound = await getDevById(req.params.id);
+  if(!devFound ) return res.status(400);
+  
+
+  return res.json(devFound);
+});
+
+router.get('/masteredLanguageDev/:id', async (req, res) => {
+  
+  const infoFound = await getmasteredLanguageByIdDev(req.params.id);
+  if(!infoFound ) return res.status(400);
+  
+  return res.json(infoFound);
+});
 
 
 module.exports = router;

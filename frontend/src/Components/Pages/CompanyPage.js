@@ -10,6 +10,7 @@ const companyPage = async () => {
 
   renderCompanyPage(companyDescription, allJobOfferOfCompany);
 };
+
 async function getDescriptionFromAPI(idCompany) {
   try {
     const response = await fetch(`/api/compagnies/${idCompany}`);

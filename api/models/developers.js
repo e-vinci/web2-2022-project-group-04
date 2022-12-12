@@ -52,6 +52,47 @@ const getDevByMail = (mail) =>
     });
   });
 
+  const getProfilDevById = (idDev) =>
+  new Promise((resolve, reject) => {
+    
+    const select = `SELECT * 
+    FROM webproject.developers dev
+    webproject.
+    
+    where id_developer = $1`;
+    client.query(select, [idDev], (err, result) => {
+      if (err) {
+        reject(err.message);
+        console.log(err.message);
+      } else if (result.rowCount !== 0) {
+          resolve(result.rows[0]);
+        } else {
+          console.log('User not found');
+          
+        }
+    });
+  });
+
+
+  const getmasteredLanguageByIdDev = (idDev) =>
+ new Promise((resolve, reject) => {
+    
+    const select = `SELECT lang.language
+    FROM webproject.mastered_languages mast, webproject.languages lang
+    where mast.developper = $1 and lang.id_language = mast.language` ;
+
+    client.query(select, [idDev], (err, result) => {
+      if (err) {
+        reject(err.message);
+        console.log(err.message);
+      } else if (result.rowCount !== 0) {
+          resolve(result.rows[0]);
+        } else {
+          console.log('No mastered language');
+          
+        }
+    });
+  });
 
   async function login(mail, password) {
     console.log("aaaaaaaaaaaaaaa")
@@ -102,4 +143,4 @@ const getDevByMail = (mail) =>
 
   
 
-module.exports = { getAllDevelopers, getDevByMail, registerDev, login };
+module.exports = { getAllDevelopers, getDevByMail, registerDev, login,getProfilDevById,getmasteredLanguageByIdDev };
