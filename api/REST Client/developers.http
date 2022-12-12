@@ -41,3 +41,9 @@ Content-Type: application/json
     "password":"password",
  
 }
+
+### Read devlopper profile by id
+GET {{baseUrl}}/developers/profileDev/1
+
+### Read devlopper master languages by id
+GET {{baseUrl}}/developers/masteredLanguageDev/1

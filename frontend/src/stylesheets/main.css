@@ -41,6 +41,19 @@ a {
     height: 150vh;
     color:white
 }
+/* register page */
+
+#registerFormDevelopper{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 25vh;
+    width: 40vh;
+    border-radius: 12px;
+
+}
+/*temporaire */
 
 
 h1 {
@@ -100,6 +113,15 @@ main{
     opacity: 0.8;
 }
 
+<<<<<<< HEAD
+=======
+.white{
+    background-color: rgba(248, 248, 248, 0.635);
+}
+h3 {
+    color: rgb(215, 215, 215);
+}
+>>>>>>> e314bc54f8e94a34b9873dc37d9fcdca55c6b0d4
 #contreg{
     padding-top: 10%;
     padding-bottom: 15%;

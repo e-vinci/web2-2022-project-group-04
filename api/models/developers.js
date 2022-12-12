@@ -20,8 +20,7 @@ const getAllDevelopers = async () =>
     dev.firstname,
     dev.mail,
     dev.birth_date,
-    dev.tel,
-    tof.name AS offer_required
+    dev.tel
     FROM webproject.developers dev,
     webproject.type_offers tof
     WHERE dev.type_offer_required= tof.id_type_offer`,
@@ -39,7 +38,7 @@ const getAllDevelopers = async () =>
 const getDevByMail = (mail) =>
   new Promise((resolve, reject) => {
     
-    const select = `SELECT mail , password FROM webproject.developers where mail = $1`;
+    const select = `SELECT * FROM webproject.developers where mail = $1`;
     client.query(select, [mail], (err, result) => {
       if (err) {
         reject(err.message);
@@ -53,23 +52,63 @@ const getDevByMail = (mail) =>
     });
   });
 
+  const getProfilDevById = (idDev) =>
+  new Promise((resolve, reject) => {
+    
+    const select = `SELECT * 
+    FROM webproject.developers dev    
+    where id_developer = $1`;
+    client.query(select, [idDev], (err, result) => {
+      if (err) {
+        reject(err.message);
+        console.log(err.message);
+      } else if (result.rowCount !== 0) {
+          resolve(result.rows[0]);
+        } else {
+          console.log('User not found');
+          
+        }
+    });
+  });
+
+
+  const getmasteredLanguageByIdDev = (idDev) =>
+ new Promise((resolve, reject) => {
+    
+    const select = `SELECT lang.language
+    FROM webproject.mastered_languages mast, webproject.languages lang
+    where mast.developper = $1 and lang.id_language = mast.language` ;
+
+    client.query(select, [idDev], (err, result) => {
+      if (err) {
+        reject(err.message);
+        console.log(err.message);
+      } else if (result.rowCount !== 0) {
+          resolve(result.rows[0]);
+        } else {
+          console.log('No mastered language');
+          
+        }
+    });
+  });
 
   async function login(mail, password) {
-    console.log("aaaaaaaaaaaaaaa")
     const userFound = await getDevByMail(mail);
     if (!userFound) return undefined;
   
     const passwordMatch =  await bcrypt.compare(password, userFound.password);
     if (!passwordMatch) return undefined;
+
+    const id = userFound.id_developer;
   
     const token = jwt.sign(
-      { mail }, // session data added to the payload (payload : part 2 of a JWT)
+      { id }, // session data added to the payload (payload : part 2 of a JWT)
       jwtSecret, // secret used for the signature (signature part 3 of a JWT)
       { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
     );
   
     const authenticatedUser = {
-      mail,
+      id,
       token,
     };
   
@@ -103,4 +142,4 @@ const getDevByMail = (mail) =>
 
   
 
-module.exports = { getAllDevelopers, getDevByMail, registerDev, login };
+module.exports = { getAllDevelopers, getDevByMail, registerDev, login,getProfilDevById , getmasteredLanguageByIdDev };
