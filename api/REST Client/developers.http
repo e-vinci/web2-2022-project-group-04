@@ -7,17 +7,27 @@ GET {{baseUrl}}/developers
 GET {{baseUrl}}/developers/login/brahim.abid@student.vinci.be
 
 
+### login test 
+POST {{baseUrl}}/developers/login
+Content-Type: application/json
+
+{
+    "mail":"f.m@gmail.com",
+    "password":"123"
+}
+
+
 ### Read developers register
 POST {{baseUrl}}/developers/registerDev
 Content-Type: application/json
 
 {
-    "lastname":"A",
-    "firstname": "o",
-    "mail":"email@test.be",
-    "password":"password",
+    "lastname":"M",
+    "firstname": "M",
+    "mail":"MM@student.be",
+    "password":"pass123",
     "birth_date": "2000-01-02",
-    "tel":"0487878787",
+    "tel":"0487789001",
     "type_offer_required": "1" 
 }
 

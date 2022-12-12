@@ -1,4 +1,4 @@
-.container{
+#containerHomePage{
     padding-top: 10%;
     padding-bottom: 15%;
     height: 100%;
@@ -28,9 +28,37 @@
 
 .homePageDiv{
     background-image: url(../img/background.png);
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 100%;
 }
 
+
+h1 {
+    opacity:0.5;
+    color: green;
+}
+
+#team {
+    background-image: url(../img/team.jpg);
+    background-size: cover;
+}
+
+main{
+    background-color: #F4CFDF;
+}
+
+#registerFormDevelopper{
+    opacity: 0.8;
+}
+
 h3 {
-    color: red;
+    color: rgb(215, 215, 215);
+}
+#contreg{
+    background-image: url(../img/registerimg.jpg);
+    padding-top: 10%;
+    padding-bottom: 15%;
+    height: 100%;
+    background-size: cover;
 }

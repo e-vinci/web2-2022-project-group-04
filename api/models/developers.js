@@ -1,8 +1,11 @@
 /* eslint-disable spaced-comment */
 /* eslint-disable no-console */
+// eslint-disable-next-line no-undef
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const client = require('../connection');
+
+const saltRounds = 10;
 
 // eslint-disable-next-line no-undef
 const jwtSecret = 'MatteoLeBg';
@@ -32,8 +35,9 @@ const getAllDevelopers = async () =>
     );
   });
 
-const getDevByMail = async (mail) =>
+const getDevByMail = (mail) =>
   new Promise((resolve, reject) => {
+    
     const select = `SELECT mail , password FROM webproject.developers where mail = $1`;
     client.query(select, [mail], (err, result) => {
       if (err) {
@@ -50,10 +54,11 @@ const getDevByMail = async (mail) =>
 
 
   async function login(mail, password) {
+    console.log("aaaaaaaaaaaaaaa")
     const userFound = await getDevByMail(mail);
     if (!userFound) return undefined;
   
-    const passwordMatch = await bcrypt.compare(password, userFound.password);
+    const passwordMatch =  await bcrypt.compare(password, userFound.password);
     if (!passwordMatch) return undefined;
   
     const token = jwt.sign(
@@ -72,21 +77,23 @@ const getDevByMail = async (mail) =>
 
 
 
-  const registerDev = async (lastname, firstname,email, password, date, tel, typeOffer) =>
-    new Promise((resolve, reject) => {
+  const registerDev = async (lastname, firstname,email, password, date, tel, typeOffer) => {
       const insert = `INSERT INTO webproject.developers(lastname, firstname, mail, password, birth_date, tel, type_offer_required)
       VALUES ($1, $2, $3, $4, $5, $6, $7) 
       RETURNING id_developer` ;
-    client.query(insert, [lastname, firstname,email, password, date, tel, typeOffer], (err, result) => {
-      if(err){
-        reject(err.message);
-        console.log(err.message);
+      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      try {
+        const res = await client.query(insert, [lastname, firstname,email, hashedPassword, date, tel, typeOffer]);
+        return res.rows[0];
+      
+      } catch (err) {
+          console.log(err.message);
       }
-      else {
-      resolve(result.rows[0]);
-      }})
-    });
+      return undefined;
+     
+  };
   
+
 
 
   
