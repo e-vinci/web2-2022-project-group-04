@@ -23,10 +23,6 @@ router.get('/login/:mail', async (req, res) => {
 
 /* Login a user */
 router.post('/login', async (req, res) => {
-<<<<<<< HEAD
-  
-=======
->>>>>>> e314bc54f8e94a34b9873dc37d9fcdca55c6b0d4
   const mail = req?.body?.mail?.length !== 0 ? req.body.mail : undefined;
   const password = req?.body?.password?.length !== 0 ? req.body.password : undefined;
 
@@ -36,10 +32,6 @@ router.post('/login', async (req, res) => {
 
   if (!authenticatedUser) return res.sendStatus(401); // 401 Unauthorized
 
-<<<<<<< HEAD
-
-=======
->>>>>>> e314bc54f8e94a34b9873dc37d9fcdca55c6b0d4
 
   return res.json({"id" :authenticatedUser});
 });
@@ -62,10 +54,6 @@ router.post('/registerDev', async (req, res) => {
 
   if (!authenticatedUser) return res.sendStatus(409); // 409 Conflict
 
-<<<<<<< HEAD
-  
-=======
->>>>>>> e314bc54f8e94a34b9873dc37d9fcdca55c6b0d4
 
   return res.json([{"id" :authenticatedUser}, {"email" :email}]);
 });
