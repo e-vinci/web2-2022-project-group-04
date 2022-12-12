@@ -1,74 +1,182 @@
+// eslint-disable-next-line spaced-comment
+//Youssef
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { clearPage, renderPageTitle } from '../../utils/render';
+import { clearPage} from '../../utils/render';
 import { setAuthenticatedUser } from '../../utils/auths';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 
 const main = document.querySelector('main');
 
-const renderRegisterFormDevPage = () => {
-  main.innerHTML = `
+function renderRegisterFormDevPageAsString() {
+  return `<div class="container-fluid 
+  row justify-content-evenly">
+ <div class="col-6 text-center bg-secondary text-white " id="clickForFormDev">
+Développeur
+</div>
+<div class="col-6 text-center bg-light" id="clickForFormCompanie">
+Entreprise
+</div>
+ </div>
+ <form id="registerFormDevelopper" class="white p-3 container">
+ <div class="form-group">
+   <label for="Nom">Nom</label>
+   <input
+     type="text"
+     class="form-control"
+     id="idLastname"
+     aria-describedby="lastNameHelp"
+     placeholder="Entrez votre nom"
+   />
+ </div>
 
-  <div class="container" id="contreg">
-                        <div class="text-center">
+ <div class="form-group">
+   <label for="Prenom">Prénom</label>
+   <input
+     type="text"
+     class="form-control"
+     id="idFirstname"
+     aria-describedby="firstNameHelp"
+     placeholder="Entrez votre prénom"
+   />
+ </div>
+
+ <div class="form-group">
+   <label for="email">E-mail</label>
+   <input
+     type="email"
+     class="form-control"
+     id="mail"
+     placeholder="ex: johndoe@outlook.com"
+   />
   
-                    <form id ="registerFormDevelopper">
-                            <div class="form-group">
-                                <label for="Nom">Nom</label>
-                                <input type="text" class="form-control" id="idLastname" aria-describedby="lastNameHelp" placeholder="Entrez votre nom">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Prenom">Prénom</label>
-                                <input type="text" class="form-control" id="idFirstname" aria-describedby="firstNameHelp" placeholder="Entrez votre prénom">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Email">E-mail</label>
-                                <input type="email" class="form-control" id="mail" placeholder="ex: johndoe@outlook.com">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="MotDePasse">Mot de passe</label>
-                                <input type="password" class="form-control" id="password" placeholder="(min. 8 caractères, 1 majuscule et 1 chiffre)">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="DateDeNaissance">Date de naissance</label>
-                                <input type="date" class="form-control" id="idDate" placeholder="">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="Telephone">Téléphone</label>
-                                <input type="tel" class="form-control" id="idPhone" placeholder="">
-                            </div>
-
-                            <div class="form-group">
+ </div>
+ <div class="form-group">
+ <label for="DateDeNaissance">Date de naissance</label>
+ <input type="date" class="form-control" id="idDate" placeholder="">
+</div>
+ <div class="form-group">
+   <label for="tel">numéro de téléphone</label>
+   <input
+     type="tel"
+     class="form-control"
+     id="idPhone"
+     placeholder="ex: 0412 34 56 90"
+   />
+  
+ </div>
+ <div class="form-group">
+   <label for="Password">Mot de passe</label>
+   <input
+     type="password"
+     class="form-control"
+     id="password"
+     placeholder="(min. 8 caractères, 1 majuscule et 1 chiffre)"
+   />
+ </div>
+ <div class="form-group">
                                 <label for="TypeDOffre">Type d'offre</label>
-                                <input list="TypeOffre" id="idOffer">
-                                    <datalist id="TypeOffre">
-                                        <option value="CDI">
-                                        <option value="CDD">
-                                        <option value="Stage">
-                                        <option value="Formation">
-                                        <option value="Etudiant">
-                                    </datalist>
+                                <select id="idOffer">
+                                <option value="1">CDI</option>
+                                <option value="2">CDD</option>
+                                <option value="3">Stage</option>
+                                <option value="4">Étudiant</option>
+                                    
+                                    </select>
                             </div>
+ <div class="form-check">
+   <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+   <label class="form-check-label" for="exampleCheck1"
+     >en soumettant ce formulaire, j'accepte que DevJob utilise mes données dans le strict cadre de nos service tout en respectant le <a
+     href="https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32016R0679&from=FR"
+     >RGPD</a.</label
+   >
+ </div>
+ <button type="submit" class="btn btn-primary" id="register">S'enregistrer</button>
+</form>`;
 
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Se souvenir de moi</label>
-                            </div>
-                            <button id="register" type="submit" class="btn btn-primary">S'enregistrer</button>
-                            </form>
-                            </div></div>
-                            `
-                            ;
+}
+function renderRegisterFormCompaniesPageAsString() {
+  return `<div class="container-fluid 
+   row justify-content-evenly">
+  <div class="col-6 text-center bg-light   " id="clickForFormDev">
+ Développeur
+</div>
+<div class="col-6 text-center bg-secondary text-white" id="clickForFormCompanie">
+Entreprise
+</div>
+  </div>
 
+
+  <form id="registerFormDevelopper" class="white p-3 container">
+  <div class="form-group">
+    <label for="Nom">Nom Entreprise</label>
+    <input
+      type="text"
+      class="form-control"
+      id="idNom"
+      aria-describedby="lastNameHelp"
+      placeholder="Entrez votre nom d'entreprise"
+    />
+  </div>
+
+  <div class="form-group">
+  <label for="email">E-mail</label>
+  <input
+    type="email"
+    class="form-control"
+    id="idEmail"
+    placeholder="ex: johndoe@outlook.com"
+  />
+
+  <div class="form-group">
+  <label for="adress">adresse</label>
+  <textarea
+    type="text"
+    class="form-control"
+    id="idAdress"
+    aria-describedby="adressHelp"
+    placeholder="Entrez l'adresse d'entreprise"
+  ></textarea>
+</div>
+
+<div class="form-group">
+  <label for="adress">description</label>
+  <textarea
+    type="text"
+    class="form-control"
+    id="idDescription"
+    aria-describedby="adressHelp"
+    placeholder="Entrez une breve description de votre entreprise"
+  ></textarea>
+</div>
+    
+  </div>
+  <div class="form-group">
+    <label for="Password">Mot de passe</label>
+    <input
+      type="password"
+      class="form-control"
+      id="idPassword"
+      placeholder="(min. 8 caractères, 1 majuscule et 1 chiffre)"
+    />
+  </div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+    <label class="form-check-label" for="exampleCheck1"
+      >en soumettant ce formulaire, j'accepte que DevJob utilise mes données dans le strict cadre de nos service tout en respectant le <a
+      href="https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32016R0679&from=FR"
+      >RGPD</a.</label
+    >
+  </div>
+  <button type="submit" class="btn btn-primary">S'enregistrer</button>
+</form>`;
+}
+const renderRegisterFormDevPage = () => {
+  clearPage();
+  main.innerHTML += renderRegisterFormDevPageAsString();
   const form = document.getElementById('registerFormDevelopper');
-  form.style = 'background-color : #ffffff';
-  form.addEventListener('submit', onRegister);
-  async function onRegister(e) {
+  async function onRegisterDev(e) {
     e.preventDefault();
     const lastname = document.getElementById('idLastname').value;
     const firstname = document.getElementById('idFirstname').value;
@@ -107,14 +215,32 @@ const renderRegisterFormDevPage = () => {
 
     Navbar();
 
-    Navigate('/devPage');
+    Navigate('/');
   }
+  form.addEventListener('submit', onRegisterDev);
+
+  attachListeners();
 };
 
-const RegisterFormDevPage = () => {
+const renderRegisterFormCompaniesPage = () => {
   clearPage();
-  renderPageTitle('Register');
-  renderRegisterFormDevPage();
+
+  main.innerHTML += renderRegisterFormCompaniesPageAsString();
+  attachListeners();
 };
 
-export default RegisterFormDevPage;
+const RegisterFormPage = () => {
+  renderRegisterFormCompaniesPage();
+};
+function attachListeners() {
+  const buttonDisplayFormDev = document.querySelector('#clickForFormDev');
+  const buttonDisplayFormCompanie = document.querySelector('#clickForFormCompanie');
+  buttonDisplayFormDev.addEventListener('click', () => {
+    renderRegisterFormDevPage();
+  });
+  buttonDisplayFormCompanie.addEventListener('click', () => {
+    renderRegisterFormCompaniesPage();
+  });
+}
+
+export default RegisterFormPage;
