@@ -1,10 +1,18 @@
-#containerHomePage{
+/* #containerHomePage{
     padding-top: 10%;
     padding-bottom: 15%;
     height: 100%;
+} */
+
+#nav{
+    background-color: #859dfb;
 }
 
-.sloganText1{
+a {
+    color: white;
+}
+
+/* .sloganText1{
     font-size: 400%;
     font-weight: bold;
     margin-bottom: 4%;
@@ -12,7 +20,7 @@
 
 .sloganText2{
     margin-bottom: 4%;
-}
+} */
 
 #signUpButton{
     display: inline-flex;
@@ -27,10 +35,11 @@
 }
 
 .homePageDiv{
-    background-image: url(../img/background.png);
+    background-color: #d0d7f4;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100%;
+    height: 150vh;
+    color:white
 }
 /* register page */
 
@@ -48,8 +57,22 @@
 
 
 h1 {
-    opacity:0.5;
-    color: green;
+    color: white;
+   
+}
+
+h2 {
+    color: white;
+}
+
+#slogan {
+    font-family: Brush Script MT;
+    color:#3c013c ;
+}
+
+#btn-register {
+    color: white;
+
 }
 
 #team {
@@ -57,24 +80,62 @@ h1 {
     background-size: cover;
 }
 
+#who{
+    background-color: #d0d7f4;
+
+}
+
+#whoare{
+    color: black;
+}
+
+#homeOffer{
+    background-color:#859dfb ;
+    border-radius: 2rem;
+    margin-right: 15px;
+}
+
+#equipe{
+    background-color: #859dfb;
+}
+
+#contact{
+    background-color: #475cad;
+    color: white;
+}
+
+
 main{
-    background-color: rgb(189, 228, 228);
+    background-color: #c8d3ff;
 }
 
 #registerFormDevelopper{
     opacity: 0.8;
 }
 
+<<<<<<< HEAD
+=======
 .white{
     background-color: rgba(248, 248, 248, 0.635);
 }
 h3 {
     color: rgb(215, 215, 215);
 }
+>>>>>>> e314bc54f8e94a34b9873dc37d9fcdca55c6b0d4
 #contreg{
-    background-image: url(../img/registerimg.jpg);
     padding-top: 10%;
     padding-bottom: 15%;
     height: 100%;
     background-size: cover;
+}
+
+
+#part1{
+    background-image: url(../img/front_background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;   
+}
+
+#part1a{
+    background-color: #3c013c;
 }

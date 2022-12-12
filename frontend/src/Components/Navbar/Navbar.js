@@ -11,8 +11,13 @@ import { isAuthenticated } from '../../utils/auths';
 
 const Navbar = () => {
   const navbarWrapper = document.querySelector('#navbarWrapper');
+<<<<<<< HEAD
+  const navbar = `
+  <nav id="nav" class="navbar navbar-expand-lg navbar-light bg-muted">
+=======
   const anonymousUserNavbar = `
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
+>>>>>>> e314bc54f8e94a34b9873dc37d9fcdca55c6b0d4
         <div class="container-fluid">
           <a class="navbar-brand" href="" data-uri="/">DevJob</a>
           <button

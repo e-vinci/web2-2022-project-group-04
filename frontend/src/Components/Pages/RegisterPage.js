@@ -84,6 +84,13 @@ Entreprise
                                     
                                     </select>
                             </div>
+<<<<<<< HEAD
+                            <button id="register" type="submit" class="btn btn-primary">S'enregistrer</button>
+                            </form>
+                            </div></div>
+                            `
+                            ;
+=======
  <div class="form-check">
    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
    <label class="form-check-label" for="exampleCheck1"
@@ -106,6 +113,7 @@ function renderRegisterFormCompaniesPageAsString() {
 Entreprise
 </div>
   </div>
+>>>>>>> e314bc54f8e94a34b9873dc37d9fcdca55c6b0d4
 
 
   <form id="registerFormDevelopper" class="white p-3 container">
