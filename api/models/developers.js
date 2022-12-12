@@ -58,6 +58,7 @@ const getDevByMail = (mail) =>
     const select = `SELECT * 
     FROM webproject.developers dev    
     where id_developer = $1`;
+
     client.query(select, [idDev], (err, result) => {
       if (err) {
         reject(err.message);
@@ -72,25 +73,23 @@ const getDevByMail = (mail) =>
   });
 
 
-  const getmasteredLanguageByIdDev = (idDev) =>
- new Promise((resolve, reject) => {
+  async function getmasteredLanguageByIdDev(idDev) {
     
     const select = `SELECT lang.language
     FROM webproject.mastered_languages mast, webproject.languages lang
     where mast.developper = $1 and lang.id_language = mast.language` ;
+    try {
+      const res = await client.query(select, [idDev]);
+      if(res.rowCount===0){
+    return undefined;
+      }
 
-    client.query(select, [idDev], (err, result) => {
-      if (err) {
-        reject(err.message);
+      return res.rows[0];
+    } catch (err) {
         console.log(err.message);
-      } else if (result.rowCount !== 0) {
-          resolve(result.rows[0]);
-        } else {
-          console.log('No mastered language');
-          
-        }
-    });
-  });
+    }
+    return undefined;
+  }
 
   async function login(mail, password) {
     const userFound = await getDevByMail(mail);

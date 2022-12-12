@@ -20,13 +20,13 @@ const developerPage = () => {
 
 async function getDescriptionDev() {
   try {
-  
-    const response = await fetch(`/api/developers/profileDev/1`);
+    const idUser=getAuthenticatedUser().id.id;
+    const response = await fetch(`/api/developers/profileDev/${idUser}`);
     
-    if (!response.ok) throw new Error('fetch error : ', response.status, response.statusText);
-
+    if (!response.ok){
+     throw new Error('fetch error : ', response.status, response.statusText);
+    }
     const description = await response.json();
-  
     // eslint-disable-next-line no-console
     return renderDescription(description);
   } catch (error) {
@@ -38,13 +38,20 @@ async function getDescriptionDev() {
 
 async function getmasteredLanguageByIdDev() {
   try {
-    const response = await fetch(`/api/developers/masteredLanguageDev/1`);
+    const idUser=getAuthenticatedUser().id.id;
+    let response = await fetch(`/api/developers/masteredLanguageDev/${idUser}`);
+    console.log("ici2")
 
-    if (!response.ok) throw new Error('fetch error : ', response.status, response.statusText);
+    if (!response.ok){
+     throw new Error('fetch error : ', response.status, response.statusText);
+    }
+
+    if(!response)
+      response=undefined;
 
     const description = await response.json();
+
     // eslint-disable-next-line no-console
-    console.log(description);
     return masterLanguages(description);
   } catch (error) {
     // eslint-disable-next-line no-console

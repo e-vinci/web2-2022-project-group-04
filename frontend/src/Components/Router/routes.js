@@ -18,6 +18,7 @@ const routes = {
   '/createOfferPage' : CreateOfferFormPage,
   '/companyPage' : CompanyPage,
   '/logout': Logout
+
  };
 
 export default routes;

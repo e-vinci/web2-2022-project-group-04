@@ -72,8 +72,13 @@ router.get('/profileDev/:id', async (req, res) => {
 router.get('/masteredLanguageDev/:id', async (req, res) => {
   
   const infoFound = await getmasteredLanguageByIdDev(req.params.id);
-  if(!infoFound ) return res.status(400);
-  
+  console.log("passe");
+
+  if(!infoFound ) {
+    console.log(" langauge de programation non trouve")
+    return undefined;
+  }
+
   return res.json(infoFound);
 });
 
