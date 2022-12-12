@@ -56,9 +56,7 @@ const getDevByMail = (mail) =>
   new Promise((resolve, reject) => {
     
     const select = `SELECT * 
-    FROM webproject.developers dev
-    webproject.
-    
+    FROM webproject.developers dev    
     where id_developer = $1`;
     client.query(select, [idDev], (err, result) => {
       if (err) {
@@ -144,4 +142,4 @@ const getDevByMail = (mail) =>
 
   
 
-module.exports = { getAllDevelopers, getDevByMail, registerDev, login,getProfilDevById,getmasteredLanguageByIdDev };
+module.exports = { getAllDevelopers, getDevByMail, registerDev, login,getProfilDevById , getmasteredLanguageByIdDev };

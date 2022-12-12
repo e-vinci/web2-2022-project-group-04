@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAllDevelopers, getDevByMail, registerDev, login,getDevById,getmasteredLanguageByIdDev } = require('../models/developers');
+const { getAllDevelopers, getDevByMail, registerDev, login,getProfilDevById ,getmasteredLanguageByIdDev } = require('../models/developers');
 
 const router = express.Router();
 
@@ -62,7 +62,7 @@ router.post('/registerDev', async (req, res) => {
 
 router.get('/profileDev/:id', async (req, res) => {
   
-  const devFound = await getDevById(req.params.id);
+  const devFound = await getProfilDevById(req.params.id);
   if(!devFound ) return res.status(400);
   
 

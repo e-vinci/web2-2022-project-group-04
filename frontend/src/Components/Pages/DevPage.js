@@ -1,45 +1,49 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
-import { getAuthenticatedUser } from '../../utils/auths';
+
 const developerPage = () => {
   clearPage();
   renderPageTitle('Dev Page');
 
-  renderDevPage();
+   renderDevPage();
 };
 
-function renderDevPage() {
+ async function renderDevPage() {
   
-  const renderPage=renderDevPageAsString();
+  const descriptionDev= await getDescriptionDev();
+  const masteredLanguagesDev= await getmasteredLanguageByIdDev();
+
   const main = document.querySelector('main');
-  main.innerHTML = renderPage;
+  main.innerHTML += descriptionDev;
+  main.innerHTML += masteredLanguagesDev;
 }
 
 async function getDescriptionDev() {
   try {
-    const response = await fetch(`/api/developers/profileDev/${idDevlopper}`);
-
+    const response = await fetch(`/api/developers/profileDev/1`);
+    
     if (!response.ok) throw new Error('fetch error : ', response.status, response.statusText);
 
     const description = await response.json();
+  
     // eslint-disable-next-line no-console
-    console.log(description);
-    return description;
+    return renderDescription(description);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('CompanyPageDev  error: ', error);
     throw error;
   }
 }
-async function getmasteredLanguageByIdDev(idDevlopper) {
+
+async function getmasteredLanguageByIdDev() {
   try {
-    const response = await fetch(`/api/developers/masteredLanguageDev/${idDevlopper}`);
+    const response = await fetch(`/api/developers/masteredLanguageDev/1`);
 
     if (!response.ok) throw new Error('fetch error : ', response.status, response.statusText);
 
     const description = await response.json();
     // eslint-disable-next-line no-console
     console.log(description);
-    return description;
+    return masterLanguages(description);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error('CompanyPageDev  error: ', error);
@@ -47,16 +51,22 @@ async function getmasteredLanguageByIdDev(idDevlopper) {
   }
 }
 
-function renderDevPageAsString() {
-  const descriptionDev = renderGenerealsInfosDev(getDescriptionDev());
-  const masteredLanguagesDev = renderMasteredlanguageDev(listMasteredlanguage(getmasteredLanguageByIdDev()));
+ function renderDescription(description) {
 
-  const renderPage=descriptionDev + masteredLanguagesDev;
-  return renderPage;
+  const descriptionDev =  renderGenerealsInfosDev(description);
+
+
+  return descriptionDev;
 }
 
+function masterLanguages(languages) {
 
-function renderGenerealsInfosDev(description) {
+  const masteredLanguagesDev =  renderMasteredlanguageDev(listMasteredlanguage(languages));
+
+  return masteredLanguagesDev;
+}
+
+ function renderGenerealsInfosDev(description) {
 
   const descriptionString = `
   
@@ -77,10 +87,10 @@ function renderGenerealsInfosDev(description) {
           <h3>Informations generales</h3> 
       </div>
       <ul> 
-          <li> ${description.lastName}   </li>
-          <li> ${description.frrstName}  </li>
+          <li> ${description.lastname}   </li>
+          <li> ${description.firstname}  </li>
           <li> ${description.birth_date} </li>
-          <li>${description.tel}</li>
+          <li>${description.tel}    </li>
         </ul>
     `
     ;
@@ -94,7 +104,7 @@ function renderMasteredlanguageDev(listMasteredlanguages) {
             <h3>Compétences </h3>
         </div>
         <ul>
-       ${listMasteredlanguages.language}  
+       ${listMasteredlanguages}  
        </ul>
       </div>
     </div>
@@ -108,10 +118,9 @@ function listMasteredlanguage(listLanguage){
 
   let listMasteredlanguag = '';
 
-  listLanguage?.forEach((language) => {
     listMasteredlanguag += `
-      <li>${language.title}</li>`;
-  });
+      <li>${listLanguage.language}</li>`;
+  
 
   return listMasteredlanguag;
 
