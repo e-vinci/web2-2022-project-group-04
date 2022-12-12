@@ -20,8 +20,8 @@ router.post('/addToInterstedDev', async (req, res) => {
   const idDeveloper = req?.body?.idDeveloper;
   const idOffer = req?.body?.idOffer;
 
-  await addToIntersted(idDeveloper, idOffer);
-  res.json([{ id_dev: idDeveloper }, { id_offer: idOffer }]);
+  await addToIntersted({idDeveloper, idOffer});
+  res.json({ id_dev: idDeveloper , id_offer: idOffer });
 });
 
 router.get('/allJobOfferFromCompany/:idCompany', async (req, res) => {

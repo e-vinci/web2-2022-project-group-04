@@ -16,11 +16,11 @@ const getAllOffers =()=> new Promise((resolve, reject) => {
     })
 })
 
-const addToIntersted = async( idOffer , idDeveloper) => {
+const addToIntersted = async( data) => {
 
     const insert = `insert into webproject.matches(job_offer, developer) values ($1,$2) `
 
-    client.query(insert,[idOffer,idDeveloper],(err,result)=>{
+    client.query(insert,[data.idOffer,data.idDeveloper],(err,result)=>{
         if (err) {
             console.log(err.message);
             
