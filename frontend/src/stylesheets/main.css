@@ -1,4 +1,4 @@
-.container{
+#containerHomePage{
     padding-top: 10%;
     padding-bottom: 15%;
     height: 100%;
@@ -52,6 +52,9 @@ main{
     opacity: 0.8;
 }
 
+h3 {
+    color: rgb(215, 215, 215);
+}
 #contreg{
     background-image: url(../img/registerimg.jpg);
     padding-top: 10%;

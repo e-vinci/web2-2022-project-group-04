@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const renderHomePage = () => {
   const main = document.querySelector('main');
   main.innerHTML = `<div class="homePageDiv">
-                      <div class="container">
+                      <div id="containerHomePage" class="container">
                         <div class="text-center">
                            <h1 class="block-title">Facilitez vous la vie,<br> 
     trouvez un job avec DevJob</h1>

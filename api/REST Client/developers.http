@@ -8,17 +8,17 @@ GET {{baseUrl}}/developers/login/brahim.abid@student.vinci.be
 
 
 ### login test 
-GET {{baseUrl}}/developers/login
+POST {{baseUrl}}/developers/login
 Content-Type: application/json
 
 {
-    "mail":"brahim.abid@student.vinci.be",
-    "password":"password"
+    "mail":"f.m@gmail.com",
+    "password":"123"
 }
 
 
 ### Read developers register
-GET {{baseUrl}}/developers/registerDev
+POST {{baseUrl}}/developers/registerDev
 Content-Type: application/json
 
 {
