@@ -59,9 +59,11 @@ const getDevByMail = (mail) =>
   
     const passwordMatch =  await bcrypt.compare(password, userFound.password);
     if (!passwordMatch) return undefined;
+
+    const id = userFound.id_developer;
   
     const token = jwt.sign(
-      { mail }, // session data added to the payload (payload : part 2 of a JWT)
+      { id }, // session data added to the payload (payload : part 2 of a JWT)
       jwtSecret, // secret used for the signature (signature part 3 of a JWT)
       { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
     );

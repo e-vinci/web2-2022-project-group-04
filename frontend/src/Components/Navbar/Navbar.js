@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import { Navbar as BootstrapNavbar } from 'bootstrap';
-import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
+import { isAuthenticated } from '../../utils/auths';
 
 /**
  * Render the Navbar which is styled by using Bootstrap
@@ -10,7 +10,6 @@ import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
  */
 
 const Navbar = () => {
-  const user = getAuthenticatedUser();
   const navbarWrapper = document.querySelector('#navbarWrapper');
   const anonymousUserNavbar = `
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
