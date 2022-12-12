@@ -20,8 +20,7 @@ const getAllDevelopers = async () =>
     dev.firstname,
     dev.mail,
     dev.birth_date,
-    dev.tel,
-    tof.name AS offer_required
+    dev.tel
     FROM webproject.developers dev,
     webproject.type_offers tof
     WHERE dev.type_offer_required= tof.id_type_offer`,
@@ -55,6 +54,7 @@ const getDevByMail = (mail) =>
 
 
   async function login(mail, password) {
+    console.log("aaaaaaaaaaaaaaa")
     const userFound = await getDevByMail(mail);
     if (!userFound) return undefined;
   

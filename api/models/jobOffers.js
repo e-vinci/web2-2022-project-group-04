@@ -44,7 +44,7 @@ const getAllJobOffersFromCompany = async(idCompany)=> new Promise((resolve, reje
     
 })
 
-const getAllDevInterestedForOffer = async(idOffer)=> new Promise((resolve, reject) => {
+const getAllDevInterestedForOffer = async(idOffer) => new Promise((resolve, reject) => {
     const select = `SELECT d.id_developer, d.lastname, d.firstname, d.mail, d.birth_date, d.tel, t.type_offer
 
     FROM webproject.matches m

@@ -22,7 +22,8 @@ router.get('/login/:mail', async (req, res) => {
 
 
 /* Login a user */
-router.get('/login', async (req, res) => {
+router.post('/login', async (req, res) => {
+  console.log("aaaa")
   const mail = req?.body?.mail?.length !== 0 ? req.body.mail : undefined;
   const password = req?.body?.password?.length !== 0 ? req.body.password : undefined;
 
@@ -32,7 +33,9 @@ router.get('/login', async (req, res) => {
 
   if (!authenticatedUser) return res.sendStatus(401); // 401 Unauthorized
 
-  return authenticatedUser;
+  createCookieSessionData(req, authenticatedUser);
+
+  return res.json([{"id" :authenticatedUser}]);
 });
 
 
@@ -52,6 +55,8 @@ router.post('/registerDev', async (req, res) => {
   const authenticatedUser = await registerDev(lastname, firstname, email, password, date, phone, typeOffer);
 
   if (!authenticatedUser) return res.sendStatus(409); // 409 Conflict
+
+  createCookieSessionData(req, authenticatedUser);
 
   return res.json([{"id" :authenticatedUser}, {"email" :email}]);
 });
