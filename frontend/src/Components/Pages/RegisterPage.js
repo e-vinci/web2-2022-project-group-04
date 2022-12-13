@@ -99,7 +99,7 @@ Entreprise
 function renderRegisterFormCompaniesPageAsString() {
   return `<div class="container-fluid 
    row justify-content-evenly">
-  <div class="col-6 text-center bg-light   " id="clickForFormDev">
+  <div class="col-6 text-center bg-light" id="clickForFormDev">
  Développeur
 </div>
 <div class="col-6 text-center bg-secondary text-white" id="clickForFormCompanie">
@@ -108,13 +108,13 @@ Entreprise
   </div>
 
 
-  <form id="registerFormDevelopper" class="white p-3 container">
+  <form id="registerFormCompanie" class="white p-3 container">
   <div class="form-group">
     <label for="Nom">Nom Entreprise</label>
     <input
       type="text"
       class="form-control"
-      id="idNom"
+      id="idNameCampanie"
       aria-describedby="lastNameHelp"
       placeholder="Entrez votre nom d'entreprise"
     />
@@ -226,6 +226,46 @@ const renderRegisterFormCompaniesPage = () => {
   clearPage();
 
   main.innerHTML += renderRegisterFormCompaniesPageAsString();
+  const form = document.getElementById('registerFormCompanie');
+  async function onRegisterCompanie(e) {
+    e.preventDefault();
+    const nameCompany = document.getElementById('idNameCampanie').value;
+    const mail = document.getElementById('idEmail').value;
+    const adress = document.getElementById('idAdress').value;
+    const description = document.getElementById('idDescription').value;
+    const password = document.getElementById('idPassword').value;
+
+    const options = {
+      method: 'POST',
+      body: JSON.stringify({
+        company_name : nameCompany ,
+        description,
+        adress,
+        mail,
+        password
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    // eslint-disable-next-line no-console
+    console.log(options);
+    const response = await fetch('/api/compagnies/register', options);
+
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+    const authenticatedUser = await response.json();
+
+    // eslint-disable-next-line no-console
+    console.log('Newly registered & authenticated user : ', authenticatedUser);
+
+    setAuthenticatedUser(authenticatedUser);
+
+    Navbar();
+
+    Navigate('/');
+  }
+  form.addEventListener('submit', onRegisterCompanie);
   attachListeners();
 };
 

@@ -14,7 +14,7 @@ Content-Type: application/json
     "company_name": "Embie",
     "description": "DESCRIPTION ..........",
     "adress" : "rue ........",
-    "mail" : "mail@gmail.com",
+    "mail" : "mail@gmaila.com",
     "password": "motdepasse123456789"    
 }
 
