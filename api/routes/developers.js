@@ -1,5 +1,6 @@
 const express = require('express');
-const { getAllDevelopers, getDevByMail, registerDev, login,getProfilDevById ,getmasteredLanguageByIdDev } = require('../models/developers');
+const { getAllDevelopers, getDevByMail, registerDev, login,getProfilDevById ,
+  getmasteredLanguageByIdDev,insertNewProgramtionLanguage,getAllLanguages } = require('../models/developers');
 
 const router = express.Router();
 
@@ -23,10 +24,6 @@ router.get('/login/:mail', async (req, res) => {
 
 /* Login a user */
 router.post('/login', async (req, res) => {
-<<<<<<< HEAD
-  
-=======
->>>>>>> e314bc54f8e94a34b9873dc37d9fcdca55c6b0d4
   const mail = req?.body?.mail?.length !== 0 ? req.body.mail : undefined;
   const password = req?.body?.password?.length !== 0 ? req.body.password : undefined;
 
@@ -35,11 +32,6 @@ router.post('/login', async (req, res) => {
   const authenticatedUser = await login(mail, password);
 
   if (!authenticatedUser) return res.sendStatus(401); // 401 Unauthorized
-
-<<<<<<< HEAD
-
-=======
->>>>>>> e314bc54f8e94a34b9873dc37d9fcdca55c6b0d4
 
   return res.json({"id" :authenticatedUser});
 });
@@ -62,11 +54,6 @@ router.post('/registerDev', async (req, res) => {
 
   if (!authenticatedUser) return res.sendStatus(409); // 409 Conflict
 
-<<<<<<< HEAD
-  
-=======
->>>>>>> e314bc54f8e94a34b9873dc37d9fcdca55c6b0d4
-
   return res.json([{"id" :authenticatedUser}, {"email" :email}]);
 });
 
@@ -84,15 +71,35 @@ router.get('/profileDev/:id', async (req, res) => {
 router.get('/masteredLanguageDev/:id', async (req, res) => {
   
   const infoFound = await getmasteredLanguageByIdDev(req.params.id);
-  console.log("passe");
 
   if(!infoFound ) {
-    console.log(" langauge de programation non trouve")
-    return undefined;
+    return res.sendStatus(404);
   }
 
   return res.json(infoFound);
 });
+
+router.get('/getAllLanguages', async (req, res) => {
+  
+  const infoFound = await getAllLanguages();
+
+  if(!infoFound ) {
+    return res.sendStatus(404);
+  }
+  
+  return res.json(infoFound);
+});
+
+router.post('/addLanguageProgramation', async (req, res) => {
+  const LanguageProgramation = req?.body?.lastname?.length !== 0 ? req.body.lastname : undefined;
+
+  if (!LanguageProgramation ) return res.sendStatus(400); // 400 Bad Request
+  const idLanguage =insertNewProgramtionLanguage(LanguageProgramation);
+
+  return res.json({"id : " : idLanguage});
+});
+
+
 
 
 module.exports = router;

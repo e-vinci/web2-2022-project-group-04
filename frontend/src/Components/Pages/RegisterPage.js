@@ -3,6 +3,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { clearPage} from '../../utils/render';
 import { setAuthenticatedUser } from '../../utils/auths';
+// eslint-disable-next-line import/no-named-as-default, import/no-named-as-default-member
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 
@@ -84,13 +85,6 @@ Entreprise
                                     
                                     </select>
                             </div>
-<<<<<<< HEAD
-                            <button id="register" type="submit" class="btn btn-primary">S'enregistrer</button>
-                            </form>
-                            </div></div>
-                            `
-                            ;
-=======
  <div class="form-check">
    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
    <label class="form-check-label" for="exampleCheck1"
@@ -113,7 +107,6 @@ function renderRegisterFormCompaniesPageAsString() {
 Entreprise
 </div>
   </div>
->>>>>>> e314bc54f8e94a34b9873dc37d9fcdca55c6b0d4
 
 
   <form id="registerFormDevelopper" class="white p-3 container">
