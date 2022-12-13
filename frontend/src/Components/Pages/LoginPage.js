@@ -1,5 +1,5 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
-import { setAuthenticatedUser } from '../../utils/auths';
+import { setAuthenticatedUser, isDev } from '../../utils/auths';
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 
@@ -82,7 +82,15 @@ const LoginPage = () => {
   
     Navbar();
   
-    Navigate('/devPage');
+
+    console.log(isDev());
+    if(isDev()){
+      Navigate('/devPage');
+    }else{
+      Navigate('/companyPage');
+    }
+
+    
   }
 
 

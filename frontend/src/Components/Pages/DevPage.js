@@ -20,7 +20,7 @@ const developerPage = () => {
 
 async function getDescriptionDev() {
   try {
-    const idUser=getAuthenticatedUser().id.id;
+    const idUser=getAuthenticatedUser().id;
     const response = await fetch(`/api/developers/profileDev/${idUser}`);
     
     if (!response.ok){
@@ -38,7 +38,7 @@ async function getDescriptionDev() {
 
 async function getmasteredLanguageByIdDev() {
   try {
-    const idUser=getAuthenticatedUser().id.id;
+    const idUser=getAuthenticatedUser().id;
     let response = await fetch(`/api/developers/masteredLanguageDev/${idUser}`);
 
     if (!response.ok){

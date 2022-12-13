@@ -43,12 +43,9 @@ const getDevByMail = (mail) =>
       if (err) {
         reject(err.message);
         console.log(err.message);
-      } else if (result.rowCount !== 0) {
+      } else  {
           resolve(result.rows[0]);
-        } else {
-          console.log('User not found');
-          
-        }
+        } 
     });
   });
 
@@ -63,7 +60,7 @@ const getCompagnyByMail = (mail) =>
       } else if (result.rowCount !== 0) {
           resolve(result.rows[0]);
         } else {
-          console.log('User not found');
+          console.log('Compagny not found');
           
         }
     });
@@ -111,18 +108,25 @@ const getCompagnyByMail = (mail) =>
   async function login(mail, password) {
 
     let isDev = true;
-
-    const userFound = await getDevByMail(mail);
+    let id;
+    let userFound = await getDevByMail(mail);
+    
     if (!userFound) {
       userFound = await getCompagnyByMail(mail);
       isDev = false;
     }
     if (!userFound) return undefined;
 
+    if(isDev){
+      id = userFound.id_developer;
+    }else{
+      id = userFound.id_company;
+    }
+
     const passwordMatch =  await bcrypt.compare(password, userFound.password);
     if (!passwordMatch) return undefined;
 
-    const id = userFound.id_developer;
+    
   
     const token = jwt.sign(
       { id }, // session data added to the payload (payload : part 2 of a JWT)
