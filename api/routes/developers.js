@@ -33,7 +33,8 @@ router.post('/login', async (req, res) => {
 
   if (!authenticatedUser) return res.sendStatus(401); // 401 Unauthorized
 
-  return res.json({"id" :authenticatedUser});
+
+  return res.json(authenticatedUser);
 });
 
 

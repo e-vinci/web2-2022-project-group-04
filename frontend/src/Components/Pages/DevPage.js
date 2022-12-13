@@ -21,7 +21,7 @@ const developerPage = () => {
 
 async function getDescriptionDev() {
   try {
-    const idUser=getAuthenticatedUser().id.id;
+    const idUser=getAuthenticatedUser().id;
     const response = await fetch(`/api/developers/profileDev/${idUser}`);
     
     if (!response.ok){
@@ -38,8 +38,8 @@ async function getDescriptionDev() {
 }
 
 async function getmasteredLanguageByIdDev(listLanguages) {
-  
-    const idUser=getAuthenticatedUser().id.id;
+
+    const idUser=getAuthenticatedUser().id;
     const response = await fetch(`/api/developers/masteredLanguageDev/${idUser}`);
 
     if (!response.ok) return masterLanguages(undefined);
@@ -51,7 +51,8 @@ async function getmasteredLanguageByIdDev(listLanguages) {
 
     // eslint-disable-next-line no-console
     return masterLanguages(description,listLanguages2);
-  } 
+  
+}
 
   async function getAllLanguages() {
     try {

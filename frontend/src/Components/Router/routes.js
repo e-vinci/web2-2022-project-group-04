@@ -1,24 +1,27 @@
 import HomePage from '../Pages/HomePage';
 import NewPage from '../Pages/NewPage';
 import LoginPage from '../Pages/LoginPage';
-import RegisterPage from '../Pages/RegisterPage';
+import RegisterFormPage from '../Pages/RegisterPage';
 import HomePageDev from '../Pages/HomePageDev';
 import DevPage from '../Pages/DevPage';
 import CreateOfferFormPage from '../Pages/CreateOfferFormPage';
 import CompanyPage from '../Pages/CompanyPage';
 import Logout from '../Logout/Logout';
+import HomePageComany from '../Pages/HomePageCompany'
+import Swipe from '../Pages/Swipe';
 
 const routes = {
   '/': HomePage,
   '/login': LoginPage,
   '/new': NewPage,
-  '/register' : RegisterPage,
+  '/register' : RegisterFormPage,
   '/jobOffers' : HomePageDev,
   '/devPage'  : DevPage,
   '/createOfferPage' : CreateOfferFormPage,
   '/companyPage' : CompanyPage,
-  '/logout': Logout
-
+  '/logout': Logout,
+  '/homePageCompany' : HomePageComany,
+  '/swipe' : Swipe
  };
 
 export default routes;
