@@ -1,6 +1,7 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
 import { getAuthenticatedUser } from '../../utils/auths';
 
+
 const developerPage = () => {
   clearPage();
   renderPageTitle('Dev Page');
@@ -10,17 +11,17 @@ const developerPage = () => {
  async function renderDevPage() {
   
   const descriptionDev= await getDescriptionDev();
-  const masteredLanguagesDev= await getmasteredLanguageByIdDev();
+  const listLanguages = await getAllLanguages();
+  const masteredLanguagesDev= await getmasteredLanguageByIdDev(listLanguages);
 
 
   const main = document.querySelector('main');
-  main.innerHTML += descriptionDev;
-  main.innerHTML += masteredLanguagesDev;
+  main.innerHTML = descriptionDev+ masteredLanguagesDev;
 }
 
 async function getDescriptionDev() {
   try {
-    const idUser=getAuthenticatedUser().id.id;
+    const idUser=getAuthenticatedUser().id;
     const response = await fetch(`/api/developers/profileDev/${idUser}`);
     
     if (!response.ok){
@@ -36,29 +37,59 @@ async function getDescriptionDev() {
   }
 }
 
-async function getmasteredLanguageByIdDev() {
-  try {
-    const idUser=getAuthenticatedUser().id.id;
-    let response = await fetch(`/api/developers/masteredLanguageDev/${idUser}`);
-    console.log("ici2")
+async function getmasteredLanguageByIdDev(listLanguages) {
 
-    if (!response.ok){
-     throw new Error('fetch error : ', response.status, response.statusText);
-    }
+    const idUser=getAuthenticatedUser().id;
+    const response = await fetch(`/api/developers/masteredLanguageDev/${idUser}`);
 
-    if(!response)
-      response=undefined;
+    if (!response.ok) return masterLanguages(undefined);
 
+    console.log(1 + listLanguages);
+    const listLanguages2 = await listLanguages;
     const description = await response.json();
+    console.log(2 + listLanguages2);
 
     // eslint-disable-next-line no-console
-    return masterLanguages(description);
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('CompanyPageDev  error: ', error);
-    throw error;
-  }
+    return masterLanguages(description,listLanguages2);
+  
 }
+
+  async function getAllLanguages() {
+    try {
+
+      const response = await fetch(`/api/developers/getAllLanguages`);
+      
+      if (!response.ok){
+       throw new Error('fetch error : ', response.status, response.statusText);
+      }
+      const description = await response.json();
+      // eslint-disable-next-line no-console
+      return renderAlllanguages(description);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('ALl languages in devPage  error: ', error);
+      throw error;
+    }
+  }
+
+function renderAlllanguages(listLanguages){
+
+  listLanguages?.forEach((language) => { const list =  `
+  
+  <div class="form-group">
+                                <label for="">Type d'offre</label>
+                                <select id="idOffer">
+                                <option value="${language.id_language}">${language.language}</option>
+                                    </select>
+                            </div>
+    `;
+
+  
+return list;
+});
+
+}
+
 
  function renderDescription(description) {
 
@@ -68,9 +99,9 @@ async function getmasteredLanguageByIdDev() {
   return descriptionDev;
 }
 
-function masterLanguages(languages) {
+function masterLanguages(languages,listLanguages) {
 
-  const masteredLanguagesDev =  renderMasteredlanguageDev(listMasteredlanguage(languages));
+  const masteredLanguagesDev =  renderMasteredlanguageDev(listMasteredlanguage(languages),listLanguages);
 
   return masteredLanguagesDev;
 }
@@ -106,7 +137,10 @@ function masterLanguages(languages) {
   return descriptionString;
 }
 
-function renderMasteredlanguageDev(listMasteredlanguages) {
+function renderMasteredlanguageDev(listMasteredlanguages,listLanguages) {
+
+
+
   const descriptionString = `
   
   <div class="container-sm py-2 px-4 mx-5 mt-4 mb-2 w-50 rounded-3   bg-secondary">
@@ -115,25 +149,39 @@ function renderMasteredlanguageDev(listMasteredlanguages) {
         <ul>
        ${listMasteredlanguages}  
        </ul>
+        ${listLanguages}
+       <form>
+       <input type="text" id="inputLP" value="Inserez un langugae de programmation que vous maitrisez"><br>
+       <input type="submit" value="Submit">
+     </form> 
+
       </div>
     </div>
-  </div>`;
+
+  </div>
+  
+
+  
+  `;
           
   return descriptionString;
 }
 
-
 function listMasteredlanguage(listLanguage){
 
+
+  if(!listLanguage){
+    return  `<li>Vous n'avez aucune compétence en informatique</li>`
+  }
   let listMasteredlanguag = '';
 
     listMasteredlanguag += `
       <li>${listLanguage.language}</li>`;
   
-
   return listMasteredlanguag;
 
 }
+
 
 
 export default developerPage;

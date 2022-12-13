@@ -4,14 +4,14 @@
 GET {{baseUrl}}/compagnies
 
 ### Read company with id 1
-GET {{baseUrl}}/compagnies/1
+GET {{baseUrl}}/compagnies/4
 
 ### Register Company
 POST {{baseUrl}}/compagnies/register
 Content-Type: application/json
 
 {
-    "company_name": "Embie",
+    "company_name": "Carrefour",
     "description": "DESCRIPTION ..........",
     "adress" : "rue ........",
     "mail" : "mail@gmaila.com",
