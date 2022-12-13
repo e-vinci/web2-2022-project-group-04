@@ -10,8 +10,6 @@ const developerPage = () => {
 };
 
  async function renderDevPage() {
-
-
   const descriptionDev= await getDescriptionDev();
   const masteredLanguagesDev= await getmasteredLanguageByIdDevandGetAllLanguages();
 
@@ -89,7 +87,7 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
   <div class="row">
     <div class="col-lg-3 rounded-4 bg-light mx-2">
       <div class="d-flex justify-content-center my-5 py-2 bg-">
-        <img src="frontend/src/img/Carré_rouge.png alt="" class="img-thumbnail">
+        <img src="frontend/src/img/profil.png"  class="img-thumbnail">
       </div>
     </div>
     <div class="col rounded-4 bg-light mx-2">
@@ -207,7 +205,7 @@ async function addLangageEvent(e){
     },
   };
 
-  const response = await fetch('/api/developers/addLanguageProgramation', options);
+  const response = await fetch('/api/developers/addLanguageProgramationToDev', options);
 
   if (!response.ok){
    throw new Error(`fetch error : ${response.status} : ${response.statusText}`);

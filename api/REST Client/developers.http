@@ -53,7 +53,7 @@ GET {{baseUrl}}/developers/getAllLanguages
 
 ### Read devlopper master languages by id
 
-POST  {{baseUrl}}/developers/addLanguageProgramation
+POST  {{baseUrl}}/developers/addLanguageProgramationToDev
 Content-Type: application/json
 
 {

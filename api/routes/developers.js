@@ -91,7 +91,7 @@ router.get('/getAllLanguages', async (req, res) => {
   return res.json(infoFound);
 });
 
-router.post('/addLanguageProgramation', async (req, res) => {
+router.post('/addLanguageProgramationToDev', async (req, res) => {
   const dev =  req.body.idDev ;
   const language = req.body.idLanguage;
 
