@@ -52,6 +52,23 @@ const getDevByMail = (mail) =>
     });
   });
 
+const getCompagnyByMail = (mail) =>
+  new Promise((resolve, reject) => {
+    
+    const select = `SELECT * FROM webproject.compagnies where mail = $1`;
+    client.query(select, [mail], (err, result) => {
+      if (err) {
+        reject(err.message);
+        console.log(err.message);
+      } else if (result.rowCount !== 0) {
+          resolve(result.rows[0]);
+        } else {
+          console.log('User not found');
+          
+        }
+    });
+  });
+
   const getProfilDevById = (idDev) =>
   new Promise((resolve, reject) => {
     
@@ -92,9 +109,16 @@ const getDevByMail = (mail) =>
   }
 
   async function login(mail, password) {
+
+    let isDev = true;
+
     const userFound = await getDevByMail(mail);
+    if (!userFound) {
+      userFound = await getCompagnyByMail(mail);
+      isDev = false;
+    }
     if (!userFound) return undefined;
-  
+
     const passwordMatch =  await bcrypt.compare(password, userFound.password);
     if (!passwordMatch) return undefined;
 
@@ -108,6 +132,7 @@ const getDevByMail = (mail) =>
   
     const authenticatedUser = {
       id,
+      isDev,
       token,
     };
   

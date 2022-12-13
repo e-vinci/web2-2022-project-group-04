@@ -1,5 +1,8 @@
 /* eslint-disable no-console */
 const client = require('../connection');
+const bcrypt = require('bcrypt');
+
+const saltRounds = 10;
 
 const getAllCompagnies = async () =>
   new Promise((resolve, reject) => {
@@ -33,9 +36,11 @@ const registerCompany = async (data) =>
     const insert = `insert into webproject.compagnies(company_name, description, adress, mail, password)
   VALUES ($1,$2,$3,$4,$5) RETURNING id_company`;
 
+  const hashedPassword = bcrypt.hash(data.password, saltRounds);
+
     client.query(
       insert,
-      [data.companyName, data.description, data.adress, data.mail, data.password],
+      [data.companyName, data.description, data.adress, data.mail, hashedPassword],
       (err, result) => {
         if (err) {
           reject(err.message);
