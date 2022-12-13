@@ -43,10 +43,24 @@ const getDevByMail = (mail) =>
       if (err) {
         reject(err.message);
         console.log(err.message);
+      } else  {
+          resolve(result.rows[0]);
+        } 
+    });
+  });
+
+const getCompagnyByMail = (mail) =>
+  new Promise((resolve, reject) => {
+    
+    const select = `SELECT * FROM webproject.compagnies where mail = $1`;
+    client.query(select, [mail], (err, result) => {
+      if (err) {
+        reject(err.message);
+        console.log(err.message);
       } else if (result.rowCount !== 0) {
           resolve(result.rows[0]);
         } else {
-          console.log('User not found');
+          console.log('Compagny not found');
           
         }
     });
@@ -84,7 +98,7 @@ const getDevByMail = (mail) =>
     return undefined;
       }
 
-      return res.rows[0];
+      return res.rows;
     } catch (err) {
         console.log(err.message);
     }
@@ -92,13 +106,27 @@ const getDevByMail = (mail) =>
   }
 
   async function login(mail, password) {
-    const userFound = await getDevByMail(mail);
+
+    let isDev = true;
+    let id;
+    let userFound = await getDevByMail(mail);
+    
+    if (!userFound) {
+      userFound = await getCompagnyByMail(mail);
+      isDev = false;
+    }
     if (!userFound) return undefined;
-  
+
+    if(isDev){
+      id = userFound.id_developer;
+    }else{
+      id = userFound.id_company;
+    }
+
     const passwordMatch =  await bcrypt.compare(password, userFound.password);
     if (!passwordMatch) return undefined;
 
-    const id = userFound.id_developer;
+    
   
     const token = jwt.sign(
       { id }, // session data added to the payload (payload : part 2 of a JWT)
@@ -108,6 +136,7 @@ const getDevByMail = (mail) =>
   
     const authenticatedUser = {
       id,
+      isDev,
       token,
     };
   
@@ -132,6 +161,45 @@ const getDevByMail = (mail) =>
      
   };
   
+  async function addLangageToDev(dev,language) {
+    
+    const insert = `
+    
+    INSERT INTO webproject.mastered_languages VALUES ($1,$2)
+` ;
+    ;
+    try {
+      const res = await client.query(insert, [dev,language]);
+      if(res.rowCount===0){
+        console.log("insert Lp pas effectue")
+        return undefined;
+      }
+      console.log("insert Lp effectue")
+    } catch (err) {
+        console.log(err.message);
+    }
+    return undefined;
+  }
+
+  async function getAllLanguages() {
+    
+    const select = `
+    
+    SELECT l.id_language , l.language from webproject.languages l;
+    `   ;
+    try {
+      const res = await client.query(select);
+      if(res.rowCount===0){
+        console.log("aucun languages")
+        return undefined;
+      }
+      console.log(" plusieurs languages")
+      return res.rows;
+    } catch (err) {
+        console.log(err.message);
+    }
+    return undefined;
+  }
 
 
 
@@ -141,4 +209,4 @@ const getDevByMail = (mail) =>
 
   
 
-module.exports = { getAllDevelopers, getDevByMail, registerDev, login,getProfilDevById , getmasteredLanguageByIdDev };
+module.exports = { getAllDevelopers, getDevByMail, registerDev, login,getProfilDevById , getmasteredLanguageByIdDev,addLangageToDev,getAllLanguages };

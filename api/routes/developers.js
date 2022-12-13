@@ -1,5 +1,6 @@
 const express = require('express');
-const { getAllDevelopers, getDevByMail, registerDev, login,getProfilDevById ,getmasteredLanguageByIdDev } = require('../models/developers');
+const { getAllDevelopers, getDevByMail, registerDev, login,getProfilDevById ,
+  getmasteredLanguageByIdDev,addLangageToDev,getAllLanguages } = require('../models/developers');
 
 const router = express.Router();
 
@@ -33,7 +34,7 @@ router.post('/login', async (req, res) => {
   if (!authenticatedUser) return res.sendStatus(401); // 401 Unauthorized
 
 
-  return res.json({"id" :authenticatedUser});
+  return res.json(authenticatedUser);
 });
 
 
@@ -54,7 +55,6 @@ router.post('/registerDev', async (req, res) => {
 
   if (!authenticatedUser) return res.sendStatus(409); // 409 Conflict
 
-
   return res.json([{"id" :authenticatedUser}, {"email" :email}]);
 });
 
@@ -72,15 +72,36 @@ router.get('/profileDev/:id', async (req, res) => {
 router.get('/masteredLanguageDev/:id', async (req, res) => {
   
   const infoFound = await getmasteredLanguageByIdDev(req.params.id);
-  console.log("passe");
 
   if(!infoFound ) {
-    console.log(" langauge de programation non trouve")
-    return undefined;
+    return res.sendStatus(404);
   }
 
   return res.json(infoFound);
 });
+
+router.get('/getAllLanguages', async (req, res) => {
+  
+  const infoFound = await getAllLanguages();
+
+  if(!infoFound ) {
+    return res.sendStatus(404);
+  }
+  
+  return res.json(infoFound);
+});
+
+router.post('/addLanguageProgramation', async (req, res) => {
+  const dev =  req.body.idDev ;
+  const language = req.body.idLanguage;
+
+
+  if (!dev || !language ) return res.sendStatus(400); // 400 Bad Request
+  addLangageToDev(dev,language);
+  return res.json("effectue");
+});
+
+
 
 
 module.exports = router;
