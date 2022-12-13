@@ -47,4 +47,8 @@ const registerCompany = async (data) =>
     );
   });
 
+
+  
+
+
 module.exports = { getAllCompagnies, getOneCompany , registerCompany };
