@@ -83,7 +83,6 @@ const LoginPage = () => {
     Navbar();
   
 
-    console.log(isDev());
     if(isDev()){
       Navigate('/devPage');
     }else{
