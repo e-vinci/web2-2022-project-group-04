@@ -55,10 +55,10 @@ const Navbar = () => {
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <div class="dropdown">
-                  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  <button class="btn btn-secondary dropdown-toggle mx-5" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                     Menu
                   </button>
-                  <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton1">
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <li><a class="nav-link" aria-current="page" href="" data-uri="/companyPage">Profil</a>
                     <li><a class="nav-link" aria-current="page" href="" data-uri="/createOfferPage">Créer une offre</a>
                     <li><a class="nav-link" aria-current="page" href="" data-uri="/logout">Se déconnecter</a>
