@@ -1,5 +1,6 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
-import { setAuthenticatedUser } from '../../utils/auths';
+import { setAuthenticatedUser,isDev } from '../../utils/auths';
+
 import Navbar from '../Navbar/Navbar';
 import Navigate from '../Router/Navigate';
 
