@@ -40,7 +40,6 @@ async function getmasteredLanguageByIdDev() {
   try {
     const idUser=getAuthenticatedUser().id.id;
     let response = await fetch(`/api/developers/masteredLanguageDev/${idUser}`);
-    console.log("ici2")
 
     if (!response.ok){
      throw new Error('fetch error : ', response.status, response.statusText);
