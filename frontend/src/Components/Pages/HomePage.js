@@ -73,6 +73,9 @@ const renderHomePage = () => {
   part1.addEventListener('mouseover', () => {
     part1.id = 'part1a';
   });
+  part1.addEventListener('mouseout', () => {
+    part1.id = 'part1';
+  });
   const registerButton = document.getElementById('btn-register');
   registerButton.addEventListener('click', (e) => {
     e.preventDefault();
