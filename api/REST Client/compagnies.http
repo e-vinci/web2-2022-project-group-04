@@ -14,8 +14,8 @@ Content-Type: application/json
     "company_name": "Carrefour",
     "description": "DESCRIPTION ..........",
     "adress" : "rue ........",
-    "mail" : "gb@gmail.com",
-    "password": "$2b$10$5eojzYN447x3npFQvLwTG.m5P/3ThamImtCOGs849tPMQrDZuSa5C"    
+    "mail" : "mail@gmaila.com",
+    "password": "motdepasse123456789"    
 }
 
 
