@@ -1,6 +1,7 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
 import { getAuthenticatedUser } from '../../utils/auths';
-
+import Navigate from '../Router/Navigate';
+import Navbar from '../Navbar/Navbar';
 
 const developerPage = () => {
   clearPage();
@@ -9,62 +10,63 @@ const developerPage = () => {
 };
 
  async function renderDevPage() {
-  
-  const descriptionDev= await getDescriptionDev();
-  const listLanguages = await getAllLanguages();
-  const masteredLanguagesDev= await getmasteredLanguageByIdDev(listLanguages);
 
+
+  const descriptionDev= await getDescriptionDev();
+  const masteredLanguagesDev= await getmasteredLanguageByIdDevandGetAllLanguages();
 
   const main = document.querySelector('main');
   main.innerHTML = descriptionDev+ masteredLanguagesDev;
+  const form = document.getElementById('test');
+  form.addEventListener('submit',addLangageEvent);
 }
 
 async function getDescriptionDev() {
   try {
     const idUser=getAuthenticatedUser().id;
-    const response = await fetch(`/api/developers/profileDev/${idUser}`);
+    let descriptionDev = await fetch(`/api/developers/profileDev/${idUser}`);
     
-    if (!response.ok){
-     throw new Error('fetch error : ', response.status, response.statusText);
+    if (!descriptionDev.ok){
+     throw new Error('fetch error : ', descriptionDev.status, descriptionDev.statusText);
     }
-    const description = await response.json();
+    descriptionDev = await descriptionDev.json();
     // eslint-disable-next-line no-console
-    return renderDescription(description);
+    return renderDescriptionDev(descriptionDev);
   } catch (error) {
     // eslint-disable-next-line no-console
-    console.error('CompanyPageDev  error: ', error);
+    console.error('pageDev  error: ', error);
     throw error;
   }
 }
 
-async function getmasteredLanguageByIdDev(listLanguages) {
+
+async function getmasteredLanguageByIdDevandGetAllLanguages() {
 
     const idUser=getAuthenticatedUser().id;
-    const response = await fetch(`/api/developers/masteredLanguageDev/${idUser}`);
+    let masteredLanguages = await fetch(`/api/developers/masteredLanguageDev/${idUser}`);
 
-    if (!response.ok) return masterLanguages(undefined);
+    const listLanguages = await getAllLanguages();
 
-    console.log(1 + listLanguages);
-    const listLanguages2 = await listLanguages;
-    const description = await response.json();
-    console.log(2 + listLanguages2);
+    if (!masteredLanguages.ok) return masteredLanguageByIdDevandGetAllLanguages(undefined,listLanguages);
+
+    masteredLanguages = await masteredLanguages.json();
 
     // eslint-disable-next-line no-console
-    return masterLanguages(description,listLanguages2);
+    return masteredLanguageByIdDevandGetAllLanguages(masteredLanguages,listLanguages);
   
 }
 
   async function getAllLanguages() {
     try {
 
-      const response = await fetch(`/api/developers/getAllLanguages`);
+      let allLanguages = await fetch(`/api/developers/getAllLanguages`);
       
-      if (!response.ok){
-       throw new Error('fetch error : ', response.status, response.statusText);
+      if (!allLanguages.ok){
+       throw new Error('fetch error : ', allLanguages.status, allLanguages.statusText);
       }
-      const description = await response.json();
+      allLanguages = await allLanguages.json();
       // eslint-disable-next-line no-console
-      return renderAlllanguages(description);
+      return renderAlllanguages(allLanguages);
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error('ALl languages in devPage  error: ', error);
@@ -72,43 +74,11 @@ async function getmasteredLanguageByIdDev(listLanguages) {
     }
   }
 
-function renderAlllanguages(listLanguages){
-
-  listLanguages?.forEach((language) => { const list =  `
-  
-  <div class="form-group">
-                                <label for="">Type d'offre</label>
-                                <select id="idOffer">
-                                <option value="${language.id_language}">${language.language}</option>
-                                    </select>
-                            </div>
-    `;
-
-  
-return list;
-});
-
-}
 
 
- function renderDescription(description) {
 
-  const descriptionDev =  renderGenerealsInfosDev(description);
-
-
-  return descriptionDev;
-}
-
-function masterLanguages(languages,listLanguages) {
-
-  const masteredLanguagesDev =  renderMasteredlanguageDev(listMasteredlanguage(languages),listLanguages);
-
-  return masteredLanguagesDev;
-}
-
- function renderGenerealsInfosDev(description) {
-
-  const descriptionString = `
+ function renderDescriptionDev(description) {
+  const descriptionDev =  `
   
   <div class="container mx-auto my-4 bg-white">
   <div class="row justify-content-center my-4">
@@ -127,15 +97,24 @@ function masterLanguages(languages,listLanguages) {
           <h3>Informations generales</h3> 
       </div>
       <ul> 
-          <li> ${description.lastname}   </li>
-          <li> ${description.firstname}  </li>
-          <li> ${description.birth_date} </li>
-          <li>${description.tel}    </li>
+          <li>Prénom : ${description.lastname}   </li>
+          <li>Nom : ${description.firstname}  </li>
+          <li>Date de naissance :${description.birth_date} </li>
+          <li>Numero de téléphone : ${description.tel}    </li>
         </ul>
     `
-    ;
-  return descriptionString;
+  return descriptionDev;
 }
+
+
+function masteredLanguageByIdDevandGetAllLanguages(languages,listLanguages) {
+
+  const masteredLanguagesDev =  renderMasteredlanguageDev(listMasteredlanguage(languages),listLanguages);
+
+  return masteredLanguagesDev;
+}
+
+ 
 
 function renderMasteredlanguageDev(listMasteredlanguages,listLanguages) {
 
@@ -144,17 +123,12 @@ function renderMasteredlanguageDev(listMasteredlanguages,listLanguages) {
   const descriptionString = `
   
   <div class="container-sm py-2 px-4 mx-5 mt-4 mb-2 w-50 rounded-3   bg-secondary">
-            <h3>Compétences </h3>
+            <h3>Vos langages de programmation </h3>
         </div>
         <ul>
        ${listMasteredlanguages}  
        </ul>
         ${listLanguages}
-       <form>
-       <input type="text" id="inputLP" value="Inserez un langugae de programmation que vous maitrisez"><br>
-       <input type="submit" value="Submit">
-     </form> 
-
       </div>
     </div>
 
@@ -169,19 +143,80 @@ function renderMasteredlanguageDev(listMasteredlanguages,listLanguages) {
 
 function listMasteredlanguage(listLanguage){
 
-
+console.log(listLanguage);
   if(!listLanguage){
-    return  `<li>Vous n'avez aucune compétence en informatique</li>`
+    return  `<li>Vous n'avez ajoutez aucun language de programmation</li>`
   }
+
   let listMasteredlanguag = '';
 
-    listMasteredlanguag += `
-      <li>${listLanguage.language}</li>`;
+    listLanguage?.forEach((language) => {  listMasteredlanguag  += `
+      <li>${language.language}</li>`;
   
-  return listMasteredlanguag;
+ 
 
+});
+return listMasteredlanguag;
 }
 
+function renderAlllanguages(listLanguages){
+  let list = `
+
+  <form  id="test" class="form-group">
+  <div class = "box"  >
+                                <label for="">Vous voulez ajoutez un language dans votre cv, choisisez parmis cette liste</label> <br>
+                                <select id="idLanguage">
+                                    `;
+
+listLanguages?.forEach((language) => {  list += `
+
+<option value="${language.id_language}">${language.language}</option>
+ `;  
+ });
+
+list +=  `
+
+
+
+</select>
+</div>
+<br>
+<input id="inputDevPage"  type="submit" value = "ajoutez"/>
+
+</form>
+`;
+return list;
+}
+
+
+
+async function addLangageEvent(e){
+  e.preventDefault();
+
+  const idLanguage = document.getElementById('idLanguage').value;
+  const idDev = getAuthenticatedUser().id;
+
+  const options = {
+    method: 'POST',
+    body: JSON.stringify({
+      idDev,
+      idLanguage,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const response = await fetch('/api/developers/addLanguageProgramation', options);
+
+  if (!response.ok){
+   throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+  }
+
+  Navbar();
+  Navigate('/devPage');
+  window.location.reload()
+}
 
 
 export default developerPage;

@@ -1,6 +1,6 @@
 const express = require('express');
 const { getAllDevelopers, getDevByMail, registerDev, login,getProfilDevById ,
-  getmasteredLanguageByIdDev,insertNewProgramtionLanguage,getAllLanguages } = require('../models/developers');
+  getmasteredLanguageByIdDev,addLangageToDev,getAllLanguages } = require('../models/developers');
 
 const router = express.Router();
 
@@ -92,12 +92,13 @@ router.get('/getAllLanguages', async (req, res) => {
 });
 
 router.post('/addLanguageProgramation', async (req, res) => {
-  const LanguageProgramation = req?.body?.lastname?.length !== 0 ? req.body.lastname : undefined;
+  const dev =  req.body.idDev ;
+  const language = req.body.idLanguage;
 
-  if (!LanguageProgramation ) return res.sendStatus(400); // 400 Bad Request
-  const idLanguage =insertNewProgramtionLanguage(LanguageProgramation);
 
-  return res.json({"id : " : idLanguage});
+  if (!dev || !language ) return res.sendStatus(400); // 400 Bad Request
+  addLangageToDev(dev,language);
+  return res.json("effectue");
 });
 
 

@@ -98,7 +98,7 @@ const getCompagnyByMail = (mail) =>
     return undefined;
       }
 
-      return res.rows[0];
+      return res.rows;
     } catch (err) {
         console.log(err.message);
     }
@@ -161,22 +161,20 @@ const getCompagnyByMail = (mail) =>
      
   };
   
-  async function insertNewProgramtionLanguage(language) {
+  async function addLangageToDev(dev,language) {
     
     const insert = `
     
-    INSERT INTO webproject.languages VALUES (default,?)  RETURNING id_language;
-    
-` 
+    INSERT INTO webproject.mastered_languages VALUES ($1,$2)
+` ;
     ;
     try {
-      const res = await client.query(insert, [language]);
+      const res = await client.query(insert, [dev,language]);
       if(res.rowCount===0){
         console.log("insert Lp pas effectue")
         return undefined;
       }
       console.log("insert Lp effectue")
-      return res.rows[0];
     } catch (err) {
         console.log(err.message);
     }
@@ -187,7 +185,7 @@ const getCompagnyByMail = (mail) =>
     
     const select = `
     
-    SELECT l.id_language, l.language from webproject.languages l;
+    SELECT l.id_language , l.language from webproject.languages l;
     `   ;
     try {
       const res = await client.query(select);
@@ -211,4 +209,4 @@ const getCompagnyByMail = (mail) =>
 
   
 
-module.exports = { getAllDevelopers, getDevByMail, registerDev, login,getProfilDevById , getmasteredLanguageByIdDev,insertNewProgramtionLanguage,getAllLanguages };
+module.exports = { getAllDevelopers, getDevByMail, registerDev, login,getProfilDevById , getmasteredLanguageByIdDev,addLangageToDev,getAllLanguages };

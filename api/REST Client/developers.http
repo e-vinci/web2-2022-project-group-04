@@ -38,7 +38,7 @@ Content-Type: application/json
 
 {
     "email":"brahim.abid@student.vinci.be",
-    "password":"password",
+    "password":"password"
  
 }
 
@@ -50,3 +50,14 @@ GET {{baseUrl}}/developers/masteredLanguageDev/5
 
 ### Read devlopper master languages by id
 GET {{baseUrl}}/developers/getAllLanguages
+
+### Read devlopper master languages by id
+
+POST  {{baseUrl}}/developers/addLanguageProgramation
+Content-Type: application/json
+
+{
+    "idDev":"5",
+    "idLanguage":"3"
+ 
+}
