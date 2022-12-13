@@ -47,3 +47,6 @@ GET {{baseUrl}}/developers/profileDev/5
 
 ### Read devlopper master languages by id
 GET {{baseUrl}}/developers/masteredLanguageDev/5
+
+### Read devlopper master languages by id
+GET {{baseUrl}}/developers/getAllLanguages
