@@ -55,7 +55,7 @@ router.post('/registerDev', async (req, res) => {
 
   if (!authenticatedUser) return res.sendStatus(409); // 409 Conflict
 
-  return res.json([{"id" :authenticatedUser}, {"email" :email}]);
+  return res.json(authenticatedUser);
 });
 
 

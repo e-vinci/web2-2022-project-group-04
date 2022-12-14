@@ -15,7 +15,7 @@ module.exports = {
   devtool: 'eval-source-map',
   devServer: {
     static: {
-      directory: path.join(__dirname, 'dist')
+      directory: path.join(__dirname, 'dist'),
     },
     port: 8080,
     host: 'localhost',
@@ -37,6 +37,7 @@ module.exports = {
         use: ['style-loader', 'css-loader'],
       },
 
+
       // emits a separate file and exports the URLs => works for import in JS and url in CSS
       // default condition: a file with size less than 8kb will be treated as a inline
       // module type and resource module type otherwise
@@ -53,6 +54,8 @@ module.exports = {
 
       // in html file, emits files in output directory
       // and replace the src with the final path (to deal with svg, img...)
+      
+    
       {
         test: /\.html$/i,
         loader: 'html-loader',
