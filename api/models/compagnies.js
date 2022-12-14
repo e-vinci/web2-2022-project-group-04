@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
-const client = require('../connection');
 const bcrypt = require('bcrypt');
+const client = require('../connection');
+
 
 const saltRounds = 10;
 

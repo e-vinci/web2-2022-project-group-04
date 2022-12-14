@@ -74,7 +74,7 @@ const renderHomePage = () => {
     part1.id = 'part1a';
   });
   part1.addEventListener('mouseout', () => {
-    part1.id = 'part1';
+    part1.id = 'part';
   });
   const registerButton = document.getElementById('btn-register');
   registerButton.addEventListener('click', (e) => {
