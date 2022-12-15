@@ -1,15 +1,21 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
-import { getAuthenticatedUser } from '../../utils/auths';
+import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
 import Navigate from '../Router/Navigate';
 import Navbar from '../Navbar/Navbar';
 
 const developerPage = () => {
   clearPage();
   renderPageTitle('Dev Page');
-  renderDevPage();
+  if(isAuthenticated()){
+    renderDevPage();
+  }else{
+    Navigate('/');
+  }
+  
 };
 
  async function renderDevPage() {
+
   const descriptionDev= await getDescriptionDev();
   const masteredLanguagesDev= await getmasteredLanguageByIdDevandGetAllLanguages();
 
@@ -22,7 +28,15 @@ const developerPage = () => {
 async function getDescriptionDev() {
   try {
     const idUser=getAuthenticatedUser().id;
-    let descriptionDev = await fetch(`/api/developers/profileDev/${idUser}`);
+    const { token } = getAuthenticatedUser();
+    const options = {
+      headers: {
+        authorization: token
+      }
+      
+    }
+
+    let descriptionDev = await fetch(`/api/developers/profileDev/${idUser}`, options);
     
     if (!descriptionDev.ok){
      throw new Error('fetch error : ', descriptionDev.status, descriptionDev.statusText);
@@ -41,7 +55,15 @@ async function getDescriptionDev() {
 async function getmasteredLanguageByIdDevandGetAllLanguages() {
 
     const idUser=getAuthenticatedUser().id;
-    let masteredLanguages = await fetch(`/api/developers/masteredLanguageDev/${idUser}`);
+    const { token } = getAuthenticatedUser();
+    const options = {
+      headers: {
+        authorization: token
+      }
+      
+    }
+
+    let masteredLanguages = await fetch(`/api/developers/masteredLanguageDev/${idUser}`, options);
 
     const listLanguages = await getAllLanguages();
 
@@ -193,7 +215,8 @@ async function addLangageEvent(e){
 
   const idLanguage = document.getElementById('idLanguage').value;
   const idDev = getAuthenticatedUser().id;
-
+  const { token } = getAuthenticatedUser();
+   
   const options = {
     method: 'POST',
     body: JSON.stringify({
@@ -202,6 +225,7 @@ async function addLangageEvent(e){
     }),
     headers: {
       'Content-Type': 'application/json',
+      authorization: token
     },
   };
 
