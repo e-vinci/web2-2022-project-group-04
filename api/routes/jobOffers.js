@@ -93,7 +93,11 @@ router.get('/getLanguageRequired/:idOffer', async (req, res) => {
   const languageRequired = await getLanguageRequired(offer);
 
   if (languageRequired === undefined) {
-    return res.json('aucun langage');
+    return res.json([
+      {
+        language: "Aucun language"
+      }
+    ]);
   }
 
   return res.json(languageRequired);

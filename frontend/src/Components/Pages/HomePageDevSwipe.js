@@ -1,36 +1,41 @@
-import Swiper, { Navigation, Pagination, Keyboard } from 'swiper';
+import Swiper, { Navigation, Pagination , Keyboard   } from 'swiper';
 import { clearPage, renderPageTitle } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // core version + navigation, pagination modules:
 
-
 // configure Swiper to use modules
-Swiper.use([Navigation, Pagination, Keyboard]);
+Swiper.use([Navigation, Pagination  , Keyboard ]);
+// d'abbord afficher les offres avant d'executer le script
 
-
-const SwipePage = async() => {
-  clearPage();
+const SwipePage = async () => {
+ 
   renderPageTitle('Offres');
   const AllOffers = await getAllOffersFromAPI();
-  renderSwipePage(AllOffers);
-
+  await renderSwipePage(AllOffers);
+  
   // renderAllOffers(AllOffers);
-
 };
 
-async function renderSwipePage(AllOffers){
-const head = document.querySelector('head');
-const foot = document.querySelector('footer');
-head.innerHTML += `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>`;
-foot.innerHTML += `<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>`;
-foot.innerHTML += ``;
-const main = document.querySelector('main');
-main.innerHTML += `<!-- Slider main container -->
-<div class="swiper">
+async function renderSwipePage(AllOffers) {
+  try {
+    const head = document.querySelector('head');
+    const foot = document.querySelector('footer');
+    head.innerHTML += `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>`;
+    foot.innerHTML += `<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>`;
+    foot.innerHTML += ``;
+    const main = document.querySelector('main');
+    const allJobOfferFromCompany = await renderAllJobOffersAsString(AllOffers);
+   
+    console.log(
+      'TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT',
+      allJobOfferFromCompany,
+    );
+    main.innerHTML += `<!-- Slider main container -->
+  <div class="swiper">
   <!-- Additional required wrapper -->
   <div class="swiper-wrapper">
     <!-- Slides -->
-    ${await renderAllJobOffersAsString(AllOffers)}
+    ${allJobOfferFromCompany}
   </div>
   <!-- If we need pagination -->
   <div class="swiper-pagination"></div>
@@ -41,49 +46,47 @@ main.innerHTML += `<!-- Slider main container -->
 
   <!-- If we need scrollbar -->
   <div class="swiper-scrollbar"></div>
-</div>
-`
+  </div>`;
 
+    const swiper = new Swiper('.swiper', {
+      // Optional parameters
 
-// d'abbord afficher les offres avant d'executer le script
-const swiper = new Swiper('.swiper', {
-  // Optional parameters
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination',
+        // clickable : true
+      },
+       keyboard : {
+        enabled : true
+       },
+      // Navigation arrows
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
 
-  // If we need pagination
-  pagination: {
-  el: '.swiper-pagination',
-  clickable : true
-  },
-  keyboard : {
-    enabled : true
-  },
-  // Navigation arrows
-  navigation: {
-  nextEl: '.swiper-button-next',
-  prevEl: '.swiper-button-prev',
-  },
+      // And if we need scrollbar
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+    });
 
-  // And if we need scrollbar
-  scrollbar: {
-  el: '.swiper-scrollbar',
-  },
-
-});
-
-swiper();
+    swiper();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-
-
 async function renderAllJobOffersAsString(jobOffers) {
-  // eslint-disable-next-line no-unused-vars
-  // <th scope="row">${offer.description} <br> Langages requis : ${offer?.forEach((language)=>{})}</th>
-  let swiperW= document.getElementsByClassName('swiper-wrapper');
+ 
   let allOffers = ``;
-
-  jobOffers?.forEach(async (offer) => {
+ // eslint-disable-next-line no-restricted-syntax
+ for (const offer of jobOffers) {
     const date = new Date(offer.upload_date);
-    const language = await getAllLanguageFromOfferAPI(offer.id_offer);
+     // eslint-disable-next-line no-await-in-loop
+     const language = await getAllLanguageFromOfferAPI(offer.id_offer);
+     const languageString = getLanguageAsString(language);
+   //  console.log('LANGUAGE STRING', languageString);
     allOffers += ` <div class="swiper-slide ">
     <table class="table table-dark">
     <thead>
@@ -95,27 +98,24 @@ async function renderAllJobOffersAsString(jobOffers) {
 
       <th scope="row">${offer.type_offer} </th>
       <th scope="row">${offer.description}</th>
-      <th scope="row">${await getLanguageAsString(language)} </th> 
+      <th scope="row">${languageString} </th> 
     
       </table>
       
       </div>
      `;
-  });
-
-  swiperW += allOffers;
+  };
+  clearPage();
   
-  return swiperW;
+  return allOffers;
 }
 
-
 // eslint-disable-next-line no-unused-vars
-async function renderAllOffers(jobOffers) {
-  const tablesAllOffers = await renderAllJobOffersAsString(jobOffers);
+function renderAllOffers(jobOffers) {
+  const tablesAllOffers = renderAllJobOffersAsString(jobOffers);
   const main = document.querySelector('main');
   main.innerHTML += tablesAllOffers;
 }
-
 
 async function getAllOffersFromAPI() {
   try {
@@ -133,14 +133,14 @@ async function getAllOffersFromAPI() {
   }
 }
 
-async function getAllLanguageFromOfferAPI(idOffer) {
+ async function getAllLanguageFromOfferAPI(idOffer) {
   try {
     const response = await fetch(`/api/jobOffers/getLanguageRequired/${idOffer}`);
 
     if (!response.ok) throw new Error('fetch error : ', response.status, response.statusText);
 
     const languages = await response.json();
-    console.log(languages);
+    // console.log(languages);
     return languages;
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -149,15 +149,14 @@ async function getAllLanguageFromOfferAPI(idOffer) {
   }
 }
 
-async function getLanguageAsString(listLanguage) {
+function getLanguageAsString(listLanguage) {
   let languageRequired = ``;
-  listLanguage?.forEach((language) => {  languageRequired  += 
-      `<li>${language.language}</li>`;
-  })
+  listLanguage?.forEach((l) => {
+   
+    languageRequired += `<p>${l.language}</p>`;
+  });
+ 
   return languageRequired;
 }
-
-
-
 
 export default SwipePage;
