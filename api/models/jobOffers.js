@@ -91,7 +91,30 @@ const getAllTypeOffer = async()=> new Promise((resolve, reject) => {
 
     
 
+async function getMatches(idCompany) {
+    
+    const select = `SELECT d.*,t.type_offer
+    FROM webproject.matches m, 
+    webproject.developers d,
+    webproject.job_offers j,
+    webproject.type_offers t
+    where d.id_developer = m.developer
+    and j.company = $1
+    and m.job_offer = j.id_offer
+    and d.type_offer_required= t.id_type_offer` ;
+    try {
+      const res = await client.query(select, [idCompany]);
+      if(res.rowCount===0){
+        console.log("pas de matches bd")
+    return undefined;
+      }
 
+      return res.rows;
+    } catch (err) {
+        console.log(err.message);
+    }
+    return undefined;
+  }
 
 module.exports = {getAllOffers,addToIntersted,getAllJobOffersFromCompany 
-    , getAllDevInterestedForOffer , createJobOffer , getAllTypeOffer} 
+    , getAllDevInterestedForOffer , createJobOffer , getAllTypeOffer,getMatches} 

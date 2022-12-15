@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
-const client = require('../connection');
 const bcrypt = require('bcrypt');
+const client = require('../connection');
 
 const saltRounds = 10;
 
@@ -53,7 +53,9 @@ const registerCompany = async (data) =>
   });
 
 
+ 
+
   
 
 
-module.exports = { getAllCompagnies, getOneCompany , registerCompany };
+module.exports = { getAllCompagnies, getOneCompany , registerCompany, };

@@ -20,5 +20,6 @@ Content-Type: application/json
 
 
 
-
+### Read company with id 2
+GET {{baseUrl}}/compagnies/matchesCompany/1
 
