@@ -31,8 +31,11 @@ const addToIntersted = async( data) => {
 }
 
 const getAllJobOffersFromCompany = async(idCompany)=> new Promise((resolve, reject) => {
-    const select =`SELECT j.* FROM  webproject.job_offers j join webproject.compagnies c on c.id_company = j.company
-    WHERE c.id_company= $1`;
+    const select =`SELECT j.title, t.type_offer, j.description, j.upload_date
+    FROM webproject.job_offers j
+             inner join webproject.compagnies c on c.id_company = j.company
+    INNER JOIN webproject.type_offers t on t.id_type_offer = j.type_offer
+    WHERE c.id_company = $1`;
 
     client.query(select,[idCompany], (err,result)=>{
         if (err) {
