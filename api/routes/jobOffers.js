@@ -5,7 +5,10 @@ const {
   getAllJobOffersFromCompany,
   getAllDevInterestedForOffer,
   createJobOffer,
-  getAllTypeOffer
+  getAllTypeOffer,
+  getMatches,
+  getLanguageRequired
+  
 } = require('../models/jobOffers');
 
 const router = express.Router();
@@ -45,8 +48,8 @@ router.get('/allDevelopersInterstedOffer/:idOffer', async (req, res) => {
   return res.json(devsInterested);
 });
 
-router.post('/create', async (req, res) => {
-  const idCompany = req?.body?.idCompany;
+router.post('/create/:idCompany', async (req, res) => {
+  const idCompany = req?.params.idCompany;
   const typeOffer = req?.body?.typeOffer;
   const title = req?.body?.title;
   const description = req?.body?.description;
@@ -74,6 +77,28 @@ router.get('/allTypeOffer', async(req,res)=>{
   return res.json(allTypeOffer);
 })
 
+router.get('/matchesCompany/:idCompany', async (req, res) => {
+  const idCompani = req.params.idCompany;
+  const matches = await getMatches(idCompani);
+
+  if (!matches) {
+    return res.status(400);
+  }
+  console.log("il ya des matches ")
+  return res.json(matches);
+});
+
+router.get('/getLanguageRequired/:idOffer', async (req, res) => {
+  const offer= req.params.idOffer;
+  const languageRequired = await getLanguageRequired(offer);
+
+  if (languageRequired === undefined) {
+    return res.json('aucun langage');
+  }
+
+  return res.json(languageRequired);
+
+}) 
 
 
 module.exports = router;

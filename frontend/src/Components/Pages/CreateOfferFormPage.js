@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navigate from '../Router/Navigate';
+import { getAuthenticatedUser } from '../../utils/auths';
 
 const main = document.querySelector('main');
 
@@ -72,7 +73,11 @@ const renderOfferFormPage = async () => {
       },
     };
 
-    const response = await fetch('/api/jobOffers/create', options);
+    // eslint-disable-next-line camelcase
+    const idCompany = getAuthenticatedUser().id;
+
+    // eslint-disable-next-line camelcase
+    const response = await fetch(`/api/jobOffers/create/${idCompany}`, options);
 
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
 
@@ -81,7 +86,7 @@ const renderOfferFormPage = async () => {
     // eslint-disable-next-line no-console
     console.log('Newly registered offer : ', validOffer);
 
-    Navigate('/');
+    Navigate('/companyPage');
   }
 };
 

@@ -1,7 +1,10 @@
 /* eslint-disable no-console */
 const jwt = require('jsonwebtoken');
-const client = require('../connection');
 const bcrypt = require('bcrypt');
+const client = require('../connection');
+
+
+
 
 const jwtSecret = 'MatteoLeBg';
 const lifetimeJwt = 24 * 60 * 60 * 1000;
@@ -65,7 +68,9 @@ const registerCompany = async (data) =>{
   };
 
 
+ 
+
   
 
 
-module.exports = { getAllCompagnies, getOneCompany , registerCompany };
+module.exports = { getAllCompagnies, getOneCompany , registerCompany, };

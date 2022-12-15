@@ -21,6 +21,7 @@ const homePageCompany = async () => {
   }
 };
 
+
 function allOffersAsString(jobOffers) {
   let string = '<div class = "container">';
 
@@ -56,7 +57,7 @@ async function getAllJobsOfferFromCompanyFromApi(idCompany) {
   /// jobOffers/allJobOfferFromCompany/1
 
   try {
-    const response = await fetch(`/api/jobOffers/allJobOfferFromCompany/${idCompany}`);
+    const response = await fetch(`/api/jobOffers/matchesCompany/${idCompany}`);
 
     if (!response.ok) throw new Error('fetch error : ', response.status, response.statusText);
 

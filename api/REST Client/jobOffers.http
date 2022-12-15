@@ -35,3 +35,6 @@ Content-Type: application/json
 ### Read All type offer
 GET {{baseUrl}}/jobOffers/allTypeOffer
 
+### Read language_required
+GET {{baseUrl}}/jobOffers/getLanguageRequired/1
+

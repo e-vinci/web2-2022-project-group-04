@@ -47,8 +47,13 @@ async function getAllJobOfferOfCompanyFromAPI(idCompany) {
   }
 }
 
+/* async function getMatchesOfCompanyFromAPI(idCompany){
+
+} */
+
 function renderCompanyPage(description, allJobOfferOfCompany) {
   const main = document.querySelector('main');
+  main.style = ' ';
   const descriptionString = renderDescriptionAsString(description);
   main.innerHTML += descriptionString;
   const allJobOfferString = renderAllJobOfferOfCompany(allJobOfferOfCompany);
@@ -60,13 +65,16 @@ function renderAllJobOfferOfCompany(jobOffers) {
   jobOffers?.forEach((offer) => {
     const date = new Date(offer.upload_date);
 
-    allOffer += `<div class="container my-1"> 
-        <h3>Type d'offre : ${offer.type_offer}</h3>
-        <h2>${offer.title}</h2>
+    allOffer += `<div class="container my-4 descCompany"> 
+    
+    <h2>Titre : ${offer.title}</h2>
+        <h5>Type d'offre : ${offer.type_offer}</h5>
+        
       <h4>Description : ${offer.description}</h4>
 
       <p>Publié le ${date.toLocaleDateString()}</p>
-        </div>`;
+        </div>
+        `;
   });
   allOffer += `</div>`
   return allOffer;
@@ -76,12 +84,13 @@ function renderDescriptionAsString(description) {
   const descriptionString = `
     <div class = "container descCompany"> 
     <h1> ${description.company_name}</h1>
-    <h3> ${description.description}</h3>
+    <h4> ${description.description}</h4>
     <h4> ${description.adress}</h4>
     <h4> ${description.mail}</h4> </div>
     `;
 
   return descriptionString;
 }
+
 
 export default companyPage;
