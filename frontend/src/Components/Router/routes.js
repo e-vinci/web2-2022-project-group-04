@@ -7,7 +7,7 @@ import CreateOfferFormPage from '../Pages/CreateOfferFormPage';
 import CompanyPage from '../Pages/CompanyPage';
 import Logout from '../Logout/Logout';
 import HomePageComany from '../Pages/HomePageCompany'
-import Swipe from '../Pages/Swipe';
+import HomePageDevSwipe from '../Pages/HomePageDevSwipe';
 
 const routes = {
   '/': HomePage,
@@ -19,7 +19,7 @@ const routes = {
   '/companyPage' : CompanyPage,
   '/logout': Logout,
   '/homePageCompany' : HomePageComany,
-  '/swipe' : Swipe
+  '/jobOffersSwipe' : HomePageDevSwipe
  };
 
 export default routes;

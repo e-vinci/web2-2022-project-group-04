@@ -141,6 +141,20 @@ h3 {
     background-color: #3c013c;
 }
 
+.swiper {
+    height: 500px;
+    
+  }
+  .swiper-slide{
+        background: #475cad;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        color: white;
+        padding: 20%;
+    }
+  
 #inputDevPage {
     background-color: #0563af;
     border-radius: 3px;
