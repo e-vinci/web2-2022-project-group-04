@@ -7,6 +7,7 @@ import CreateOfferFormPage from '../Pages/CreateOfferFormPage';
 import CompanyPage from '../Pages/CompanyPage';
 import Logout from '../Logout/Logout';
 import HomePageComany from '../Pages/HomePageCompany'
+// eslint-disable-next-line import/no-named-as-default
 import HomePageDevSwipe from '../Pages/HomePageDevSwipe';
 
 const routes = {
