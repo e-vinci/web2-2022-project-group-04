@@ -86,8 +86,7 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
   </div>
   <div class="row">
     <div class="col-lg-3 rounded-4 bg-light mx-2">
-      <div class="d-flex justify-content-center my-5 py-2 bg-">
-        <img src="frontend/src/img/profil.png"  class="img-thumbnail">
+      <div id="idImageDevPage" class="d-flex justify-content-center my-5 py-2 bg-">
       </div>
     </div>
     <div class="col rounded-4 bg-light mx-2">

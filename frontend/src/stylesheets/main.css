@@ -132,15 +132,28 @@ h3 {
     background-size: cover;
     background-repeat: no-repeat;   
 }
-
+#idImageDevPage{
+    background-image: url(../img/Logo.png);
+    margin: 0px;
+    padding: 0px;
+}
 #part1a{
     background-color: #3c013c;
 }
 
 .swiper {
-    width: 600px;
-    height: 300px;
+    height: 500px;
+    
   }
+  .swiper-slide{
+        background: #475cad;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        color: white;
+        padding: 20%;
+    }
   
 #inputDevPage {
     background-color: #0563af;

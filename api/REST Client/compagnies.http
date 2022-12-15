@@ -4,21 +4,22 @@
 GET {{baseUrl}}/compagnies
 
 ### Read company with id 1
-GET {{baseUrl}}/compagnies/4
+GET {{baseUrl}}/compagnies/16
 
 ### Register Company
 POST {{baseUrl}}/compagnies/register
 Content-Type: application/json
 
 {
-    "company_name": "Carrefour",
+    "company_name": "testcomp",
     "description": "DESCRIPTION ..........",
     "adress" : "rue ........",
-    "mail" : "mail@gmaila.com",
-    "password": "motdepasse123456789"    
+    "mail" : "testcomp9@gmail.com",
+    "password": "123"    
 }
 
 
 
-
+### Read company with id 2
+GET {{baseUrl}}/compagnies/matchesCompany/1
 

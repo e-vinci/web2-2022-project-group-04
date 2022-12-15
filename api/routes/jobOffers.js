@@ -5,7 +5,8 @@ const {
   getAllJobOffersFromCompany,
   getAllDevInterestedForOffer,
   createJobOffer,
-  getAllTypeOffer
+  getAllTypeOffer,
+  getMatches
 } = require('../models/jobOffers');
 
 const router = express.Router();
@@ -74,6 +75,16 @@ router.get('/allTypeOffer', async(req,res)=>{
   return res.json(allTypeOffer);
 })
 
+router.get('/matchesCompany/:idCompany', async (req, res) => {
+  const idCompani = req.params.idCompany;
+  const matches = await getMatches(idCompani);
+
+  if (!matches) {
+    return res.status(400);
+  }
+  console.log("il ya des matches ")
+  return res.json(matches);
+});
 
 
 module.exports = router;

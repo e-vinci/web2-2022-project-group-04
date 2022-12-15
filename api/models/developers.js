@@ -152,7 +152,21 @@ const getCompagnyByMail = (mail) =>
       const hashedPassword = await bcrypt.hash(password, saltRounds);
       try {
         const res = await client.query(insert, [lastname, firstname,email, hashedPassword, date, tel, typeOffer]);
-        return res.rows[0];
+        const id = res.rows[0].id_developer;
+
+        const token = jwt.sign(
+          { id }, // session data added to the payload (payload : part 2 of a JWT)
+          jwtSecret, // secret used for the signature (signature part 3 of a JWT)
+          { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
+        );
+      
+        const authenticatedUser = {
+          id,
+          isDev : true,
+          token,
+        };
+      
+        return authenticatedUser;
       
       } catch (err) {
           console.log(err.message);
