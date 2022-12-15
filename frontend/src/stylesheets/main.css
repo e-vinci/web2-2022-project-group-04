@@ -33,6 +33,14 @@ a {
     background: rgba(89, 160, 207, 0.536);
     border: none;
 }
+/*CompanyPage*/
+.descCompany {
+    background-color: gray;
+    border-radius:10px;
+    padding: 20px;
+    
+}
+
 
 .homePageDiv{
     background-color: #d0d7f4;
