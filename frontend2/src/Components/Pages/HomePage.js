@@ -7,7 +7,7 @@ const renderHomePage = () => {
   const main = document.querySelector('main');
   main.innerHTML =
   `<div class="homePageDiv">
-  <div id="part1" class="position-relative overflow-hidden p-3 p-md-5 text-center bg-light">
+  <div id="part1" class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
       <div class="col-md-6 p-lg-5 mx-auto my-5" id="part">
           <h1 class="display-4 font-weight-normal">Trouvez un job avec DevJob </h1>
           <p class="lead font-weight-normal">Site de mise en relation entre developpeurs et entreprise.</p>

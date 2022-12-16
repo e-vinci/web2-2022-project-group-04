@@ -4,6 +4,7 @@ import Navigate from '../Router/Navigate';
 import Navbar from '../Navbar/Navbar';
 
 const developerPage = () => {
+  clearPage();
   renderPageTitle('Dev Page');
   if(isAuthenticated()){
     renderDevPage();
@@ -17,7 +18,7 @@ const developerPage = () => {
 
   const descriptionDev= await getDescriptionDev();
   const masteredLanguagesDev= await getmasteredLanguageByIdDevandGetAllLanguages();
-  clearPage();
+
   const main = document.querySelector('main');
   main.innerHTML = descriptionDev+ masteredLanguagesDev;
   const form = document.getElementById('test');
@@ -161,6 +162,7 @@ function renderMasteredlanguageDev(listMasteredlanguages,listLanguages) {
 
 function listMasteredlanguage(listLanguage){
 
+// eslint-disable-next-line no-console
 console.log(listLanguage);
   if(!listLanguage){
     return  `<li>Vous n'avez ajoutez aucun language de programmation</li>`
@@ -210,7 +212,8 @@ return list;
 
 async function addLangageEvent(e){
   e.preventDefault();
-  const idLanguage = document.getElementById('idLanguage').value
+
+  const idLanguage = document.getElementById('idLanguage').value;
   const idDev = getAuthenticatedUser().id;
   const { token } = getAuthenticatedUser();
    

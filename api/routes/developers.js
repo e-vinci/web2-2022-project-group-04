@@ -1,3 +1,4 @@
+const { authorizeDev } = require('../utils/auths');
 const express = require('express');
 const { getAllDevelopers, getDevByMail, registerDev, login,getProfilDevById ,
   getmasteredLanguageByIdDev,addLangageToDev,getAllLanguages } = require('../models/developers');
@@ -60,8 +61,8 @@ router.post('/registerDev', async (req, res) => {
 
 
 
-router.get('/profileDev/:id', async (req, res) => {
-  
+router.get('/profileDev/:id', authorizeDev, async (req, res) => {
+  if (req.user.id != req.params.id) return res.sendStatus(403);
   const devFound = await getProfilDevById(req.params.id);
   if(!devFound ) return res.status(400);
   
@@ -91,11 +92,11 @@ router.get('/getAllLanguages', async (req, res) => {
   return res.json(infoFound);
 });
 
-router.post('/addLanguageProgramationToDev', async (req, res) => {
+router.post('/addLanguageProgramationToDev', authorizeDev,async (req, res) => {
   const dev =  req.body.idDev ;
   const language = req.body.idLanguage;
 
-
+  if (req.user.id != dev) return res.sendStatus(403);
   if (!dev || !language ) return res.sendStatus(400); // 400 Bad Request
   addLangageToDev(dev,language);
   return res.json("effectue");

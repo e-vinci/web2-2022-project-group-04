@@ -47,6 +47,27 @@ const getAllJobOffersFromCompany = async (idCompany) =>
 
 const getAllDevInterestedForOffer = async (idOffer) =>
   new Promise((resolve, reject) => {
+    try {
+        // eslint-disable-next-line camelcase
+        const res = await client.query(select, [id_company]);
+        if(res.rowCount===0){
+          console.log("pas de matches bd")
+      return undefined;
+        }
+  
+        return res.rows;
+      } catch (err) {
+          console.log(err.message);
+      }
+      return undefined;
+        
+    
+    
+});
+
+
+async function getAllDevInterestedForOffer(idOffer) {
+    
     const select = `SELECT d.id_developer, d.lastname, d.firstname, d.mail, d.birth_date, d.tel, t.type_offer
 
     FROM webproject.matches m
@@ -64,6 +85,19 @@ const getAllDevInterestedForOffer = async (idOffer) =>
       }
     });
   });
+    try {
+      const res = await client.query(select, [idOffer]);
+      if(res.rowCount===0){
+        console.log("pas de matches bd")
+    return undefined;
+      }
+
+      return res.rows;
+    } catch (err) {
+        console.log(err.message);
+    }
+    return undefined;
+  }
 
 const createJobOffer = (jobOffer) =>
   new Promise((resolve, reject) => {
@@ -96,6 +130,9 @@ const getAllTypeOffer = async () =>
 
 async function getMatches(idCompany) {
   const select = `SELECT d.*,t.type_offer
+async function getMatchesDevAndCompany(idCompany) {
+    
+    const select = `SELECT d.*,t.type_offer
     FROM webproject.matches m, 
     webproject.developers d,
     webproject.job_offers j,
@@ -120,6 +157,68 @@ async function getMatches(idCompany) {
 
 const getLanguageRequired = async (idOffer) => {
   const select = `SELECT l.language
+  async function getLikedOffers(idCompany) {
+    
+    const select = `SELECT distinct j.*,t.type_offer
+    FROM webproject.matches m, 
+    webproject.developers d,
+    webproject.job_offers j,
+    webproject.type_offers t,
+    webproject.compagnies c
+    where d.id_developer = m.developer
+    and c.id_company = j.company
+    and j.company = $1
+    and m.job_offer = j.id_offer
+    and d.type_offer_required= t.id_type_offer
+    and m.company_is_interested = false
+    and m.developer_is_interested = true
+    ` ;
+    try {
+      const res = await client.query(select, [idCompany]);
+      if(res.rowCount===0){
+        console.log("pas de matches bd")
+    return undefined;
+      }
+
+      return res.rows;
+    } catch (err) {
+        console.log(err.message);
+    }
+    return undefined;
+  }
+
+   async function likeDev(idDev,idOffer) {
+    const UPDATE = `UPDATE webproject.matches  SET company_is_interested = true WHERE developer = $1 and job_offer = $2  RETURNING company_is_interested`;
+
+    try {
+     const result = await client.query(UPDATE, [idDev,idOffer]);
+    if(result)
+        return result.rows;
+    
+        return 1;
+    } catch (err) {
+        console.log(err.message);
+        return undefined;
+    }
+  }
+
+  async function dislikeDev(idDev,idOffer) {
+    const DELETE = `DELETE FROM webproject.matches m
+    WHERE m.developer = $1 and m.job_offer = $2 RETURNING *`;
+    
+    try {
+     const result = await client.query(DELETE, [idDev,idOffer]);
+    if(result)
+        return result.rows;
+        
+        return 1;
+    } catch (err) {
+        console.log(err.message);
+        return undefined;
+    }
+  }
+  const getLanguageRequired = async(idOffer) => {
+    const select = `SELECT l.language
     FROM webproject.required_languages r
     LEFT OUTER JOIN webproject.job_offers j ON j.id_offer = r.job_offer 
     LEFT OUTER JOIN webproject.languages l ON l.id_language = r.language
@@ -175,3 +274,9 @@ module.exports = {
   getAllLanguages,
   addLanguageToAnOffer,
 };
+
+
+module.exports = {getAllOffers,addToIntersted,getAllJobOffersFromCompany 
+    , getAllDevInterestedForOffer , createJobOffer, getLikedOffers, getAllTypeOffer, getMatchesDevAndCompany,likeDev,dislikeDev,getLanguageRequired} 
+  
+

@@ -10,6 +10,11 @@ const {
   getLanguageRequired,
   getAllLanguages,
   addLanguageToAnOffer
+  getLikedOffers,
+  likeDev,
+  dislikeDev,
+  getLanguageRequired
+  
 } = require('../models/jobOffers');
 
 const router = express.Router();
@@ -38,14 +43,16 @@ router.get('/allJobOfferFromCompany/:idCompany', async (req, res) => {
 });
 
 router.get('/allDevelopersInterstedOffer/:idOffer', async (req, res) => {
+  console.log("on est mort")
   const { idOffer } = req.params;
   const devsInterested = await getAllDevInterestedForOffer(idOffer);
+  console.log(devsInterested)
+  // eslint-disable-next-line eqeqeq
 
   // eslint-disable-next-line no-console
-  console.log(devsInterested);
+  if (devsInterested === undefined) return res.sendStatus(400);
 
-  if (devsInterested === undefined || !devsInterested) return res.status(400);
-
+  console.log("eee")
   return res.json(devsInterested);
 });
 
@@ -76,15 +83,34 @@ router.get('/allTypeOffer', async (req, res) => {
   return res.json(allTypeOffer);
 });
 
-router.get('/matchesCompany/:idCompany', async (req, res) => {
-  const idCompani = req.params.idCompany;
-  const matches = await getMatches(idCompani);
-
-  if (!matches) {
-    return res.status(400);
+router.get('/likedOffers/:idCompany', async (req, res) => {
+  // eslint-disable-next-line camelcase
+  const id_company = req.params.idCompany;
+  const matches = await getLikedOffers(id_company);
+    console.log("ici")
+  if (!matches || matches ===undefined) {
+    return res.sendStatus(400);
   }
-  console.log('il ya des matches ');
   return res.json(matches);
+});
+
+router.post('/likeDev/:idDev/:idOffer', async (req, res) => {
+  console.log("ici")
+  // eslint-disable-next-line camelcase
+  const id_dev = req.params.idDev;
+  const {idOffer} = req.params;
+
+   const result = await likeDev(id_dev,idOffer);
+  
+  return res.json(result);
+});
+router.post('/dislikeDev/:idDev/:idOffer', async (req, res) => {
+  // eslint-disable-next-line camelcase
+  const id_dev = req.params.idDev;
+  const {idOffer} = req.params;
+
+  const result = await dislikeDev(id_dev,idOffer);
+  return res.json(result);
 });
 
 router.get('/getLanguageRequired/:idOffer', async (req, res) => {
@@ -92,7 +118,11 @@ router.get('/getLanguageRequired/:idOffer', async (req, res) => {
   const languageRequired = await getLanguageRequired(offer);
 
   if (languageRequired === undefined) {
-    return res.json('aucun langage');
+    return res.json([
+      {
+        language: "Aucun language"
+      }
+    ]);
   }
 
   return res.json(languageRequired);
