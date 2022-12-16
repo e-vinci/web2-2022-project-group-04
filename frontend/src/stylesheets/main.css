@@ -149,10 +149,10 @@ h3 {
     background-repeat: no-repeat;   
     height: 95vh;
 }
+
 #idImageDevPage{
     background-image: url(../img/Logo.png);
-    margin: 0px;
-    padding: 0px;
+  
 }
 #part1a{
     background-color: #3f67b1;

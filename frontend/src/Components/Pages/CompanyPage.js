@@ -1,12 +1,14 @@
 import { clearPage, renderPageTitle } from '../../utils/render';
+import { getAuthenticatedUser } from '../../utils/auths';
 
 const companyPage = async () => {
   clearPage();
   renderPageTitle('Company Page');
 
-  const companyDescription = await getDescriptionFromAPI(1);
-
-  const allJobOfferOfCompany = await getAllJobOfferOfCompanyFromAPI(1);
+  const idCompany = getAuthenticatedUser().id;
+  console.log(idCompany)
+  const companyDescription = await getDescriptionFromAPI(idCompany);
+  const allJobOfferOfCompany = await getAllJobOfferOfCompanyFromAPI(idCompany);
 
   renderCompanyPage(companyDescription, allJobOfferOfCompany);
 };
@@ -19,7 +21,6 @@ async function getDescriptionFromAPI(idCompany) {
 
     const description = await response.json();
     // eslint-disable-next-line no-console
-    console.log(description);
     return description;
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -38,7 +39,6 @@ async function getAllJobOfferOfCompanyFromAPI(idCompany) {
 
     const allJobOffer = await response.json();
     // eslint-disable-next-line no-console
-    console.log(allJobOffer);
     return allJobOffer;
   } catch (error) {
     // eslint-disable-next-line no-console

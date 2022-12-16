@@ -197,6 +197,7 @@ async function getLikedOffers(idCompany) {
   }
 
 
+  
   const getLanguageRequired = async(idOffer) => {
     const select = `SELECT l.language
     FROM webproject.required_languages r

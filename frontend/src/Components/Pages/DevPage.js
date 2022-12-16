@@ -107,8 +107,10 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
   </div>
   <div class="row">
     <div class="col-lg-3 rounded-4 bg-light mx-2">
-      <div id="idImageDevPage" class="d-flex justify-content-center my-5 py-2 bg-">
+      <div  class="d-flex justify-content-center my-5 py-2 bg-">
+      <img id="idImageDevPage" src ="">
       </div>
+      
     </div>
     <div class="col rounded-4 bg-light mx-2">
       <div class="container-sm py-2 px-4 mx-5 mt-4 mb-2 w-50 rounded-3  bg-secondary">  
