@@ -90,47 +90,62 @@ async function allOffersAsString(jobOffers) {
 
       string += `
      
-
-      <h6 id ="h2HP"> Profil concis </h6>
-      <ul> 
-      <li> ${dev.lastname} </li>
-       <li> ${dev.firstname} </li>
-       <li> ${dev.mail} </li>
-       </ul>
-    `;
+      <div id="containerDevHomePageCompany" class="container my-5 mx-2 rounded-2">
+        <div class="row py-2">
+          <div class="col mx-1 text-center">
+            <h6 id ="h2HP"> Profil concis </h6>
+            <ul class="list-group list-group-flush rounded-4"> 
+              <li class="list-group-item list-group-item-dark"> Nom : ${dev.lastname} </li>
+              <li class="list-group-item list-group-item-dark"> Prénom : ${dev.firstname} </li>
+              <li class="list-group-item list-group-item-dark"> Email : ${dev.mail} </li>
+            </ul>
+          </div>
+        `;
 
       if(masteredLanguageDev===undefined){
-        string+=`<h6 id ="h2HP"> Ce devloppeur ne maitrise aucun language </h6>`
+        string+=`
+        <div class="col mx-1 text-center">
+        <h6 id ="h2HP"> Ce devloppeur ne maitrise aucun language </h6>
+        </div>`
         console.log("pas de languages");
       }
       else{
-        string+=`<h6 id ="h2HP"> Language maitrisés par le devloppeur </h6>
-        <ul> 
+        string+=`
+        <div class="col mx-1 text-center">
+          <h6 id ="h2HP"> Language maitrisés par le devloppeur </h6>
+          <ul class="list-group list-group-flush rounded-4"> 
         `
         // eslint-disable-next-line no-loop-func
         masteredLanguageDev.forEach(language => {
           string+=`
-          <li> ${language.language} </li>
+          <li class="list-group-item list-group-item-dark"> ${language.language} </li>
           `  
         });
         string+=`
-        </ul> 
+        </ul>
+        </div>
         `
       }
 
       string+= `
-      <form  class="formAdd">
-      <input type="submit" value="garder">
-      <input type="hidden" value="${dev.id_developer}" class="add">
-      <input type="hidden" value = "${offer.id_offer}" class="id_offer">
-      </form>
+      <div class="col mx-1 text-center">
+        <div class="container rounded-2 my-3">
+          <form  class="formAdd py-4">
+          <input type="submit" class="btn btn-success" value="garder">
+          <input type="hidden" value="${dev.id_developer}" class="add">
+          <input type="hidden" value = "${offer.id_offer}" class="id_offer">
+          </form>
 
-      <form  class="formDelete">
-      <input type="submit" value="refuser">
-      <input  type="hidden" value="${dev.id_developer}" class ="delete">
-      <input type="hidden" value= "${offer.id_offer}" class ="id_offer">
-      </form>
-      <br>`
+          <form  class="formDelete ">
+          <input type="submit" class="btn btn-danger" value="refuser">
+          <input  type="hidden" value="${dev.id_developer}" class ="delete">
+          <input type="hidden" value= "${offer.id_offer}" class ="id_offer">
+          </form>
+          <br>
+        </div>
+      </div>
+      </div>
+      </div>  `
 
     }
   
@@ -138,11 +153,10 @@ async function allOffersAsString(jobOffers) {
     </div>
     </div>
     </div>
+
   `;
   }
 
-
-  string += `</div>`;
   return string;
 }
 

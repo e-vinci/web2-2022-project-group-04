@@ -125,6 +125,10 @@ main{
     opacity: 0.8;
 }
 
+#containerDevHomePageCompany{
+    background-color: #748bb4;
+}
+
 .white{
     background-color: rgba(248, 248, 248, 0.635);
 }
