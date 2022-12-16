@@ -129,7 +129,7 @@ const getCompagnyByMail = (mail) =>
     
   
     const token = jwt.sign(
-      { id }, // session data added to the payload (payload : part 2 of a JWT)
+      { id : id, isDev : isDev  }, // session data added to the payload (payload : part 2 of a JWT)
       jwtSecret, // secret used for the signature (signature part 3 of a JWT)
       { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
     );
@@ -155,7 +155,7 @@ const getCompagnyByMail = (mail) =>
         const id = res.rows[0].id_developer;
 
         const token = jwt.sign(
-          { id }, // session data added to the payload (payload : part 2 of a JWT)
+          { id : id, isDev : true  }, // session data added to the payload (payload : part 2 of a JWT)
           jwtSecret, // secret used for the signature (signature part 3 of a JWT)
           { expiresIn: lifetimeJwt }, // lifetime of the JWT (added to the JWT payload)
         );

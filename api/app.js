@@ -4,6 +4,15 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cookieSession = require('cookie-session');
 const client = require('./connection');
+const cors = require('cors');
+
+
+const corsOptions = {
+
+  origin: 'http://localhost:8080',
+
+};
+
 
 const developersRouter = require('./routes/developers');
 const pizzaRouter = require('./routes/pizzas');
@@ -35,10 +44,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-app.use('/developers', developersRouter);
-app.use('/jobOffers', jobOffersRouter);
-app.use('/compagnies', compagniesRouter);
-app.use('/pizzas', pizzaRouter);
+app.use('/developers',cors(corsOptions) ,developersRouter);
+app.use('/jobOffers', cors(corsOptions) ,jobOffersRouter);
+app.use('/compagnies', cors(corsOptions) ,compagniesRouter);
+app.use('/pizzas',cors(corsOptions) , pizzaRouter);
 
 
 module.exports = app;
