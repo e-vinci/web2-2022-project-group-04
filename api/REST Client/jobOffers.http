@@ -39,3 +39,6 @@ GET {{baseUrl}}/jobOffers/likedOffers/25
 
 ### Read company with id 2
 POST {{baseUrl}}/jobOffers/dislikeDev/3/55
+### Read language_required
+GET {{baseUrl}}/jobOffers/getLanguageRequired/2
+

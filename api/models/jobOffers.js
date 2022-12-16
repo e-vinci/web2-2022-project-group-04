@@ -2,8 +2,8 @@
 const client = require('../connection');
 
 const getAllOffers =()=> new Promise((resolve, reject) => {
-    const select = `SELECT j.id_offer ,c.company_name , t.type_offer, j.title, j.description , j.upload_date 
-    FROM webproject.job_offers j 
+    const select = `SELECT j.id_offer ,c.company_name , t.type_offer, j.title, j.description , j.upload_date
+    FROM webproject.job_offers j
     INNER JOIN webproject.compagnies c ON j.company = c.id_company
     INNER JOIN webproject.type_offers t ON j.type_offer = t.id_type_offer`;
     client.query(select,(err,result)=>{
@@ -30,14 +30,12 @@ const addToIntersted = async( data) => {
     })
 }
 
-// eslint-disable-next-line camelcase
-async function getAllJobOffersFromCompany(id_company) {
-    const select =`SELECT j.*,t.type_offer
-    FROM  webproject.job_offers j
-    join 
-    webproject.compagnies c on c.id_company = j.company
-    join webproject.type_offers t on j.type_offer = t.id_type_offer
-    WHERE c.id_company= $1`;
+const getAllJobOffersFromCompany = async(idCompany)=> new Promise(async (resolve, reject) => {
+    const select =`SELECT j.title, t.type_offer, j.description, j.upload_date
+    FROM webproject.job_offers j
+             inner join webproject.compagnies c on c.id_company = j.company
+    INNER JOIN webproject.type_offers t on t.id_type_offer = j.type_offer
+    WHERE c.id_company = $1`;
 
     try {
         // eslint-disable-next-line camelcase
@@ -55,7 +53,7 @@ async function getAllJobOffersFromCompany(id_company) {
         
     
     
-}
+});
 
 
 async function getAllDevInterestedForOffer(idOffer) {
@@ -199,3 +197,25 @@ async function getMatchesDevAndCompany(idCompany) {
 
 module.exports = {getAllOffers,addToIntersted,getAllJobOffersFromCompany 
     , getAllDevInterestedForOffer , createJobOffer, getLikedOffers, getAllTypeOffer, getMatchesDevAndCompany,likeDev,dislikeDev} 
+    const getLanguageRequired = async(idOffer) => {
+    const select = `SELECT l.language
+    FROM webproject.required_languages r
+    LEFT OUTER JOIN webproject.job_offers j ON j.id_offer = r.job_offer 
+    LEFT OUTER JOIN webproject.languages l ON l.id_language = r.language
+    WHERE r.job_offer = $1`;
+    try {
+        const res = await client.query(select, [idOffer]);
+        if(res.rowCount===0){
+          console.log("aucun languages requis")
+          return undefined;
+        }
+        console.log("plusieurs languages")
+        return res.rows;
+      } catch (err) {
+          console.log(err.message);
+      }
+      return undefined;
+  };
+
+module.exports = {getAllOffers,addToIntersted,getAllJobOffersFromCompany 
+    , getAllDevInterestedForOffer , createJobOffer , getAllTypeOffer,getMatches, getLanguageRequired } 

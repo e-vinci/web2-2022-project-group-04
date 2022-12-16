@@ -73,10 +73,6 @@ h2 {
     color: white;
 }
 
-#h2HP{
-    color: black;
-}
-
 #slogan {
     font-family: Brush Script MT;
     color:#3c013c ;
@@ -143,7 +139,6 @@ h3 {
     background-image: url(../img/front_background.jpg);
     background-size: cover;
     background-repeat: no-repeat;   
-    height: 95vh;
 }
 #idImageDevPage{
     background-image: url(../img/Logo.png);

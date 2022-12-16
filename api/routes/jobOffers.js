@@ -8,7 +8,9 @@ const {
   getAllTypeOffer,
   getLikedOffers,
   likeDev,
-  dislikeDev
+  dislikeDev,
+  getLanguageRequired
+  
 } = require('../models/jobOffers');
 
 const router = express.Router();
@@ -51,7 +53,7 @@ router.get('/allDevelopersInterstedOffer/:idOffer', async (req, res) => {
 });
 
 router.post('/create/:idCompany', async (req, res) => {
-  const {idCompany} = req.params;
+  const idCompany = req?.params.idCompany;
   const typeOffer = req?.body?.typeOffer;
   const title = req?.body?.title;
   const description = req?.body?.description;
@@ -109,6 +111,21 @@ router.post('/dislikeDev/:idDev/:idOffer', async (req, res) => {
   return res.json(result);
 });
 
+router.get('/getLanguageRequired/:idOffer', async (req, res) => {
+  const offer= req.params.idOffer;
+  const languageRequired = await getLanguageRequired(offer);
+
+  if (languageRequired === undefined) {
+    return res.json([
+      {
+        language: "Aucun language"
+      }
+    ]);
+  }
+
+  return res.json(languageRequired);
+
+}) 
 
 
 module.exports = router;

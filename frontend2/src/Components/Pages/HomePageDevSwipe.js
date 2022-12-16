@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import Swiper, { Navigation, Pagination , Keyboard   } from 'swiper';
 import { clearPage, renderPageTitle } from '../../utils/render';
 import 'bootstrap/dist/css/bootstrap.min.css';
