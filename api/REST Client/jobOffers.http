@@ -38,3 +38,15 @@ GET {{baseUrl}}/jobOffers/allTypeOffer
 ### Read language_required
 GET {{baseUrl}}/jobOffers/getLanguageRequired/1
 
+### Read All language
+GET {{baseUrl}}/jobOffers/getAllLanguages
+
+### Add a language to an offer
+GET {{baseUrl}}/jobOffers/addLanguageToOffer
+Content-Type: application/json
+
+{
+    "offer": "2",
+    "language": "6"
+}
+

@@ -11,7 +11,7 @@ const renderOfferFormPage = async () => {
 
                             <div class="form-group">
                                 <label for="Titre">Titre de l'offre</label>
-                                <input type="text" class="form-control" id="idTitle" aria-describedby="titleHelp" placeholder="Entrez le titre de l'offre">
+                                <input type="text" class="form-control" id="idTitle" aria-describedby="titleHelp" placeholder="Entrez le titre de l'offre" required>
                             </div>
 
                             <div class="form-group">
@@ -27,38 +27,44 @@ const renderOfferFormPage = async () => {
                                     </select>
                             </div>
 
+                            <div class="languageList">
+                                <label for="language">Langage requis</label>
+                                 <select id="language">
+                                      <div id="LanguageList">
+                                      <option>Aucun langage</option>
+                                      </div>
+                                    </select>
+                            </div>
+
                             <button id="createOffer" type="submit" class="btn btn-primary">Poster l'offre</button>
                             </form>`;
 
   const form = document.getElementById('offerForm');
-  form.style = 'background-color : azure;';
+  
   form.addEventListener('submit', onCreateForm);
   const typeOfferList = await getAllTypeOffer();
+  const languageList = await getAllLanguages();
+  console.log('aaaaaaaaaaaaaaaaaaaaaaa', languageList);
   const categoriesOffer = document.getElementById('TypeOffre');
+  const languageOffer = document.getElementById('language');
   const typeOfferAsString = allTypeOfferAsString(typeOfferList);
+  const langageListAsString = allLanguagesAsString(languageList);
   categoriesOffer.innerHTML += typeOfferAsString;
+  languageOffer.innerHTML +=langageListAsString;
 
-  /*
-  const categorie1 = document.createElement('option');
-  const categorie2 = document.createElement('option');
-  const categorie3 = document.createElement('option');
-  const categorie4 = document.createElement('option');
   
-
-  categoriesOffer.appendChild(categorie1);
-  categoriesOffer.appendChild(categorie2);
-  categoriesOffer.appendChild(categorie3);
-  categoriesOffer.appendChild(categorie4); */
 
   async function onCreateForm(e) {
     e.preventDefault();
-    const company = 1;
+    const company = getAuthenticatedUser().id;
     const typeOffer = document.getElementById('TypeOffre').value;
     // eslint-disable-next-line no-console
     console.log(typeOffer);
 
     const title = document.getElementById('idTitle').value;
     const description = document.getElementById('idDescription').value;
+    const language = document.getElementById('language').value;
+    
 
     const options = {
       method: 'POST',
@@ -73,18 +79,43 @@ const renderOfferFormPage = async () => {
       },
     };
 
+
     // eslint-disable-next-line camelcase
     const idCompany = getAuthenticatedUser().id;
 
     // eslint-disable-next-line camelcase
     const response = await fetch(`/api/jobOffers/create/${idCompany}`, options);
 
+
+    console.log('console log reponse : ', response);
+
+    const offer = await response.json();
+
+    console.log(offer);
+
+    const optionL= {
+      method: 'POST',
+      body: JSON.stringify({
+        offer: offer[0].id_offer,
+        language
+      }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const responseLang = await fetch(`/api/jobOffers/addLanguageToOffer`, optionL)
+
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
 
-    const validOffer = await response.json();
+    if (!responseLang.ok) throw new Error(`fetch error : ${responseLang.status} : ${responseLang.statusText}`);
+
+    const validOffer = await response;
+
+    const validLanguage = await responseLang;
 
     // eslint-disable-next-line no-console
-    console.log('Newly registered offer : ', validOffer);
+    console.log('Newly registered offer : ', validOffer, validLanguage);
 
     Navigate('/companyPage');
   }
@@ -106,6 +137,23 @@ async function getAllTypeOffer() {
   }
 }
 
+async function getAllLanguages() {
+  try {
+    const response = await fetch('/api/jobOffers/getAllLanguages');
+
+    if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+    const languages = await response.json();
+
+    console.log('ccccccccccccccccccccccccccc', languages);
+    return languages;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error('getAllLanguage::error: ', err);
+    throw err;
+  }
+}
+
 function allTypeOfferAsString(allTypeOffer) {
   let typeOfferList = ' ';
 
@@ -116,6 +164,18 @@ function allTypeOfferAsString(allTypeOffer) {
   });
 
   return typeOfferList;
+};
+
+function allLanguagesAsString(allLanguage) {
+  let langageList = ' ';
+
+  // eslint-disable-next-line no-console
+  console.log(allLanguage);
+  allLanguage?.forEach((l) => {
+    langageList += `<option value="${l.id_language}"> ${l.language} </option>`;
+  });
+
+  return langageList;
 }
 
 const createOfferFormPage = () => {

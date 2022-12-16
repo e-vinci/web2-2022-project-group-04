@@ -7,8 +7,9 @@ const {
   createJobOffer,
   getAllTypeOffer,
   getMatches,
-  getLanguageRequired
-  
+  getLanguageRequired,
+  getAllLanguages,
+  addLanguageToAnOffer
 } = require('../models/jobOffers');
 
 const router = express.Router();
@@ -23,8 +24,8 @@ router.post('/addToInterstedDev', async (req, res) => {
   const idDeveloper = req?.body?.idDeveloper;
   const idOffer = req?.body?.idOffer;
 
-  await addToIntersted({idDeveloper, idOffer});
-  res.json({ id_dev: idDeveloper , id_offer: idOffer });
+  await addToIntersted({ idDeveloper, idOffer });
+  res.json({ id_dev: idDeveloper, id_offer: idOffer });
 });
 
 router.get('/allJobOfferFromCompany/:idCompany', async (req, res) => {
@@ -65,17 +66,15 @@ router.post('/create/:idCompany', async (req, res) => {
   res.json(idOffer);
 });
 
-router.get('/allTypeOffer', async(req,res)=>{
-
+router.get('/allTypeOffer', async (req, res) => {
   const allTypeOffer = await getAllTypeOffer();
 
   if (allTypeOffer === undefined) {
     return res.sendStatus(400);
-    
   }
 
   return res.json(allTypeOffer);
-})
+});
 
 router.get('/matchesCompany/:idCompany', async (req, res) => {
   const idCompani = req.params.idCompany;
@@ -84,12 +83,12 @@ router.get('/matchesCompany/:idCompany', async (req, res) => {
   if (!matches) {
     return res.status(400);
   }
-  console.log("il ya des matches ")
+  console.log('il ya des matches ');
   return res.json(matches);
 });
 
 router.get('/getLanguageRequired/:idOffer', async (req, res) => {
-  const offer= req.params.idOffer;
+  const offer = req.params.idOffer;
   const languageRequired = await getLanguageRequired(offer);
 
   if (languageRequired === undefined) {
@@ -97,12 +96,29 @@ router.get('/getLanguageRequired/:idOffer', async (req, res) => {
   }
 
   return res.json(languageRequired);
+});
 
-}) 
+router.get('/getAllLanguages', async (req, res) => {
+  const allLanguages = await getAllLanguages();
 
+  if (allLanguages === undefined) {
+    return res.sendStatus(400);
+  }
+
+  return res.json(allLanguages);
+});
+
+router.post('/addLanguageToOffer', async (req, res) => {
+  const offer = req?.body?.offer;
+  const languageToAdd = req?.body?.language;
+
+  if (languageToAdd === 'Aucun langage') {
+    return res.json('Creer une offre sans langage requis');
+  }
+  const addLanguage = await addLanguageToAnOffer(offer, languageToAdd);
+
+  return res.json(addLanguage);
+
+});
 
 module.exports = router;
-
-
-
-
