@@ -8,25 +8,24 @@ POST {{baseUrl}}/jobOffers/addToInterstedDev
 Content-Type: application/json
 
 {
-    "idOffer":"1",
+    "idOffer":"60",
     "idDeveloper":"1"
 }
 
 ### Read all job offers from company
-GET {{baseUrl}}/jobOffers/allJobOfferFromCompany/1
+GET {{baseUrl}}/jobOffers/allJobOfferFromCompany/25
 
 
 ### Read All developers intersted of one jobOffer
-GET {{baseUrl}}/jobOffers/allDevelopersInterstedOffer/1
+GET {{baseUrl}}/jobOffers/allDevelopersInterstedOffer/55
 
 
 ### CREATE job offer
-POST {{baseUrl}}/jobOffers/create
+POST {{baseUrl}}/jobOffers/create/25
 Content-Type: application/json
 
 {
-    "idCompany": "1",
-    "typeOffer": "4",
+    "typeOffer": "2",
     "title": "recherche developpeur full-stack ",
     "description": "DESCRIPTION .........."
 }
@@ -35,3 +34,8 @@ Content-Type: application/json
 ### Read All type offer
 GET {{baseUrl}}/jobOffers/allTypeOffer
 
+### Read company with id 2
+GET {{baseUrl}}/jobOffers/likedOffers/25
+
+### Read company with id 2
+POST {{baseUrl}}/jobOffers/dislikeDev/3/55

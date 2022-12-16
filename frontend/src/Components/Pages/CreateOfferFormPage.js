@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { clearPage, renderPageTitle } from '../../utils/render';
 import Navigate from '../Router/Navigate';
+import { getAuthenticatedUser } from '../../utils/auths';
 
 const main = document.querySelector('main');
 
@@ -71,8 +72,8 @@ const renderOfferFormPage = async () => {
         'Content-Type': 'application/json',
       },
     };
-
-    const response = await fetch('/api/jobOffers/create', options);
+    const idCompany = getAuthenticatedUser().id;
+    const response = await fetch(`/api/jobOffers/create/${idCompany}`, options);
 
     if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
 

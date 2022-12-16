@@ -46,7 +46,7 @@ Content-Type: application/json
 GET {{baseUrl}}/developers/profileDev/5
 
 ### Read devlopper master languages by id
-GET {{baseUrl}}/developers/masteredLanguageDev/5
+GET {{baseUrl}}/developers/masteredLanguageDev/3
 
 ### Read devlopper master languages by id
 GET {{baseUrl}}/developers/getAllLanguages
@@ -57,7 +57,7 @@ POST  {{baseUrl}}/developers/addLanguageProgramationToDev
 Content-Type: application/json
 
 {
-    "idDev":"5",
-    "idLanguage":"3"
+    "idDev":"6",
+    "idLanguage":"2"
  
 }

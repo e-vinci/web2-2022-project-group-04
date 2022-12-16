@@ -6,7 +6,9 @@ const {
   getAllDevInterestedForOffer,
   createJobOffer,
   getAllTypeOffer,
-  getMatches
+  getLikedOffers,
+  likeDev,
+  dislikeDev
 } = require('../models/jobOffers');
 
 const router = express.Router();
@@ -35,19 +37,21 @@ router.get('/allJobOfferFromCompany/:idCompany', async (req, res) => {
 });
 
 router.get('/allDevelopersInterstedOffer/:idOffer', async (req, res) => {
+  console.log("on est mort")
   const { idOffer } = req.params;
   const devsInterested = await getAllDevInterestedForOffer(idOffer);
+  console.log(devsInterested)
+  // eslint-disable-next-line eqeqeq
 
   // eslint-disable-next-line no-console
-  console.log(devsInterested);
+  if (devsInterested === undefined) return res.sendStatus(400);
 
-  if (devsInterested === undefined || !devsInterested) return res.status(400);
-
+  console.log("eee")
   return res.json(devsInterested);
 });
 
-router.post('/create', async (req, res) => {
-  const idCompany = req?.body?.idCompany;
+router.post('/create/:idCompany', async (req, res) => {
+  const {idCompany} = req.params;
   const typeOffer = req?.body?.typeOffer;
   const title = req?.body?.title;
   const description = req?.body?.description;
@@ -75,16 +79,36 @@ router.get('/allTypeOffer', async(req,res)=>{
   return res.json(allTypeOffer);
 })
 
-router.get('/matchesCompany/:idCompany', async (req, res) => {
-  const idCompani = req.params.idCompany;
-  const matches = await getMatches(idCompani);
-
-  if (!matches) {
-    return res.status(400);
+router.get('/likedOffers/:idCompany', async (req, res) => {
+  // eslint-disable-next-line camelcase
+  const id_company = req.params.idCompany;
+  const matches = await getLikedOffers(id_company);
+    console.log("ici")
+  if (!matches || matches ===undefined) {
+    return res.sendStatus(400);
   }
-  console.log("il ya des matches ")
   return res.json(matches);
 });
+
+router.post('/likeDev/:idDev/:idOffer', async (req, res) => {
+  console.log("ici")
+  // eslint-disable-next-line camelcase
+  const id_dev = req.params.idDev;
+  const {idOffer} = req.params;
+
+   const result = await likeDev(id_dev,idOffer);
+  
+  return res.json(result);
+});
+router.post('/dislikeDev/:idDev/:idOffer', async (req, res) => {
+  // eslint-disable-next-line camelcase
+  const id_dev = req.params.idDev;
+  const {idOffer} = req.params;
+
+  const result = await dislikeDev(id_dev,idOffer);
+  return res.json(result);
+});
+
 
 
 module.exports = router;

@@ -30,21 +30,36 @@ const addToIntersted = async( data) => {
     })
 }
 
-const getAllJobOffersFromCompany = async(idCompany)=> new Promise((resolve, reject) => {
-    const select =`SELECT j.* FROM  webproject.job_offers j join webproject.compagnies c on c.id_company = j.company
+// eslint-disable-next-line camelcase
+async function getAllJobOffersFromCompany(id_company) {
+    const select =`SELECT j.*,t.type_offer
+    FROM  webproject.job_offers j
+    join 
+    webproject.compagnies c on c.id_company = j.company
+    join webproject.type_offers t on j.type_offer = t.id_type_offer
     WHERE c.id_company= $1`;
 
-    client.query(select,[idCompany], (err,result)=>{
-        if (err) {
-            reject(err.message);
-        } else {
-            resolve(result.rows)
+    try {
+        // eslint-disable-next-line camelcase
+        const res = await client.query(select, [id_company]);
+        if(res.rowCount===0){
+          console.log("pas de matches bd")
+      return undefined;
         }
-    })
+  
+        return res.rows;
+      } catch (err) {
+          console.log(err.message);
+      }
+      return undefined;
+        
     
-})
+    
+}
 
-const getAllDevInterestedForOffer = async(idOffer) => new Promise((resolve, reject) => {
+
+async function getAllDevInterestedForOffer(idOffer) {
+    
     const select = `SELECT d.id_developer, d.lastname, d.firstname, d.mail, d.birth_date, d.tel, t.type_offer
 
     FROM webproject.matches m
@@ -54,16 +69,19 @@ const getAllDevInterestedForOffer = async(idOffer) => new Promise((resolve, reje
     
         AND m.developer_is_interested = true AND m.job_offer = $1`;
 
-        client.query(select,[idOffer],(err,result)=>{
-            if (err) {
-                reject(err.message)
-            } else {
-                
-                resolve(result.rows)
-            }
-        })
-    
-})
+    try {
+      const res = await client.query(select, [idOffer]);
+      if(res.rowCount===0){
+        console.log("pas de matches bd")
+    return undefined;
+      }
+
+      return res.rows;
+    } catch (err) {
+        console.log(err.message);
+    }
+    return undefined;
+  }
 
 const createJobOffer = (jobOffer) => new Promise((resolve, reject) => {
     const insert = `insert into webproject.job_offers(company, title, type_offer, description) 
@@ -91,7 +109,7 @@ const getAllTypeOffer = async()=> new Promise((resolve, reject) => {
 
     
 
-async function getMatches(idCompany) {
+async function getMatchesDevAndCompany(idCompany) {
     
     const select = `SELECT d.*,t.type_offer
     FROM webproject.matches m, 
@@ -116,5 +134,68 @@ async function getMatches(idCompany) {
     return undefined;
   }
 
+  async function getLikedOffers(idCompany) {
+    
+    const select = `SELECT distinct j.*,t.type_offer
+    FROM webproject.matches m, 
+    webproject.developers d,
+    webproject.job_offers j,
+    webproject.type_offers t,
+    webproject.compagnies c
+    where d.id_developer = m.developer
+    and c.id_company = j.company
+    and j.company = $1
+    and m.job_offer = j.id_offer
+    and d.type_offer_required= t.id_type_offer
+    and m.company_is_interested = false
+    and m.developer_is_interested = true
+    ` ;
+    try {
+      const res = await client.query(select, [idCompany]);
+      if(res.rowCount===0){
+        console.log("pas de matches bd")
+    return undefined;
+      }
+
+      return res.rows;
+    } catch (err) {
+        console.log(err.message);
+    }
+    return undefined;
+  }
+
+   async function likeDev(idDev,idOffer) {
+    const UPDATE = `UPDATE webproject.matches  SET company_is_interested = true WHERE developer = $1 and job_offer = $2  RETURNING company_is_interested`;
+
+    try {
+     const result = await client.query(UPDATE, [idDev,idOffer]);
+    if(result)
+        return result.rows;
+    
+        return 1;
+    } catch (err) {
+        console.log(err.message);
+        return undefined;
+    }
+  }
+
+  async function dislikeDev(idDev,idOffer) {
+    const DELETE = `DELETE FROM webproject.matches m
+    WHERE m.developer = $1 and m.job_offer = $2 RETURNING *`;
+    
+    try {
+     const result = await client.query(DELETE, [idDev,idOffer]);
+    if(result)
+        return result.rows;
+        
+        return 1;
+    } catch (err) {
+        console.log(err.message);
+        return undefined;
+    }
+  }
+
+
+
 module.exports = {getAllOffers,addToIntersted,getAllJobOffersFromCompany 
-    , getAllDevInterestedForOffer , createJobOffer , getAllTypeOffer,getMatches} 
+    , getAllDevInterestedForOffer , createJobOffer, getLikedOffers, getAllTypeOffer, getMatchesDevAndCompany,likeDev,dislikeDev} 
