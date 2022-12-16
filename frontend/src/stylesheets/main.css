@@ -131,6 +131,7 @@ h3 {
     background-image: url(../img/front_background.jpg);
     background-size: cover;
     background-repeat: no-repeat;   
+    height: 95vh;
 }
 #idImageDevPage{
     background-image: url(../img/Logo.png);
