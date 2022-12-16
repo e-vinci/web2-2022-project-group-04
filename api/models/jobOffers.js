@@ -192,12 +192,7 @@ async function getMatchesDevAndCompany(idCompany) {
         return undefined;
     }
   }
-
-
-
-module.exports = {getAllOffers,addToIntersted,getAllJobOffersFromCompany 
-    , getAllDevInterestedForOffer , createJobOffer, getLikedOffers, getAllTypeOffer, getMatchesDevAndCompany,likeDev,dislikeDev} 
-    const getLanguageRequired = async(idOffer) => {
+  const getLanguageRequired = async(idOffer) => {
     const select = `SELECT l.language
     FROM webproject.required_languages r
     LEFT OUTER JOIN webproject.job_offers j ON j.id_offer = r.job_offer 
@@ -217,5 +212,9 @@ module.exports = {getAllOffers,addToIntersted,getAllJobOffersFromCompany
       return undefined;
   };
 
+
+
 module.exports = {getAllOffers,addToIntersted,getAllJobOffersFromCompany 
-    , getAllDevInterestedForOffer , createJobOffer , getAllTypeOffer,getMatches, getLanguageRequired } 
+    , getAllDevInterestedForOffer , createJobOffer, getLikedOffers, getAllTypeOffer, getMatchesDevAndCompany,likeDev,dislikeDev,getLanguageRequired} 
+  
+

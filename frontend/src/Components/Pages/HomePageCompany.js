@@ -11,6 +11,7 @@ const homePageCompany = async () => {
     renderPageTitle('Vos matches');
 
     const idCompany = getAuthenticatedUser().id;
+    console.log("type",getAuthenticatedUser(),"id",getAuthenticatedUser().id)
     const jobOffers = await getAllJobsOfferFromCompanyFromApi(idCompany);
     if (!jobOffers) {
       renderMessageNoJobOffer();

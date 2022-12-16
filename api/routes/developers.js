@@ -70,9 +70,8 @@ router.get('/profileDev/:id', authorizeDev, async (req, res) => {
   return res.json(devFound);
 });
 
-router.get('/masteredLanguageDev/:id', authorizeDev, async (req, res) => {
+router.get('/masteredLanguageDev/:id', async (req, res) => {
   
-  if (req.user.id != req.params.id) return res.sendStatus(403);
   const infoFound = await getmasteredLanguageByIdDev(req.params.id);
 
   if(!infoFound ) {
