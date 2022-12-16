@@ -13,12 +13,11 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:idCompany', async (req, res) => {
-  const idCompany = req?.params?.idCompany?.length !== 0 ? req.params.idCompany : undefined;
-
-  if (idCompany === undefined) {
+  const idCompany = req?.params?.idCompany;
+  const company = await getOneCompany(idCompany);
+  if (!company) {
     return res.status(400);
   }
-  const company = await getOneCompany(idCompany);
   return res.json(company);
 });
 

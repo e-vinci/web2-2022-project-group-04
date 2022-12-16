@@ -32,7 +32,7 @@ const renderHomePage = () => {
           <div class="my-3 py-3">
               <h2 class="display-5">Qui sommes-nous ?</h2>
               <p class="lead" id="whoare">Groupes de jeunes developpeurs en informatique de gestion, <br> rapidement
-                  le besoin de trouvez des offres nous convenant et de pouvoir y postuler facilement se fit ressentir,
+              se fit ressentir le besoin de trouvez des offres nous convenant et de pouvoir y postuler facilement ,
                   <br> 2022 le projet DevJob voit le jour</p>
           </div>
       </div>
