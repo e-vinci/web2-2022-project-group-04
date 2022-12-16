@@ -6,14 +6,12 @@ const {
   getAllDevInterestedForOffer,
   createJobOffer,
   getAllTypeOffer,
-  getMatches,
   getLanguageRequired,
   getAllLanguages,
-  addLanguageToAnOffer
+  addLanguageToAnOffer,
   getLikedOffers,
   likeDev,
   dislikeDev,
-  getLanguageRequired
   
 } = require('../models/jobOffers');
 
