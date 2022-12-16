@@ -7,8 +7,6 @@ import CreateOfferFormPage from '../Pages/CreateOfferFormPage';
 import CompanyPage from '../Pages/CompanyPage';
 import Logout from '../Logout/Logout';
 import HomePageComany from '../Pages/HomePageCompany'
-// eslint-disable-next-line import/no-named-as-default
-import HomePageDevSwipe from '../Pages/HomePageDevSwipe';
 
 const routes = {
   '/': HomePage,
@@ -20,7 +18,6 @@ const routes = {
   '/companyPage' : CompanyPage,
   '/logout': Logout,
   '/homePageCompany' : HomePageComany,
-  '/jobOffersSwipe' : HomePageDevSwipe
  };
 
 export default routes;

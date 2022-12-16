@@ -253,4 +253,7 @@ module.exports = {
   getLanguageRequired,
   getAllLanguages,
   addLanguageToAnOffer,
+  getLikedOffers,
+  likeDev,
+  dislikeDev
 };

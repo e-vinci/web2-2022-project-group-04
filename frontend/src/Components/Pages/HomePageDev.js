@@ -1,74 +1,116 @@
+import Swiper, { Navigation, Pagination , Keyboard   } from 'swiper';
 import { clearPage, renderPageTitle } from '../../utils/render';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// core version + navigation, pagination modules:
 
-const HomePageDev = async () => {
-  try {
-    clearPage();
-    renderPageTitle('Home Page Dev');
+// configure Swiper to use modules
+Swiper.use([Navigation, Pagination  , Keyboard ]);
+// d'abbord afficher les offres avant d'executer le script
 
-    const AllOffers = await getAllOffersFromAPI();
-
-    renderAllOffers(AllOffers);
-    attachListenerToButton();
-  } catch (error) {
-    // eslint-disable-next-line no-console
-    // console.error('HomePage::error: ', error);
-    const errorText = document.querySelector('main');
-    errorText.innerHTML = `<div class="alert alert-danger" role="alert">
-    Erreur dans le chargemnt de cette page
-    </div>`;
-  }
+const SwipePage = async () => {
+ 
+  renderPageTitle('Offres');
+  const AllOffers = await getAllOffersFromAPI();
+  await renderSwipePage(AllOffers);
+  
+  // renderAllOffers(AllOffers);
 };
 
-function attachListenerToButton() {
-  const buttonInterested = document.querySelector('.buttonInterested');
-  buttonInterested.addEventListener('click', (e) => {
-    e.preventDefault();
-    buttonInterested.className = 'btn btn-primary buttonInterested';
-  });
+async function renderSwipePage(AllOffers) {
+  try {
+    const head = document.querySelector('head');
+    const foot = document.querySelector('footer');
+    head.innerHTML += `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>`;
+    foot.innerHTML += `<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>`;
+    foot.innerHTML += ``;
+    const main = document.querySelector('main');
+    const allJobOfferFromCompany = await renderAllJobOffersAsString(AllOffers);
+   
+    console.log(
+      'TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT',
+      allJobOfferFromCompany,
+    );
+    main.innerHTML += `<!-- Slider main container -->
+  <div class="swiper">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+    <!-- Slides -->
+    ${allJobOfferFromCompany}
+  </div>
+  <!-- If we need pagination -->
+  <div class="swiper-pagination"></div>
+
+  <!-- If we need navigation buttons -->
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+
+  <!-- If we need scrollbar -->
+  <div class="swiper-scrollbar"></div>
+  </div>`;
+
+    const swiper = new Swiper('.swiper', {
+      // Optional parameters
+
+      // If we need pagination
+      pagination: {
+        el: '.swiper-pagination',
+        // clickable : true
+      },
+       keyboard : {
+        enabled : true
+       },
+      // Navigation arrows
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+
+      // And if we need scrollbar
+      scrollbar: {
+        el: '.swiper-scrollbar',
+      },
+    });
+
+    swiper();
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-function renderAllJobOffersAsString(jobOffers) {
-  let allOffers = `
-  <div class="container">`;
-
-  jobOffers?.forEach((offer) => {
+async function renderAllJobOffersAsString(jobOffers) {
+ 
+  let allOffers = ``;
+ // eslint-disable-next-line no-restricted-syntax
+ for (const offer of jobOffers) {
     const date = new Date(offer.upload_date);
-    allOffers += ` 
-      <h2>${offer.title}</h2>
-      <h3>Nom de l'entreprise : ${offer.company_name}</h3>
-
-      <h3>Type d'offre : ${offer.type_offer}</h3>
+     // eslint-disable-next-line no-await-in-loop
+     const language = await getAllLanguageFromOfferAPI(offer.id_offer);
+     const languageString = getLanguageAsString(language);
+   //  console.log('LANGUAGE STRING', languageString);
+    allOffers += ` <div class="swiper-slide ">
+    <table class="table table-dark">
+    <thead>
+      <th scope="row">${offer.title} chez ${offer.company_name} <br> 
+      Publié le ${date.toLocaleDateString()}</th>
+      <th scope="row"></th>
       
-      <h4>Description : ${offer.description}</h4>
+    </thead>
 
-      <p>Publié le ${date.toLocaleDateString()}</p>
-      <div>
-                        <form method="POST">
-                        <input type="hidden" name="id_offer" value="${offer.id_offer}">
+      <th scope="row">${offer.type_offer} </th>
+      <th scope="row">${offer.description}</th>
+      <th scope="row">${languageString} </th> 
     
-                        <button type="submit " class="btn btn-success buttonInterested">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-check-lg" viewBox="0 0 16 16">
-                                <path
-                                        d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
-                            </svg>
-                            </svg>
-
-                        </button>
-
-
-                        </form>
-                    </div>
-
-     
-  <hr>  `;
-  });
-
-  allOffers += `</div>`;
-
+      </table>
+      
+      </div>
+     `;
+  };
+  clearPage();
+  
   return allOffers;
 }
 
+// eslint-disable-next-line no-unused-vars
 function renderAllOffers(jobOffers) {
   const tablesAllOffers = renderAllJobOffersAsString(jobOffers);
   const main = document.querySelector('main');
@@ -91,4 +133,30 @@ async function getAllOffersFromAPI() {
   }
 }
 
-export default HomePageDev;
+ async function getAllLanguageFromOfferAPI(idOffer) {
+  try {
+    const response = await fetch(`/api/jobOffers/getLanguageRequired/${idOffer}`);
+
+    if (!response.ok) throw new Error('fetch error : ', response.status, response.statusText);
+
+    const languages = await response.json();
+    // console.log(languages);
+    return languages;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.error('HomePageDev  error: ', error);
+    throw error;
+  }
+}
+
+function getLanguageAsString(listLanguage) {
+  let languageRequired = ``;
+  listLanguage?.forEach((l) => {
+   
+    languageRequired += `<p>${l.language}</p>`;
+  });
+ 
+  return languageRequired;
+}
+
+export default SwipePage;
