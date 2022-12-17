@@ -116,9 +116,9 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
     </div>
     <div class="col rounded-4 bg-muted mx-2 bg-info">
       <div class="container-sm py-2 px-4 mx-5 mt-4 mb-2 w-50 rounded-3  bg-info">  
-          <h3>Informations generales</h3> 
+          <h3>Informations générales</h3> 
       </div>
-      <ul class="infoDev"> 
+      <ul class="infoDev" style="list-style-type:none;"> 
           <li>Prénom : ${description.lastname}   </li>
           <li>Nom : ${description.firstname}  </li>
           <li>Date de naissance : ${new Date(description.birth_date).toLocaleDateString()} </li>
