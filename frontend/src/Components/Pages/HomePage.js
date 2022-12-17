@@ -24,7 +24,7 @@ const renderHomePage = () => {
       <div class="col-md-6 p-lg-5 mx-auto my-5" id="part">
           <h1 class="display-4 font-weight-normal">Trouvez un job avec DevJob </h1>
           <p class="lead font-weight-normal">Site de mise en relation entre developpeurs et entreprise.</p>
-          <small>Swipe dès maintenant les offres qui t'intéressent!</small>
+          <small>Swipe dès maintenant les offres qui t'intéresse!</small>
           <button class="btn btn-outline-secondary mt-1" class="text-center" id="btn-register"
               data-uri="/register type=" button">S'inscrire maintenant</button>
       </div>
