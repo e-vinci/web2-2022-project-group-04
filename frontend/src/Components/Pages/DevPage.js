@@ -40,7 +40,7 @@ async function getDescriptionDev() {
      throw new Error('fetch error : ', descriptionDev.status, descriptionDev.statusText);
     }
     descriptionDev = await descriptionDev.json();
-    // eslint-disable-next-line no-console
+
     return renderDescriptionDev(descriptionDev);
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -83,7 +83,7 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
        throw new Error('fetch error : ', allLanguages.status, allLanguages.statusText);
       }
       allLanguages = await allLanguages.json();
-      // eslint-disable-next-line no-console
+      
       return renderAlllanguages(allLanguages);
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -118,8 +118,9 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
       <ul> 
           <li>Prénom : ${description.lastname}   </li>
           <li>Nom : ${description.firstname}  </li>
-          <li>Date de naissance :${description.birth_date} </li>
+          <li>Date de naissance : ${new Date(description.birth_date).toLocaleDateString()} </li>
           <li>Numero de téléphone : ${description.tel}    </li>
+          <li>Adresse email : ${description.mail}    </li>
         </ul>
     `
   return descriptionDev;
