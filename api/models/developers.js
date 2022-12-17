@@ -69,8 +69,8 @@ const getCompagnyByMail = (mail) =>
   const getProfilDevById = (idDev) =>
   new Promise((resolve, reject) => {
     
-    const select = `SELECT * 
-    FROM webproject.developers dev    
+    const select = `SELECT dev.* , t.type_offer
+    FROM webproject.developers dev  INNER JOIN webproject.type_offers t ON dev.type_offer_required = t.id_type_offer  
     where id_developer = $1`;
 
     client.query(select, [idDev], (err, result) => {
