@@ -1,10 +1,9 @@
-import { clearPage, renderPageTitle } from '../../utils/render';
+import { clearPage } from '../../utils/render';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
 import Navigate from '../Router/Navigate';
 import Navbar from '../Navbar/Navbar';
 
 const developerPage = () => {
-  renderPageTitle('Dev Page');
   if(isAuthenticated()){
     renderDevPage();
   }else{

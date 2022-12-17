@@ -8,7 +8,7 @@ POST {{baseUrl}}/jobOffers/addToInterstedDev
 Content-Type: application/json
 
 {
-    "idOffer":"60",
+    "idOffer":"50",
     "idDeveloper":"1"
 }
 
@@ -34,11 +34,18 @@ Content-Type: application/json
 ### Read All type offer
 GET {{baseUrl}}/jobOffers/allTypeOffer
 
+
+
+### Read All type offer
+GET {{baseUrl}}/jobOffers/getMatchesDevAndCompnay/50
 ### Read company with id 2
 GET {{baseUrl}}/jobOffers/likedOffers/25
 
 ### Read company with id 2
 POST {{baseUrl}}/jobOffers/dislikeDev/3/55
+
+### Read company with id 2
+POST {{baseUrl}}/jobOffers/likeDev/1/50
 ### Read language_required
 GET {{baseUrl}}/jobOffers/getLanguageRequired/2
 
