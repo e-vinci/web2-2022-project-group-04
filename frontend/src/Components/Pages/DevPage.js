@@ -1,4 +1,5 @@
-import { clearPage } from '../../utils/render';
+/* eslint-disable no-restricted-syntax */
+import { clearPage,renderPageTitle } from '../../utils/render';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
 import Navigate from '../Router/Navigate';
 import Navbar from '../Navbar/Navbar';
@@ -16,9 +17,11 @@ const developerPage = () => {
 
   const descriptionDev= await getDescriptionDev();
   const masteredLanguagesDev= await getmasteredLanguageByIdDevandGetAllLanguages();
+  const matchesInfos = await getCompleteMatchesInfosCompanies();
   clearPage();
+  renderPageTitle('Votre profile')
   const main = document.querySelector('main');
-  main.innerHTML = descriptionDev+ masteredLanguagesDev;
+  main.innerHTML = descriptionDev+ masteredLanguagesDev + matchesInfos;
   const form = document.getElementById('test');
   form.addEventListener('submit',addLangageEvent);
 }
@@ -92,7 +95,66 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
     }
   }
 
+  async function getCompleteMatchesInfosCompanies(){
 
+    try {
+
+      let matchesCompanies = await fetch(`/api/jobOffers/getCompaniesMatchInfos/${getAuthenticatedUser().id}`);
+
+      if (!matchesCompanies.ok){
+        matchesCompanies=undefined
+        return renderMatchesInfos(matchesCompanies);
+      }
+
+      matchesCompanies = await matchesCompanies.json();
+      
+      return renderMatchesInfos(matchesCompanies);
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error('ALl languages in devPage  error: ', error);
+      throw error;
+    }
+
+
+  }
+
+  async function renderMatchesInfos(matchesCompanies){
+    let infos = `<div class="container-sm py-2 px-4 mx-5 mt-4 mb-2 w-50 rounded-3   bg-secondary">
+    <h3>Vos matches </h3>
+</div>`;
+
+    if(matchesCompanies===undefined) {
+      infos += `<h4>Aucun matches pour l'instant</h4>`
+      return infos;
+    }
+    for (const comp of matchesCompanies) {
+      let cpt =1;
+      // eslint-disable-next-line no-await-in-loop
+      const response = await fetch(`/api/jobOffers/getJobOffersMatchInfos/${comp.id_company}/${getAuthenticatedUser().id}`);
+      // eslint-disable-next-line no-await-in-loop
+      const offers = await response.json();
+      infos+=`    
+      <div>
+      <h3>Compagnie : ${comp.company_name} </h3>
+      `;
+      for (const offer of offers) {
+        infos+=`   
+        <h5> Offre ${cpt} de l'entreprise</h5>
+        <h5>Compagnie ${offer.title} </h5>
+                    <h5>Compagnie ${comp.description} </h5><br>
+      `;
+      cpt+=1;
+      }
+
+      infos+=`</div>`
+    }
+    
+    
+      infos+=`
+      </div>
+      </div>`
+    return infos;
+  }
 
 
  function renderDescriptionDev(description) {
@@ -150,13 +212,6 @@ function renderMasteredlanguageDev(listMasteredlanguages,listLanguages) {
        ${listMasteredlanguages}  
        </ul>
         ${listLanguages}
-      </div>
-    </div>
-
-  </div>
-  
-
-  
   `;
           
   return descriptionString;
@@ -196,9 +251,6 @@ listLanguages?.forEach((language) => {  list += `
  });
 
 list +=  `
-
-
-
 </select>
 </div>
 <br>

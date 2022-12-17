@@ -12,7 +12,9 @@ const {
   getLikedOffers,
   likeDev,
   dislikeDev,
-  getMatchesDevAndCompany
+  getMatchesDevAndCompany,
+  getCompleteMatchesInfosCompanies,
+  getCompleteMatchesInfosOffers
   
 } = require('../models/jobOffers');
 
@@ -116,6 +118,31 @@ router.get('/getMatchesDevAndCompnay/:idOffer', async (req, res) => {
   const idOfferr = req.params.idOffer;
 
   const result = await getMatchesDevAndCompany(idOfferr);
+
+  if(!result || result==undefined)
+    res.sendStatus(400);
+
+  return res.json(result);
+});
+
+router.get('/getCompaniesMatchInfos/:idDev', async (req, res) => {
+  // eslint-disable-next-line camelcase
+  const id_dev = req.params.idDev;
+
+  const result = await getCompleteMatchesInfosCompanies(id_dev);
+
+  if(!result || result==undefined)
+    res.sendStatus(400);
+
+  return res.json(result);
+});
+
+router.get('/getJobOffersMatchInfos/:idCompany/:idDev', async (req, res) => {
+  // eslint-disable-next-line camelcase
+  const id_dev = req.params.idDev;
+  const id_company = req.params.idCompany;
+
+  const result = await getCompleteMatchesInfosOffers(id_company,id_dev);
 
   if(!result || result==undefined)
     res.sendStatus(400);
