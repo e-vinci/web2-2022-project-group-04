@@ -94,7 +94,7 @@ async function renderAllJobOfferOfCompany(jobOffers) {
           `
         }
         else{
-          allOffer+=`<h2> Les devlopeurs qui vous intéressent : </h2>`
+          allOffer+=`<h2> Les developpeurs qui vous intéressent : </h2>`
           // eslint-disable-next-line no-restricted-syntax
           for (const dev of matchesDev) {
 

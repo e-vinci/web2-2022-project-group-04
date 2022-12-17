@@ -3,6 +3,8 @@ import { clearPage, renderPageTitle } from '../../utils/render';
 import Navigate from '../Router/Navigate';
 import { getAuthenticatedUser } from '../../utils/auths';
 
+
+
 const main = document.querySelector('main');
 
 const renderOfferFormPage = async () => {
@@ -101,6 +103,7 @@ const renderOfferFormPage = async () => {
       }),
       headers: {
         'Content-Type': 'application/json',
+        
       },
     };
 

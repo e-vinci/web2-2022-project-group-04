@@ -1,4 +1,5 @@
 const express = require('express');
+const { authorizeDev } = require('../utils/auths');
 const {
   getAllOffers,
   addToIntersted,
@@ -56,7 +57,7 @@ router.get('/allDevelopersInterstedOffer/:idOffer', async (req, res) => {
   return res.json(devsInterested);
 });
 
-router.post('/create/:idCompany', async (req, res) => {
+router.post('/create/:idCompany', authorizeDev, async (req, res) => {
   const idCompany = req?.params.idCompany;
   const typeOffer = req?.body?.typeOffer;
   const title = req?.body?.title;

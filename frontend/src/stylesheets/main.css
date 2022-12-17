@@ -1,26 +1,32 @@
-/* #containerHomePage{
-    padding-top: 10%;
-    padding-bottom: 15%;
-    height: 100%;
-} */
 
-#nav{
-    background-color: #859dfb;
+/*temporaire */
+
+main{
+    background-color: #475cad;
 }
 
 a {
     color: white;
 }
 
-/* .sloganText1{
-    font-size: 400%;
-    font-weight: bold;
-    margin-bottom: 4%;
+h1 {
+    color: white;
+   
 }
 
-.sloganText2{
-    margin-bottom: 4%;
-} */
+h2 {
+    color: white;
+}
+
+h3 {
+    color: rgb(215, 215, 215);
+}
+
+
+#nav{
+    background-color: #859dfb;
+}
+
 
 #signUpButton{
     display: inline-flex;
@@ -33,6 +39,7 @@ a {
     background: rgba(89, 160, 207, 0.536);
     border: none;
 }
+
 /*CompanyPage*/
 .descCompany {
     background-color: gray;
@@ -49,6 +56,7 @@ a {
     height: 150vh;
     color:white
 }
+
 /* register page */
 
 #registerFormDevelopper{
@@ -60,17 +68,6 @@ a {
     width: 40vh;
     border-radius: 12px;
 
-}
-/*temporaire */
-
-
-h1 {
-    color: white;
-   
-}
-
-h2 {
-    color: white;
 }
 
 #h2HP{
@@ -118,9 +115,7 @@ h2 {
 }
 
 
-main{
-    background-color: #475cad;
-}
+
 
 #registerFormDevelopper{
     opacity: 0.8;
@@ -133,9 +128,7 @@ main{
 .white{
     background-color: rgba(248, 248, 248, 0.635);
 }
-h3 {
-    color: rgb(215, 215, 215);
-}
+
 #contreg{
     padding-top: 10%;
     padding-bottom: 15%;
@@ -144,7 +137,7 @@ h3 {
 }
 
 #titlePages{
-    color: black;
+    color: white;
 }
 
 #part1{
@@ -281,3 +274,12 @@ height: 40px;
     height : 90vh;
     margin : 0vh 70vh 0vh 70vh;
 }
+
+.swiper-slide{
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    align-items: center;
+}
+
