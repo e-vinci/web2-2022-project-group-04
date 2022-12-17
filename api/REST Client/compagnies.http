@@ -4,7 +4,7 @@
 GET {{baseUrl}}/compagnies
 
 ### Read company with id 1
-GET {{baseUrl}}/compagnies/16
+GET {{baseUrl}}/compagnies/25
 
 ### Register Company
 POST {{baseUrl}}/compagnies/register
