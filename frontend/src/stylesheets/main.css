@@ -78,9 +78,10 @@ h2 {
 }
 
 #slogan {
-    font-family: Brush Script MT;
+    font-family: 'Courier New', Courier, monospace;
     color:#3c013c ;
 }
+
 
 #btn-register {
     color: white;
@@ -118,7 +119,7 @@ h2 {
 
 
 main{
-    background-color: #c8d3ff;
+    background-color: #475cad;
 }
 
 #registerFormDevelopper{
@@ -151,9 +152,16 @@ h3 {
 }
 
 #idImageDevPage{
-    background-image: url(../img/Logo.png);
-  
+    background-image: url(../img/profil.png);
+    background-color:rgb(183, 222, 237);
+    height: 100px;
+    width: 100px;
 }
+
+#contIm{
+    background-color:rgb(183, 222, 237);
+}
+
 #part1a{
     background-color: #3f67b1;
 }
@@ -173,8 +181,11 @@ h3 {
     }
   
 #inputDevPage {
-    background-color: #0563af;
-    border-radius: 3px;
+    background-color:#1635ae;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight:bold;
+    color: white;
+    border-radius: 3rem;
     padding: 5 px;
 margin-top: 4px;
 margin-bottom: 4px;
@@ -184,14 +195,10 @@ height: 40px;
 }
 
 #inputDevPage:hover {
-    background-color: rgba(104, 110, 116, 0.849);
+    background-color: black;
+    color: greenyellow;
 
     }
-
-
-    
-    
-      
       .box select {
         border-radius: 3px;
         background-color: #0563af;
@@ -230,3 +237,40 @@ height: 40px;
       .box select option {
         padding: 30px;
       }
+#idLanguage{
+    
+    font-family: 'Courier New', Courier, monospace;
+    justify-content: center;
+    align-items: center;
+}
+
+#idLanguage:hover{
+    background-color:black;
+    color: greenyellow;
+}
+
+#test{
+    justify-content: center;
+    align-items: center;
+    margin-left:5%;
+}
+
+.infoDev{
+    font-family:monospace;
+}
+
+.p-5{
+    position: relative;
+
+    width  : 70vh;
+    height : 80vh;
+    margin : 0 auto;
+}
+
+#offerForm{
+    position: relative;
+
+    width  : 70vh;
+    height : 90vh;
+    margin : 0vh 70vh 0vh 70vh;
+}

@@ -9,7 +9,7 @@ Swiper.use([Navigation, Pagination  , Keyboard ]);
 
 const SwipePage = async () => {
  
-  renderPageTitle('Offres');
+  renderPageTitle('');
   const AllOffers = await getAllOffersFromAPI();
   await renderSwipePage(AllOffers);
   
