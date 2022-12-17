@@ -104,6 +104,9 @@ async function renderAllJobOfferOfCompany(jobOffers) {
               <li class="list-group-item list-group-item-dark"> Nom : ${dev.lastname} </li>
               <li class="list-group-item list-group-item-dark"> Prénom : ${dev.firstname} </li>
               <li class="list-group-item list-group-item-dark"> Email : ${dev.mail} </li>
+              <li class="list-group-item list-group-item-dark"> 
+              <a href="mailto:${dev.mail}?subject=${offer.title}&body=Bonjour,%0D%0A%0D%0ANous avons matches sur DevJob">
+              Envoyer Email</a> </li>
             </ul>
             `
         }
