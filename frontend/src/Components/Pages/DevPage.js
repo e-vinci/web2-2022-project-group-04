@@ -1,4 +1,5 @@
-import { clearPage } from '../../utils/render';
+/* eslint-disable no-restricted-syntax */
+import { clearPage,renderPageTitle } from '../../utils/render';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
 import Navigate from '../Router/Navigate';
 import Navbar from '../Navbar/Navbar';
@@ -13,12 +14,13 @@ const developerPage = () => {
 };
 
  async function renderDevPage() {
-
-  const descriptionDev= await getDescriptionDev();
-  const masteredLanguagesDev= await getmasteredLanguageByIdDevandGetAllLanguages();
+ const descriptionDev= await getDescriptionDev();
+const masteredLanguagesDev= await getmasteredLanguageByIdDevandGetAllLanguages();
+const  matchesInfos = await getCompleteMatchesInfosCompanies();
   clearPage();
+  renderPageTitle('Votre profile')
   const main = document.querySelector('main');
-  main.innerHTML = descriptionDev+ masteredLanguagesDev;
+  main.innerHTML = descriptionDev+ masteredLanguagesDev+matchesInfos ;
   const form = document.getElementById('test');
   form.addEventListener('submit',addLangageEvent);
 }
@@ -33,9 +35,8 @@ async function getDescriptionDev() {
       }
       
     }
-
     let descriptionDev = await fetch(`/api/developers/profileDev/${idUser}`, options);
-    
+
     if (!descriptionDev.ok){
      throw new Error('fetch error : ', descriptionDev.status, descriptionDev.statusText);
     }
@@ -60,7 +61,6 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
       }
       
     }
-
     let masteredLanguages = await fetch(`/api/developers/masteredLanguageDev/${idUser}`, options);
 
     const listLanguages = await getAllLanguages();
@@ -73,8 +73,7 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
     return masteredLanguageByIdDevandGetAllLanguages(masteredLanguages,listLanguages);
   
 }
-
-  async function getAllLanguages() {
+ async function getAllLanguages() {
     try {
 
       let allLanguages = await fetch(`/api/developers/getAllLanguages`);
@@ -92,7 +91,59 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
     }
   }
 
+  async function getCompleteMatchesInfosCompanies(){
+    console.log("keek")
 
+      let matchesCompanies = await fetch(`/api/jobOffers/getCompaniesMatchInfos/${getAuthenticatedUser().id}`);
+
+      if (!matchesCompanies.ok){
+        matchesCompanies=undefined
+        return renderMatchesInfos(matchesCompanies);
+      }
+
+      matchesCompanies = await matchesCompanies.json();
+      
+      return renderMatchesInfos(matchesCompanies);
+  }
+
+  async function renderMatchesInfos(matchesCompanies){
+    let infos = `
+    <div class="container-sm py-2 px-4 mx-5 mt-4 mb-2 w-50 rounded-3 bg-info">
+    <h3>Vos matches </h3>
+    </div>
+`;
+
+    if(matchesCompanies===undefined) {
+      infos += `<h3>Aucun matches pour l'instant</h3>
+      `
+      return infos;
+    }
+    for (const comp of matchesCompanies) {
+      let cpt =1;
+      // eslint-disable-next-line no-await-in-loop
+      const response = await fetch(`/api/jobOffers/getJobOffersMatchInfos/${comp.id_company}/${getAuthenticatedUser().id}`);
+      // eslint-disable-next-line no-await-in-loop
+      const offers = await response.json();
+      infos+=`    
+      <div class="infoDev" >
+      <h4 class = "h4DevPage ">Compagnie : ${comp.company_name} </h4>
+      <br>
+      `;
+      for (const offer of offers) {
+        infos+=`   
+        <h5> Offre ${cpt} de l'entreprise</h5>
+        <h5>Compagnie ${offer.title} </h5>
+        <h5>Compagnie ${comp.description} </h5><br>
+      `;
+      cpt+=1;
+      }
+
+      infos+=`</div>`
+    }
+      infos+=`
+      </div>`
+    return infos;
+  }
 
 
  function renderDescriptionDev(description) {
@@ -153,13 +204,6 @@ function renderMasteredlanguageDev(listMasteredlanguages,listLanguages) {
        ${listMasteredlanguages}  
        </ul>
         ${listLanguages}
-      </div>
-    </div>
-
-  </div>
-  
-
-  
   `;
           
   return descriptionString;
@@ -186,8 +230,7 @@ return listMasteredlanguag;
 function renderAlllanguages(listLanguages){
   let list = `
 
-  <form  id="test" class="form-group" >
-  <div class = "box"  >
+  <form id="test" class="form-group" >
                                 <label style="font-family: Arial" for="">Ajouter un language à mes compétences</label> <br>
                                 <select id="idLanguage">
                                     `;
@@ -199,11 +242,7 @@ listLanguages?.forEach((language) => {  list += `
  });
 
 list +=  `
-
-
-
 </select>
-</div>
 <br>
 <input id="inputDevPage"  type="submit" value = "AJOUTER"/>
 

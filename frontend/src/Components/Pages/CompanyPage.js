@@ -2,13 +2,12 @@ import { clearPage,renderPageTitle } from '../../utils/render';
 import { getAuthenticatedUser } from '../../utils/auths';
 
 const companyPage = async () => {
-  clearPage();
-renderPageTitle('Votre Profil')
+
   const idCompany = getAuthenticatedUser().id;
   console.log(idCompany)
   const companyDescription = await getDescriptionFromAPI(idCompany);
   const allJobOfferOfCompany = await getAllJobOfferOfCompanyFromAPI(idCompany);
-
+  
   renderCompanyPage(companyDescription, allJobOfferOfCompany);
 };
 
@@ -53,10 +52,12 @@ async function getAllJobOfferOfCompanyFromAPI(idCompany) {
 async function renderCompanyPage(description, allJobOfferOfCompany) {
   const main = document.querySelector('main');
   main.style = ' ';
-  const descriptionString = renderDescriptionAsString(description);
-  main.innerHTML += descriptionString;
   const allJobOfferString = await renderAllJobOfferOfCompany(allJobOfferOfCompany);
-  main.innerHTML += allJobOfferString;
+  const descriptionString = renderDescriptionAsString(description);
+  clearPage();
+  renderPageTitle('Votre Profil')
+
+  main.innerHTML += descriptionString+ allJobOfferString ;
 }
 
 async function renderAllJobOfferOfCompany(jobOffers) {
@@ -115,11 +116,12 @@ async function renderAllJobOfferOfCompany(jobOffers) {
   }
   allOffer += `</div>`
 
-
+  
   return allOffer;
 }
 
 function renderDescriptionAsString(description) {
+
   const descriptionString = `
     <div class = "container descCompany"> 
     <h1>Votre nom : ${description.company_name}</h1>

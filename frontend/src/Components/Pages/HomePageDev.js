@@ -11,8 +11,7 @@ Swiper.use([Navigation, Keyboard, EffectCube]);
 // d'abbord afficher les offres avant d'executer le script
 
 const SwipePage = async () => {
-  clearPage();
-  renderPageTitle('Offres');
+  
   const AllOffers = await getAllOffersFromAPI();
   await renderSwipePage(AllOffers);
 
@@ -33,6 +32,7 @@ const SwipePage = async () => {
 
 async function renderSwipePage(AllOffers) {
   try {
+    
     const head = document.querySelector('head');
     const foot = document.querySelector('footer');
     head.innerHTML += `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>`;
@@ -42,6 +42,12 @@ async function renderSwipePage(AllOffers) {
     const allJobOfferFromCompany = await renderAllJobOffersAsString(AllOffers);
 
    
+    console.log(
+      'TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT',
+      allJobOfferFromCompany,
+    );
+    clearPage();
+  renderPageTitle('Offres');
     main.innerHTML += `<!-- Slider main container -->
   <div class="swiper">
   <!-- Additional required wrapper -->

@@ -146,6 +146,10 @@ h3 {
     background-repeat: no-repeat;   
     height: 95vh;
 }
+.h4DevPage
+{
+    color: #3f67b1;
+}
 
 #idImageDevPage{
     background-image: url(../img/profil.png);

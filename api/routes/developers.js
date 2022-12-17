@@ -16,12 +16,10 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/login/:mail', async (req, res) => {
- 
   const devFound = await getDevByMail(req.params.mail);
   if(!devFound ) return res.status(400);
   return res.json(devFound);
 });
-
 
 /* Login a user */
 router.post('/login', async (req, res) => {
@@ -61,10 +59,11 @@ router.post('/registerDev', async (req, res) => {
 
 
 
-router.get('/profileDev/:id', authorizeDev, async (req, res) => {
-  if (req.user.id != req.params.id) return res.sendStatus(403);
+router.get('/profileDev/:id', async (req, res) => {
+ // if (req.user.id != req.params.id) return res.sendStatus(403);
   const devFound = await getProfilDevById(req.params.id);
-  if(!devFound ) return res.status(400);
+
+  if(!devFound ) return res.sendStatus(400);
   
 
   return res.json(devFound);
