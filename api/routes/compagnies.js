@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   const allCompangies = await getAllCompagnies();
   if (allCompangies === undefined) {
-    return res.status(404);
+    return res.sendStatus(404);
   }
   return res.json(allCompangies);
 });
@@ -16,7 +16,7 @@ router.get('/:idCompany', async (req, res) => {
   const idCompany = req?.params?.idCompany;
   const company = await getOneCompany(idCompany);
   if (!company) {
-    return res.status(400);
+    return res.sendStatus(400);
   }
   return res.json(company);
 });
@@ -36,7 +36,7 @@ router.post('/register', async (req, res) => {
     password,
   }).catch((err) => {
     console.error("Error", err);
-    return res.status(400);
+    return res.sendStatus(400);
   });
 
   if (!idCompany || idCompany === undefined) return res.status(400);
