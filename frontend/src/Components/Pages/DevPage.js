@@ -36,12 +36,11 @@ async function getDescriptionDev() {
       
     }
     let descriptionDev = await fetch(`/api/developers/profileDev/${idUser}`, options);
-
     if (!descriptionDev.ok){
+
      throw new Error('fetch error : ', descriptionDev.status, descriptionDev.statusText);
     }
     descriptionDev = await descriptionDev.json();
-
     return renderDescriptionDev(descriptionDev);
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -147,6 +146,8 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
 
 
  function renderDescriptionDev(description) {
+  // eslint-disable-next-line no-template-curly-in-string
+  
   const descriptionDev =  `
   
   <div class="container mx-auto my-4 bg-info">

@@ -98,8 +98,7 @@ const getProfilDevById = async (idDev) => {
     if (res.rowCount === 0) {
       return undefined;
     }
-
-    return res.rows;
+    return res.rows[0];
   } catch (err) {
     console.log(err.message);
   }
@@ -115,13 +114,14 @@ async function getmasteredLanguageByIdDev(idDev) {
     if (res.rowCount === 0) {
       return undefined;
     }
-
     return res.rows;
   } catch (err) {
     console.log(err.message);
   }
   return undefined;
 }
+
+
 
 async function login(mail, password) {
   let isDev = true;

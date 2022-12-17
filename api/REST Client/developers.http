@@ -43,7 +43,7 @@ Content-Type: application/json
 }
 
 ### Read devlopper profile by id
-GET {{baseUrl}}/developers/profileDev/5
+GET {{baseUrl}}/developers/profileDev/4
 
 ### Read devlopper master languages by id
 GET {{baseUrl}}/developers/masteredLanguageDev/3
