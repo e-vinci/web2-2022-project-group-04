@@ -30,8 +30,8 @@ const addToIntersted = async (data) => {
 
  
 
-const getAllJobOffersFromCompany = async(idCompany)=> new Promise(async (resolve, reject) => {
-    const select =`SELECT j.title, t.type_offer, j.description, j.upload_date
+const getAllJobOffersFromCompany = async(idCompany)=> {
+    const select =`SELECT j.id_offer, j.title, t.type_offer, j.description, j.upload_date
     FROM webproject.job_offers j
              inner join webproject.compagnies c on c.id_company = j.company
     INNER JOIN webproject.type_offers t on t.id_type_offer = j.type_offer
@@ -39,12 +39,11 @@ const getAllJobOffersFromCompany = async(idCompany)=> new Promise(async (resolve
 
     try {
         // eslint-disable-next-line camelcase
-        const res = await client.query(select, [id_company]);
+        const res = await client.query(select, [idCompany]);
         if(res.rowCount===0){
           console.log("pas de matches bd")
       return undefined;
         }
-  
         return res.rows;
       } catch (err) {
           console.log(err.message);
@@ -52,8 +51,7 @@ const getAllJobOffersFromCompany = async(idCompany)=> new Promise(async (resolve
       return undefined;
         
     
-    
-});
+}
 
 
 async function getAllDevInterestedForOffer(idOffer) {
@@ -65,7 +63,8 @@ async function getAllDevInterestedForOffer(idOffer) {
              JOIN webproject.job_offers jo on jo.id_offer = m.job_offer
             JOIN webproject.type_offers t on t.id_type_offer = d.type_offer_required
     
-        AND m.developer_is_interested = true AND m.job_offer = $1`;
+        AND m.developer_is_interested = true AND m.job_offer = $1
+        AND  m.company_is_interested = false`;
 
     try {
       const res = await client.query(select, [idOffer]);
@@ -73,7 +72,6 @@ async function getAllDevInterestedForOffer(idOffer) {
         console.log("pas de matches bd")
     return undefined;
       }
-
       return res.rows;
     } catch (err) {
         console.log(err.message);
@@ -110,24 +108,23 @@ const getAllTypeOffer = async () =>
     });
   });
 
-async function getMatchesDevAndCompany(idCompany) {
+async function getMatchesDevAndCompany(idOffer) {
     
-    const select = `SELECT d.*,t.type_offer
+    const select = `SELECT d.*
     FROM webproject.matches m, 
-    webproject.developers d,
-    webproject.job_offers j,
-    webproject.type_offers t
-    where d.id_developer = m.developer
-    and j.company = $1
-    and m.job_offer = j.id_offer
-    and d.type_offer_required= t.id_type_offer`;
+    webproject.developers d
+    where 
+    m.job_offer = $1
+    and d.id_developer = m.developer
+    and m.developer_is_interested = true
+    and m.company_is_interested = true  
+    `;
   try {
-    const res = await client.query(select, [idCompany]);
+    const res = await client.query(select, [idOffer]);
     if (res.rowCount === 0) {
       console.log('pas de matches bd');
       return undefined;
     }
-
     return res.rows;
   } catch (err) {
     console.log(err.message);
@@ -255,5 +252,6 @@ module.exports = {
   addLanguageToAnOffer,
   getLikedOffers,
   likeDev,
-  dislikeDev
+  dislikeDev,
+  getMatchesDevAndCompany
 };

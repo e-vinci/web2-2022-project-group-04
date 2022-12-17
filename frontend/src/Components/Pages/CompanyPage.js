@@ -1,10 +1,9 @@
-import { clearPage, renderPageTitle } from '../../utils/render';
+import { clearPage,renderPageTitle } from '../../utils/render';
 import { getAuthenticatedUser } from '../../utils/auths';
 
 const companyPage = async () => {
   clearPage();
-  renderPageTitle('Company Page');
-
+renderPageTitle('Votre Profil')
   const idCompany = getAuthenticatedUser().id;
   console.log(idCompany)
   const companyDescription = await getDescriptionFromAPI(idCompany);
@@ -51,19 +50,33 @@ async function getAllJobOfferOfCompanyFromAPI(idCompany) {
 
 } */
 
-function renderCompanyPage(description, allJobOfferOfCompany) {
+async function renderCompanyPage(description, allJobOfferOfCompany) {
   const main = document.querySelector('main');
   main.style = ' ';
   const descriptionString = renderDescriptionAsString(description);
   main.innerHTML += descriptionString;
-  const allJobOfferString = renderAllJobOfferOfCompany(allJobOfferOfCompany);
+  const allJobOfferString = await renderAllJobOfferOfCompany(allJobOfferOfCompany);
   main.innerHTML += allJobOfferString;
 }
 
-function renderAllJobOfferOfCompany(jobOffers) {
-  let allOffer = `<div class="container my-1"><h1>Ses dernières offres d emploi:</h1>`;
-  jobOffers?.forEach((offer) => {
-    const date = new Date(offer.upload_date);
+async function renderAllJobOfferOfCompany(jobOffers) {
+  let allOffer = `<div class="container my-1"><h1>Vos dernières offres d'emplois:</h1>`;
+
+  // eslint-disable-next-line no-restricted-syntax
+  for (const offer of jobOffers) {
+    let matchesDev;
+    // eslint-disable-next-line no-await-in-loop
+    const response = await fetch( `/api/jobOffers/getMatchesDevAndCompnay/${offer.id_offer}` );
+    console.log(offer.id_offer)
+    if(!response.ok){
+       matchesDev = undefined;
+    }
+    else{
+    // eslint-disable-next-line no-await-in-loop
+      matchesDev = await response.json();  
+      console.log(matchesDev)
+    }
+        const date = new Date(offer.upload_date);
 
     allOffer += `<div class="container my-4 descCompany"> 
     
@@ -73,20 +86,46 @@ function renderAllJobOfferOfCompany(jobOffers) {
       <h4>Description : ${offer.description}</h4>
 
       <p>Publié le ${date.toLocaleDateString()}</p>
-        </div>
         `;
-  });
+
+        if(matchesDev===undefined){
+          allOffer+= `    <h2> Aucun matches pour l'instant</h2>
+          `
+        }
+        else{
+          allOffer+=`<h2> Les devlopeurs qui vous intéressent : </h2>`
+          // eslint-disable-next-line no-restricted-syntax
+          for (const dev of matchesDev) {
+
+            allOffer+= `
+            <h6 id ="h2HP"> Profil concis </h6>
+            <ul class="list-group list-group-flush rounded-4"> 
+              <li class="list-group-item list-group-item-dark"> Nom : ${dev.lastname} </li>
+              <li class="list-group-item list-group-item-dark"> Prénom : ${dev.firstname} </li>
+              <li class="list-group-item list-group-item-dark"> Email : ${dev.mail} </li>
+              <li class="list-group-item list-group-item-dark"> 
+              <a href="mailto:${dev.mail}?subject=${offer.title}&body=Bonjour,%0D%0A%0D%0ANous avons matches sur DevJob">
+              Envoyer Email</a> </li>
+            </ul>
+            `
+        }
+  }
+  allOffer+=`</div>`
+
+  }
   allOffer += `</div>`
+
+
   return allOffer;
 }
 
 function renderDescriptionAsString(description) {
   const descriptionString = `
     <div class = "container descCompany"> 
-    <h1> ${description.company_name}</h1>
-    <h4> ${description.description}</h4>
-    <h4> ${description.adress}</h4>
-    <h4> ${description.mail}</h4> </div>
+    <h1>Votre nom : ${description.company_name}</h1>
+    <h4>Description : ${description.description}</h4>
+    <h4>Adresse :${description.adress}</h4>
+    <h4>Mail :  ${description.mail}</h4> </div>
     `;
 
   return descriptionString;

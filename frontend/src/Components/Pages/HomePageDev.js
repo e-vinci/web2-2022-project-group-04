@@ -8,8 +8,8 @@ Swiper.use([Navigation, Pagination  , Keyboard ]);
 // d'abbord afficher les offres avant d'executer le script
 
 const SwipePage = async () => {
- 
-  renderPageTitle('');
+  clearPage();
+  renderPageTitle('Offres');
   const AllOffers = await getAllOffersFromAPI();
   await renderSwipePage(AllOffers);
   
@@ -105,7 +105,6 @@ async function renderAllJobOffersAsString(jobOffers) {
       </div>
      `;
   };
-  clearPage();
   
   return allOffers;
 }

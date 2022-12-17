@@ -12,8 +12,10 @@ const {
   getLikedOffers,
   likeDev,
   dislikeDev,
+  getMatchesDevAndCompany
   
 } = require('../models/jobOffers');
+
 
 const router = express.Router();
 
@@ -32,8 +34,8 @@ router.post('/addToInterstedDev', async (req, res) => {
 });
 
 router.get('/allJobOfferFromCompany/:idCompany', async (req, res) => {
-  const { idCompany } = req.params;
-  const allOffersFromCompany = await getAllJobOffersFromCompany(idCompany);
+  const idCompanyy = req.params.idCompany;
+  const allOffersFromCompany = await getAllJobOffersFromCompany(idCompanyy);
 
   if (allOffersFromCompany === undefined || !allOffersFromCompany) return res.status(400);
 
@@ -49,8 +51,6 @@ router.get('/allDevelopersInterstedOffer/:idOffer', async (req, res) => {
 
   // eslint-disable-next-line no-console
   if (devsInterested === undefined) return res.sendStatus(400);
-
-  console.log("eee")
   return res.json(devsInterested);
 });
 
@@ -110,6 +110,19 @@ router.post('/dislikeDev/:idDev/:idOffer', async (req, res) => {
   const result = await dislikeDev(id_dev,idOffer);
   return res.json(result);
 });
+
+router.get('/getMatchesDevAndCompnay/:idOffer', async (req, res) => {
+  // eslint-disable-next-line camelcase
+  const idOfferr = req.params.idOffer;
+
+  const result = await getMatchesDevAndCompany(idOfferr);
+
+  if(!result || result==undefined)
+    res.sendStatus(400);
+
+  return res.json(result);
+});
+
 
 router.get('/getLanguageRequired/:idOffer', async (req, res) => {
   const offer = req.params.idOffer;

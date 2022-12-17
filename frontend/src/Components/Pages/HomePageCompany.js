@@ -7,12 +7,11 @@ const main = document.querySelector('main');
 let click;
 const homePageCompany = async () => {
  
-    clearPage();
     renderPageTitle('Vos matches');
-
+    clearPage();
     const idCompany = getAuthenticatedUser().id;
     console.log("type",getAuthenticatedUser(),"id",getAuthenticatedUser().id)
-    const jobOffers = await getAllJobsOfferFromCompanyFromApi(idCompany);
+    const jobOffers = await getAllLikedJobsOfferFromCompanyFromApi(idCompany);
     if (!jobOffers) {
       renderMessageNoJobOffer();
       return;
@@ -156,11 +155,10 @@ async function allOffersAsString(jobOffers) {
 
   `;
   }
-
   return string;
 }
 
-async function getAllJobsOfferFromCompanyFromApi(idCompany) {
+async function getAllLikedJobsOfferFromCompanyFromApi(idCompany) {
   /// jobOffers/allJobOfferFromCompany/1
 
   try {

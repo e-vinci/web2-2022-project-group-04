@@ -1,10 +1,9 @@
-import { clearPage, renderPageTitle } from '../../utils/render';
+import { clearPage } from '../../utils/render';
 import { getAuthenticatedUser, isAuthenticated } from '../../utils/auths';
 import Navigate from '../Router/Navigate';
 import Navbar from '../Navbar/Navbar';
 
 const developerPage = () => {
-  renderPageTitle('Dev Page');
   if(isAuthenticated()){
     renderDevPage();
   }else{
@@ -41,7 +40,7 @@ async function getDescriptionDev() {
      throw new Error('fetch error : ', descriptionDev.status, descriptionDev.statusText);
     }
     descriptionDev = await descriptionDev.json();
-    // eslint-disable-next-line no-console
+
     return renderDescriptionDev(descriptionDev);
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -84,7 +83,7 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
        throw new Error('fetch error : ', allLanguages.status, allLanguages.statusText);
       }
       allLanguages = await allLanguages.json();
-      // eslint-disable-next-line no-console
+      
       return renderAlllanguages(allLanguages);
     } catch (error) {
       // eslint-disable-next-line no-console
@@ -122,8 +121,10 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
       <ul class="infoDev"> 
           <li>Prénom : ${description.lastname}   </li>
           <li>Nom : ${description.firstname}  </li>
-          <li>Date de naissance :${description.birth_date} </li>
+          <li>Date de naissance : ${new Date(description.birth_date).toLocaleDateString()} </li>
           <li>Numero de téléphone : ${description.tel}    </li>
+          <li>Adresse email : ${description.mail}    </li>
+          <li>Type d'offre recherché : ${description.type_offer}    </li>
         </ul>
     `
   return descriptionDev;

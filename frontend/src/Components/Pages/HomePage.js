@@ -1,10 +1,23 @@
 import { clearPage } from '../../utils/render';
 import Navigate from '../Router/Navigate';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { isAuthenticated, isDev } from '../../utils/auths';
 
 
 const renderHomePage = () => {
   const main = document.querySelector('main');
+
+  if(isAuthenticated()){
+    if(isDev()){
+      Navigate('/jobOffers');
+      return;
+    }
+    
+    Navigate('/homePageCompany');
+    return;
+    
+  }
+
   main.innerHTML =
   `<div class="homePageDiv">
   <div id="part1" class="position-relative overflow-hidden p-3 p-md-5 text-center bg-light">
