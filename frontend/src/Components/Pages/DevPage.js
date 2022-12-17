@@ -121,6 +121,7 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
           <li>Date de naissance : ${new Date(description.birth_date).toLocaleDateString()} </li>
           <li>Numero de téléphone : ${description.tel}    </li>
           <li>Adresse email : ${description.mail}    </li>
+          <li>Type d'offre recherché : ${description.type_offer}    </li>
         </ul>
     `
   return descriptionDev;
