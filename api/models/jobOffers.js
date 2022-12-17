@@ -132,6 +132,66 @@ async function getMatchesDevAndCompany(idOffer) {
   return undefined;
 }
 
+
+
+async function getCompleteMatchesInfosCompanies(idDev) {
+    
+  const select = `
+  SELECT DISTINCT c.*
+  FROM 
+  webproject.matches m, 
+  webproject.job_offers j,
+  webproject.compagnies c
+  where 
+  m.developer = $1
+  and m.job_offer = j.id_offer
+  and j.company = c.id_company
+  and m.developer_is_interested = true
+  and m.company_is_interested = true  
+  `;
+try {
+  const res = await client.query(select, [idDev]);
+  if (res.rowCount === 0) {
+    console.log("pas de matches ");
+    return undefined;
+  }
+  return res.rows;
+} catch (err) {
+  console.log(err.message);
+}
+return undefined;
+}
+async function getCompleteMatchesInfosOffers(idCompany,idDev) {
+    
+  const select = `
+  SELECT DISTINCT j.*
+  FROM 
+  webproject.matches m, 
+  webproject.job_offers j,
+  webproject.compagnies c
+  where 
+  j.company = $1
+  and m.developer = $2
+  and m.job_offer = j.id_offer
+  and j.company = c.id_company
+  and m.developer_is_interested = true
+  and m.company_is_interested = true  
+  `;
+try {
+  const res = await client.query(select, [idCompany,idDev]);
+  if (res.rowCount === 0) {
+    console.log("pas de matches ");
+    return undefined;
+  }
+  return res.rows;
+} catch (err) {
+  console.log(err.message);
+}
+return undefined;
+}
+
+
+
 async function getLikedOffers(idCompany) {
     
     const select = `SELECT distinct j.*,t.type_offer
@@ -253,5 +313,7 @@ module.exports = {
   getLikedOffers,
   likeDev,
   dislikeDev,
-  getMatchesDevAndCompany
+  getMatchesDevAndCompany,
+  getCompleteMatchesInfosCompanies,
+  getCompleteMatchesInfosOffers
 };

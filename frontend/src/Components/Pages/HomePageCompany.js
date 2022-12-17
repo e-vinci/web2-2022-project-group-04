@@ -7,8 +7,7 @@ const main = document.querySelector('main');
 let click;
 const homePageCompany = async () => {
  
-    renderPageTitle('Vos matches');
-    clearPage();
+    
     const idCompany = getAuthenticatedUser().id;
     console.log("type",getAuthenticatedUser(),"id",getAuthenticatedUser().id)
     const jobOffers = await getAllLikedJobsOfferFromCompanyFromApi(idCompany);
@@ -18,6 +17,8 @@ const homePageCompany = async () => {
     }
     console.log("job offers",jobOffers)
     const allOffers = await allOffersAsString(jobOffers);
+    renderPageTitle('Vos matches');
+    clearPage();
     main.innerHTML += allOffers;
 
   const allformsadd = document.querySelectorAll('.formAdd'); 
