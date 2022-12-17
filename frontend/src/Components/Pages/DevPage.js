@@ -14,14 +14,13 @@ const developerPage = () => {
 };
 
  async function renderDevPage() {
-
-  const descriptionDev= await getDescriptionDev();
-  const masteredLanguagesDev= await getmasteredLanguageByIdDevandGetAllLanguages();
-  const matchesInfos = await getCompleteMatchesInfosCompanies();
+ const descriptionDev= await getDescriptionDev();
+const masteredLanguagesDev= await getmasteredLanguageByIdDevandGetAllLanguages();
+const  matchesInfos = await getCompleteMatchesInfosCompanies();
   clearPage();
   renderPageTitle('Votre profile')
   const main = document.querySelector('main');
-  main.innerHTML = descriptionDev+ masteredLanguagesDev + matchesInfos;
+  main.innerHTML = descriptionDev+ masteredLanguagesDev+matchesInfos ;
   const form = document.getElementById('test');
   form.addEventListener('submit',addLangageEvent);
 }
@@ -36,9 +35,8 @@ async function getDescriptionDev() {
       }
       
     }
-
     let descriptionDev = await fetch(`/api/developers/profileDev/${idUser}`, options);
-    
+
     if (!descriptionDev.ok){
      throw new Error('fetch error : ', descriptionDev.status, descriptionDev.statusText);
     }
@@ -63,7 +61,6 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
       }
       
     }
-
     let masteredLanguages = await fetch(`/api/developers/masteredLanguageDev/${idUser}`, options);
 
     const listLanguages = await getAllLanguages();
@@ -76,8 +73,7 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
     return masteredLanguageByIdDevandGetAllLanguages(masteredLanguages,listLanguages);
   
 }
-
-  async function getAllLanguages() {
+ async function getAllLanguages() {
     try {
 
       let allLanguages = await fetch(`/api/developers/getAllLanguages`);
@@ -96,8 +92,7 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
   }
 
   async function getCompleteMatchesInfosCompanies(){
-
-    try {
+    console.log("keek")
 
       let matchesCompanies = await fetch(`/api/jobOffers/getCompaniesMatchInfos/${getAuthenticatedUser().id}`);
 
@@ -109,22 +104,18 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
       matchesCompanies = await matchesCompanies.json();
       
       return renderMatchesInfos(matchesCompanies);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error('ALl languages in devPage  error: ', error);
-      throw error;
-    }
-
-
   }
 
   async function renderMatchesInfos(matchesCompanies){
-    let infos = `<div class="container-sm py-2 px-4 mx-5 mt-4 mb-2 w-50 rounded-3   bg-secondary">
+    let infos = `
+    <div class="container-sm py-2 px-4 mx-5 mt-4 mb-2 w-50 rounded-3 bg-info">
     <h3>Vos matches </h3>
-</div>`;
+    </div>
+`;
 
     if(matchesCompanies===undefined) {
-      infos += `<h4>Aucun matches pour l'instant</h4>`
+      infos += `<h3>Aucun matches pour l'instant</h3>
+      `
       return infos;
     }
     for (const comp of matchesCompanies) {
@@ -134,24 +125,22 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
       // eslint-disable-next-line no-await-in-loop
       const offers = await response.json();
       infos+=`    
-      <div>
-      <h3>Compagnie : ${comp.company_name} </h3>
+      <div class="infoDev" >
+      <h4 class = "h4DevPage ">Compagnie : ${comp.company_name} </h4>
+      <br>
       `;
       for (const offer of offers) {
         infos+=`   
         <h5> Offre ${cpt} de l'entreprise</h5>
         <h5>Compagnie ${offer.title} </h5>
-                    <h5>Compagnie ${comp.description} </h5><br>
+        <h5>Compagnie ${comp.description} </h5><br>
       `;
       cpt+=1;
       }
 
       infos+=`</div>`
     }
-    
-    
       infos+=`
-      </div>
       </div>`
     return infos;
   }
@@ -241,8 +230,7 @@ return listMasteredlanguag;
 function renderAlllanguages(listLanguages){
   let list = `
 
-  <form  id="test" class="form-group" >
-  <div class = "box"  >
+  <form id="test" class="form-group" >
                                 <label style="font-family: Arial" for="">Ajouter un language à mes compétences</label> <br>
                                 <select id="idLanguage">
                                     `;
@@ -255,7 +243,6 @@ listLanguages?.forEach((language) => {  list += `
 
 list +=  `
 </select>
-</div>
 <br>
 <input id="inputDevPage"  type="submit" value = "AJOUTER"/>
 

@@ -40,7 +40,7 @@ GET {{baseUrl}}/jobOffers/allTypeOffer
 GET {{baseUrl}}/jobOffers/getMatchesDevAndCompnay/50
 
 ### Read All type offer
-GET {{baseUrl}}/jobOffers/getCompaniesMatchInfos/1
+GET {{baseUrl}}/jobOffers/getCompaniesMatchInfos/5
 
 ### Read All type offer
 GET {{baseUrl}}/jobOffers/getJobOffersMatchInfos/25/1
