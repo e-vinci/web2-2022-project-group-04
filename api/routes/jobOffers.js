@@ -16,6 +16,7 @@ const {
   
 } = require('../models/jobOffers');
 
+
 const router = express.Router();
 
 router.get('/', async (req, res) => {
