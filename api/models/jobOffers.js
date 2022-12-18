@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 const client = require('../connection');
 
+//get all offers from DB
 const getAllOffers = async () => {
   const select = `SELECT j.id_offer ,c.company_name , t.type_offer, j.title, j.description , j.upload_date
   FROM webproject.job_offers j
@@ -17,6 +18,7 @@ const getAllOffers = async () => {
   return undefined;
 };
 
+//add a match in DB (between an offer and a dev)
 const addToIntersted = async (data) => {
   const insert = `insert into webproject.matches(job_offer, developer) values ($1,$2) `;
 
@@ -29,6 +31,7 @@ const addToIntersted = async (data) => {
   });
 };
 
+//return all offers from a company from DB with its id
 const getAllJobOffersFromCompany = async (idCompany) => {
   const select = `SELECT j.id_offer, j.title, t.type_offer, j.description, j.upload_date
     FROM webproject.job_offers j
@@ -50,6 +53,7 @@ const getAllJobOffersFromCompany = async (idCompany) => {
   return undefined;
 };
 
+//return all devs intersted for an offer from DB with its id 
 async function getAllDevInterestedForOffer(idOffer) {
   const select = `SELECT d.id_developer, d.lastname, d.firstname, d.mail, d.birth_date, d.tel, t.type_offer
 
@@ -74,6 +78,7 @@ async function getAllDevInterestedForOffer(idOffer) {
   return undefined;
 }
 
+//add an offer in DB
 const createJobOffer = (jobOffer) =>
   new Promise((resolve, reject) => {
     const insert = `insert into webproject.job_offers(company, title, type_offer, description) 
@@ -91,6 +96,7 @@ const createJobOffer = (jobOffer) =>
     );
   });
 
+//return all types of offer from DB
 const getAllTypeOffer = async () =>{
   const select = `SELECT * FROM webproject.type_offers`;
   try {
@@ -103,7 +109,8 @@ const getAllTypeOffer = async () =>{
   }
   return undefined;
 }
-  
+
+
 async function getMatchesDevAndCompany(idOffer) {
   const select = `SELECT d.*
     FROM webproject.matches m, 

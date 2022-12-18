@@ -12,6 +12,7 @@ const jwtSecret = 'MatteoLeBg';
 const lifetimeJwt = 24 * 60 * 60 * 1000;
 //const saltRounds = 10;
 
+//get all developers from DB
 const getAllDevelopers = async () => {
   const select = `SELECT dev.id_developer,
   dev.lastname,
@@ -57,6 +58,7 @@ const getAllDevelopers = async () => {
     );
   }); */
 
+//get all informations from a dev from DB with his email
 const getDevByMail = async (mail) => {
   const select = `SELECT * FROM webproject.developers where mail = $1`;
   try {
@@ -73,6 +75,7 @@ const getDevByMail = async (mail) => {
   return undefined;
 };
 
+//get all informations from a company from DB with his email
 const getCompagnyByMail = async (mail) => {
   const select = `SELECT * FROM webproject.compagnies where mail = $1`;
   try {
@@ -89,6 +92,7 @@ const getCompagnyByMail = async (mail) => {
   return undefined;
 };
 
+//get all informations from a dev from DB with his id
 const getProfilDevById = async (idDev) => {
   const select = `SELECT dev.* , t.type_offer
     FROM webproject.developers dev  INNER JOIN webproject.type_offers t ON dev.type_offer_required = t.id_type_offer  
@@ -105,6 +109,7 @@ const getProfilDevById = async (idDev) => {
   return undefined;
 };
 
+// get mastered Languages by 1 dev from the DB with his id
 async function getmasteredLanguageByIdDev(idDev) {
   const select = `SELECT lang.language
     FROM webproject.mastered_languages mast, webproject.languages lang
@@ -122,7 +127,7 @@ async function getmasteredLanguageByIdDev(idDev) {
 }
 
 
-
+//login dev or company with mail and password from DB
 async function login(mail, password) {
   let isDev = true;
   let id;
@@ -158,6 +163,7 @@ async function login(mail, password) {
   return authenticatedUser;
 }
 
+//register a dev with in DB
 const registerDev = async (lastname, firstname, email, password, date, tel, typeOffer) => {
   const insert = `INSERT INTO webproject.developers(lastname, firstname, mail, password, birth_date, tel, type_offer_required)
       VALUES ($1, $2, $3, $4, $5, $6, $7) 
@@ -194,6 +200,7 @@ const registerDev = async (lastname, firstname, email, password, date, tel, type
   return undefined;
 };
 
+//add a language to a dev in DB
 async function addLangageToDev(dev, language) {
   const insert = `
     
@@ -212,6 +219,7 @@ async function addLangageToDev(dev, language) {
   return undefined;
 }
 
+//add all languages from DB
 async function getAllLanguages() {
   const select = `
     

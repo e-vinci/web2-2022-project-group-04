@@ -7,6 +7,7 @@ const jwtSecret = 'MatteoLeBg';
 const lifetimeJwt = 24 * 60 * 60 * 1000;
 const saltRounds = 10;
 
+//get all companies from DB
 const getAllCompagnies = async () => {
   const select = `select id_company ,company_name, description,
     adress , mail
@@ -21,6 +22,7 @@ const getAllCompagnies = async () => {
   return undefined;
 };
 
+//get all informations of a companies from DB with his id
 const getOneCompany = async (idCompany) => {
   const select = `select company_name, description,
     adress , mail, password from webproject.compagnies where id_company = $1`;
@@ -34,6 +36,7 @@ const getOneCompany = async (idCompany) => {
   return undefined;
 };
 
+//register a company in DB
 const registerCompany = async (data) => {
   const insert = `insert into webproject.compagnies(company_name, description, adress, mail, password)
   VALUES ($1,$2,$3,$4,$5) RETURNING id_company`;
