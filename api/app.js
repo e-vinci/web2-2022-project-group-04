@@ -15,7 +15,6 @@ const corsOptions = {
 
 
 const developersRouter = require('./routes/developers');
-const pizzaRouter = require('./routes/pizzas');
 const jobOffersRouter = require('./routes/jobOffers');
 const compagniesRouter = require('./routes/compagnies');
 
@@ -47,7 +46,6 @@ app.use(cookieParser());
 app.use('/developers',cors(corsOptions) ,developersRouter);
 app.use('/jobOffers', cors(corsOptions) ,jobOffersRouter);
 app.use('/compagnies', cors(corsOptions) ,compagniesRouter);
-app.use('/pizzas',cors(corsOptions) , pizzaRouter);
 
 
 module.exports = app;
