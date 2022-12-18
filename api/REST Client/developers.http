@@ -31,7 +31,7 @@ Content-Type: application/json
     "type_offer_required": "1" 
 }
 
-###
+### LOgin developer
 
 POST {{baseUrl}}/developers/login
 Content-Type: application/json
@@ -42,16 +42,16 @@ Content-Type: application/json
  
 }
 
-### Read devlopper profile by id
+### Read developer profile by id
 GET {{baseUrl}}/developers/profileDev/4
 
-### Read devlopper master languages by id
+### Read developer master languages by id
 GET {{baseUrl}}/developers/masteredLanguageDev/3
 
-### Read devlopper master languages by id
+### Read all languages
 GET {{baseUrl}}/developers/getAllLanguages
 
-### Read devlopper master languages by id
+### Add languages to mastered languages dev id
 
 POST  {{baseUrl}}/developers/addLanguageProgramationToDev
 Content-Type: application/json
