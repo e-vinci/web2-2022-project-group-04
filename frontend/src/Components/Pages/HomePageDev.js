@@ -68,6 +68,7 @@ async function renderSwipePage(AllOffers) {
 
     const swiper = new Swiper('.swiper', {
       // Optional parameters
+      loop: true,
       effect: 'cube',
       grabCursor: true,
       cubeEffect: {
