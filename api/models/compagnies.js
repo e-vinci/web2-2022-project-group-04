@@ -2,8 +2,9 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const client = require('../connection');
+require('dotenv').config();
 
-const jwtSecret = 'MatteoLeBg';
+const jwtSecret = process.env.JWTSECRET;
 const lifetimeJwt = 24 * 60 * 60 * 1000;
 const saltRounds = 10;
 
