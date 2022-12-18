@@ -4,7 +4,6 @@ import { getAuthenticatedUser } from '../../utils/auths';
 const companyPage = async () => {
 
   const idCompany = getAuthenticatedUser().id;
-  console.log(idCompany)
   const companyDescription = await getDescriptionFromAPI(idCompany);
   const allJobOfferOfCompany = await getAllJobOfferOfCompanyFromAPI(idCompany);
   
@@ -68,14 +67,12 @@ async function renderAllJobOfferOfCompany(jobOffers) {
     let matchesDev;
     // eslint-disable-next-line no-await-in-loop
     const response = await fetch( `/api/jobOffers/getMatchesDevAndCompnay/${offer.id_offer}` );
-    console.log(offer.id_offer)
     if(!response.ok){
        matchesDev = undefined;
     }
     else{
     // eslint-disable-next-line no-await-in-loop
       matchesDev = await response.json();  
-      console.log(matchesDev)
     }
         const date = new Date(offer.upload_date);
 

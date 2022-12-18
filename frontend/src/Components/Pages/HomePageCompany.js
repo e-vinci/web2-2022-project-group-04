@@ -15,7 +15,6 @@ const homePageCompany = async () => {
       renderMessageNoJobOffer();
       return;
     }
-    console.log("job offers",jobOffers)
     const allOffers = await allOffersAsString(jobOffers);
     renderPageTitle('Vos matches');
     clearPage();
@@ -81,7 +80,6 @@ async function allOffersAsString(jobOffers) {
       // eslint-disable-next-line no-await-in-loop
       const response2 = await fetch( `/api/developers/masteredLanguageDev/${dev.id_developer}` );
       if(!response2.ok){
-      console.log("langauger pas ok ")
          masteredLanguageDev = undefined;
       }
       else{
@@ -108,7 +106,6 @@ async function allOffersAsString(jobOffers) {
         <div class="col mx-1 text-center">
         <h6 id ="h2HP"> Ce devloppeur ne maitrise aucun language </h6>
         </div>`
-        console.log("pas de languages");
       }
       else{
         string+=`
@@ -196,8 +193,6 @@ async function addDev(e){
   const tab = click.parentElement.elements;
   const idDev=tab[1].value;
   const idOffer =tab[2].value;
-  console.log(idDev)
-  console.log(idOffer)
 
   const options = {
     method: 'POST',
@@ -212,9 +207,6 @@ async function addDev(e){
     console.log("erreur lors du like du devloppeur")
    throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
   }
-  console.log("focntion delete fin  ")
-
-
   window.location.reload()
 } 
   
@@ -229,9 +221,6 @@ async function deleteDev(e){
   const tab = click.parentElement.elements;
   const idDev=tab[1].value;
   const idOffer =tab[2].value;
-  console.log(idDev)
-  console.log(idOffer)
-
   const options = {
     method: 'POST',
     headers: {
@@ -245,9 +234,6 @@ async function deleteDev(e){
     console.log("erreur lors du dislike du devloppeur")
    throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
   }
-  console.log("focntion delete fin  ")
-
-
   window.location.reload()
 
 }

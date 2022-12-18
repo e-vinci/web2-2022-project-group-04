@@ -76,7 +76,6 @@ router.get('/masteredLanguageDev/:id', async (req, res) => {
   if(!infoFound ) {
     return res.sendStatus(404);
   }
-
   return res.json(infoFound);
 });
 

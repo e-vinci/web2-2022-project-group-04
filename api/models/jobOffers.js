@@ -123,6 +123,7 @@ const getAllTypeOffer = async () => {
   return undefined;
 };
 
+
 async function getMatchesDevAndCompany(idOffer) {
   const select = `SELECT d.*
     FROM webproject.matches m, 
@@ -172,6 +173,7 @@ async function getCompleteMatchesInfosCompanies(idDev) {
   }
   return undefined;
 }
+
 async function getCompleteMatchesInfosOffers(idCompany, idDev) {
   const select = `
   SELECT DISTINCT j.*
@@ -199,6 +201,7 @@ async function getCompleteMatchesInfosOffers(idCompany, idDev) {
   }
   return undefined;
 }
+
 
 async function getLikedOffers(idCompany) {
   const select = `SELECT distinct j.*,t.type_offer
@@ -228,6 +231,7 @@ async function getLikedOffers(idCompany) {
   }
   return undefined;
 }
+
 
 async function likeDev(idDev, idOffer) {
   const UPDATE = `UPDATE webproject.matches  SET company_is_interested = true WHERE developer = $1 and job_offer = $2  RETURNING company_is_interested`;

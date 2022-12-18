@@ -10,7 +10,6 @@ const developerPage = () => {
   }else{
     Navigate('/');
   }
-  
 };
 
  async function renderDevPage() {
@@ -33,7 +32,7 @@ async function getDescriptionDev() {
       headers: {
         authorization: token
       }
-      
+   
     }
     let descriptionDev = await fetch(`/api/developers/profileDev/${idUser}`, options);
     if (!descriptionDev.ok){
@@ -91,8 +90,6 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
   }
 
   async function getCompleteMatchesInfosCompanies(){
-    console.log("keek")
-
       let matchesCompanies = await fetch(`/api/jobOffers/getCompaniesMatchInfos/${getAuthenticatedUser().id}`);
 
       if (!matchesCompanies.ok){
@@ -214,7 +211,6 @@ function renderMasteredlanguageDev(listMasteredlanguages,listLanguages) {
 
 function listMasteredlanguage(listLanguage){
 
-console.log(listLanguage);
   if(!listLanguage){
     return  `<li>Vous n'avez ajoutez aucun language de programmation</li>`
   }

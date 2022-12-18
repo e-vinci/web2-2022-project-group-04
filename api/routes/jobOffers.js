@@ -1,5 +1,6 @@
 const express = require('express');
 const { authorizeDev } = require('../utils/auths');
+
 const {
   getAllOffers,
   addToIntersted,
@@ -100,7 +101,6 @@ router.get('/likedOffers/:idCompany', async (req, res) => {
   // eslint-disable-next-line camelcase
   const id_company = req.params.idCompany;
   const matches = await getLikedOffers(id_company);
-    console.log("ici")
   if (!matches || matches ===undefined) {
     return res.sendStatus(400);
   }
@@ -108,7 +108,6 @@ router.get('/likedOffers/:idCompany', async (req, res) => {
 });
 
 router.post('/likeDev/:idDev/:idOffer', async (req, res) => {
-  console.log("ici")
   // eslint-disable-next-line camelcase
   const id_dev = req.params.idDev;
   const {idOffer} = req.params;

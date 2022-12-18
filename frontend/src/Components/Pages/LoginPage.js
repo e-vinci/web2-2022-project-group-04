@@ -11,9 +11,7 @@ const LoginPage = () => {
 
   };
   
-
   function renderLoginPage(){
-
      const main = document.querySelector('main');
      const form = document.createElement('form');
      form.className = 'px-5 pb-5';

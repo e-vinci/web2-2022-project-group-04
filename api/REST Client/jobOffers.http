@@ -45,13 +45,13 @@ GET {{baseUrl}}/jobOffers/allTypeOffer
 
 
 
-### Read All type offer
+### Read all infos of dev that have a complete match with company by id offer
 GET {{baseUrl}}/jobOffers/getMatchesDevAndCompnay/50
 
-### Read All type offer
+### Read All infos of companies that have complete match by id developeur
 GET {{baseUrl}}/jobOffers/getCompaniesMatchInfos/5
 
-### Read All type offer
+### Read All infos of job offer by id company by id developeur for complete macth
 GET {{baseUrl}}/jobOffers/getJobOffersMatchInfos/25/1
 
 
@@ -62,9 +62,10 @@ GET {{baseUrl}}/jobOffers/likedOffers/25
 ### Read company with id 2
 POST {{baseUrl}}/jobOffers/dislikeDev/3/55
 
-### Like of developer job offers
+### Like developer for an offer 
 POST {{baseUrl}}/jobOffers/likeDev/4/5
-### Read language_required
+
+### Read language_required of offer
 GET {{baseUrl}}/jobOffers/getLanguageRequired/2
 
 ### Read All language
