@@ -54,8 +54,7 @@ async function renderCompanyPage(description, allJobOfferOfCompany) {
   const allJobOfferString = await renderAllJobOfferOfCompany(allJobOfferOfCompany);
   const descriptionString = renderDescriptionAsString(description);
   clearPage();
-  renderPageTitle('Vos données')
-
+  renderPageTitle('Vos données');
   main.innerHTML += descriptionString+ allJobOfferString ;
 }
 

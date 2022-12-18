@@ -5,7 +5,6 @@ import { getAuthenticatedUser } from '../../utils/auths';
 // core version + navigation, pagination modules:
 
 let click;
-
 // configure Swiper to use modules
 Swiper.use([Navigation, Keyboard, EffectCube]);
 // d'abbord afficher les offres avant d'executer le script
@@ -14,7 +13,6 @@ const SwipePage = async () => {
   const AllOffers = await getAllOffersFromAPI();
   await renderSwipePage(AllOffers);
 
-  // renderAllOffers(AllOffers);
   const allLikeButton = document.querySelectorAll('.iLike');
   const allDislikeButton = document.querySelectorAll('.iDislike');
 
@@ -24,11 +22,22 @@ const SwipePage = async () => {
 
   allLikeButton.forEach((form) => {
     form.addEventListener('submit', onLikedOffer);
+    form.addEventListener('click', () =>{
+      document.getElementById('dislikeMessage').id = 'dislikeMessage';
+      document.getElementById('likeMessage').id = 'getLikeMessage';
+      document.getElementById('getDislikeMessage').id = 'dislikeMessage';
+    })
   });
 
   allDislikeButton.forEach((form) => {
     form.addEventListener('submit', onUnlikedOffer);
+    form.addEventListener('click', () =>{
+      document.getElementById('likeMessage').id = 'likeMessage';
+      document.getElementById('dislikeMessage').id = 'getDislikeMessage';
+      document.getElementById('getLikeMessage').id = 'likeMessage';
+    })
   });
+
 };
 
 async function renderSwipePage(AllOffers) {
@@ -40,11 +49,7 @@ async function renderSwipePage(AllOffers) {
     foot.innerHTML += ``;
     const main = document.querySelector('main');
     const allJobOfferFromCompany = await renderAllJobOffersAsString(AllOffers);
-
-    console.log(
-      'TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT',
-      allJobOfferFromCompany,
-    );
+    
     clearPage();
     renderPageTitle('Offres');
     main.innerHTML += `<!-- Slider main container -->
@@ -85,7 +90,6 @@ async function renderSwipePage(AllOffers) {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
       },
-
       // And if we need scrollbar
     });
     swiper.scrollbar.destroy();
@@ -104,24 +108,21 @@ async function renderAllJobOffersAsString(jobOffers) {
     // eslint-disable-next-line no-await-in-loop
     const language = await getAllLanguageFromOfferAPI(offer.id_offer);
     const languageString = getLanguageAsString(language);
-    //  console.log('LANGUAGE STRING', languageString);
+   
     allOffers += ` <div class="swiper-slide ">
     <table class="table table-striped table-hover table-light">
     <thead>
       <th scope="row">${offer.title} chez ${offer.company_name} <br> 
       Publié le ${date.toLocaleDateString()}</th>
-      <th scope="row"></th>
-      <th scope="row"></th>
-      
-      
+      <th scope="row"><div id=dislikeMessage>Vous n'êtes pas interressé par cette offre</div></th>
+      <th scope="row"><div id=likeMessage>vous aimez</div></th>
     </thead>
       
       <th scope="row">${offer.type_offer} </th>
       <th scope="row">${offer.description}</th>
       <th scope="row">${languageString} </th> 
       
-    
-      </table>
+    </table>
 
           <div>
             <form class="iLike">
@@ -133,6 +134,7 @@ async function renderAllJobOffersAsString(jobOffers) {
               <input type="hidden" value = "${offer.id_offer}" class="id_offer">
             </form>
           </div>
+          
 </div>
      `;
   }
@@ -171,7 +173,7 @@ async function getAllLanguageFromOfferAPI(idOffer) {
     if (!response.ok) throw new Error('fetch error : ', response.status, response.statusText);
 
     const languages = await response.json();
-    // console.log(languages);
+
     return languages;
   } catch (error) {
     // eslint-disable-next-line no-console
@@ -192,12 +194,9 @@ function getLanguageAsString(listLanguage) {
 async function onLikedOffer(e) {
   e.preventDefault();
 
-  console.log(click);
   const tab = click.parentElement.elements;
   const offer = tab[1].value;
   const developer = getAuthenticatedUser().id;
-  console.log(offer);
-  console.log(developer);
 
   const options = {
     method: 'POST',
@@ -216,17 +215,15 @@ async function onLikedOffer(e) {
 
   // eslint-disable-next-line no-console
   console.log('Newly match with the developer : ', developer);
+
 }
 
 async function onUnlikedOffer(e) {
   e.preventDefault();
 
-  console.log(click);
   const tab = click.parentElement.elements;
   const offer = tab[1].value;
   const developer = getAuthenticatedUser().id;
-  console.log(offer);
-  console.log(developer);
 
   const options = {
     method: 'POST',

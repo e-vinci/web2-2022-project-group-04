@@ -90,6 +90,7 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
   }
 
   async function getCompleteMatchesInfosCompanies(){
+
       let matchesCompanies = await fetch(`/api/jobOffers/getCompaniesMatchInfos/${getAuthenticatedUser().id}`);
 
       if (!matchesCompanies.ok){
