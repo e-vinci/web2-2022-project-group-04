@@ -8,7 +8,16 @@ POST {{baseUrl}}/jobOffers/addToInterstedDev
 Content-Type: application/json
 
 {
-    "idOffer":"5",
+    "idOffer":"1",
+    "idDeveloper":"4"
+}
+
+### DELETE INTERESTED FOR DEV
+POST {{baseUrl}}/jobOffers/notInterestedDev
+Content-Type: application/json
+
+{
+    "idOffer":"1",
     "idDeveloper":"4"
 }
 

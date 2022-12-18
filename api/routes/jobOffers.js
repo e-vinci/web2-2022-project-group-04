@@ -3,6 +3,7 @@ const { authorizeDev } = require('../utils/auths');
 const {
   getAllOffers,
   addToIntersted,
+  notInterested,
   getAllJobOffersFromCompany,
   getAllDevInterestedForOffer,
   createJobOffer,
@@ -33,8 +34,19 @@ router.post('/addToInterstedDev', async (req, res) => {
   const idOffer = req?.body?.idOffer;
 
   await addToIntersted({ idDeveloper, idOffer });
+
   res.json({ id_dev: idDeveloper, id_offer: idOffer });
 });
+
+router.post('/notInterestedDev/', async(req, res) => {
+  const idDeveloper = req?.body?.idDeveloper;
+  const idOffer = req?.body?.idOffer;
+  
+  const result = await notInterested(idDeveloper,idOffer);
+  
+  return res.json(result);
+})
+
 
 router.get('/allJobOfferFromCompany/:idCompany', async (req, res) => {
   const idCompanyy = req.params.idCompany;

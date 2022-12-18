@@ -11,28 +11,28 @@ Swiper.use([Navigation, Keyboard, EffectCube]);
 // d'abbord afficher les offres avant d'executer le script
 
 const SwipePage = async () => {
-  
   const AllOffers = await getAllOffersFromAPI();
   await renderSwipePage(AllOffers);
 
   // renderAllOffers(AllOffers);
   const allLikeButton = document.querySelectorAll('.iLike');
+  const allDislikeButton = document.querySelectorAll('.iDislike');
 
   document.onclick = (b) => {
     click = b.target;
   };
-  
-  allLikeButton.forEach(form => { 
-  form.addEventListener('submit',onLikedOffer);
-});
 
+  allLikeButton.forEach((form) => {
+    form.addEventListener('submit', onLikedOffer);
+  });
+
+  allDislikeButton.forEach((form) => {
+    form.addEventListener('submit', onUnlikedOffer);
+  });
 };
-
-
 
 async function renderSwipePage(AllOffers) {
   try {
-    
     const head = document.querySelector('head');
     const foot = document.querySelector('footer');
     head.innerHTML += `<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>`;
@@ -41,13 +41,12 @@ async function renderSwipePage(AllOffers) {
     const main = document.querySelector('main');
     const allJobOfferFromCompany = await renderAllJobOffersAsString(AllOffers);
 
-   
     console.log(
       'TESTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT',
       allJobOfferFromCompany,
     );
     clearPage();
-  renderPageTitle('Offres');
+    renderPageTitle('Offres');
     main.innerHTML += `<!-- Slider main container -->
   <div class="swiper">
   <!-- Additional required wrapper -->
@@ -88,7 +87,6 @@ async function renderSwipePage(AllOffers) {
       },
 
       // And if we need scrollbar
-      
     });
     swiper.scrollbar.destroy();
 
@@ -125,11 +123,17 @@ async function renderAllJobOffersAsString(jobOffers) {
     
       </table>
 
-      <form class="iLike">
-      <input type="submit" class="btn btn-outline-success btn-lg" value="j'aime">
-      <input type="hidden" value = "${offer.id_offer}" class="id_offer">
-      </form>
-      </div>
+          <div>
+            <form class="iLike">
+              <input type="submit" class="btn btn-outline-success btn-lg" value="j'aime">
+              <input type="hidden" value = "${offer.id_offer}" class="id_offer">
+            </form>
+            <form class="iDislike">
+              <input type="submit" class="btn btn-outline-danger btn-lg" value="je n'aime plus">
+              <input type="hidden" value = "${offer.id_offer}" class="id_offer">
+            </form>
+          </div>
+</div>
      `;
   }
 
@@ -198,8 +202,8 @@ async function onLikedOffer(e) {
   const options = {
     method: 'POST',
     body: JSON.stringify({
-      idOffer : offer,
-      idDeveloper : developer,
+      idOffer: offer,
+      idDeveloper: developer,
     }),
     headers: {
       'Content-Type': 'application/json',
@@ -212,6 +216,35 @@ async function onLikedOffer(e) {
 
   // eslint-disable-next-line no-console
   console.log('Newly match with the developer : ', developer);
+}
+
+async function onUnlikedOffer(e) {
+  e.preventDefault();
+
+  console.log(click);
+  const tab = click.parentElement.elements;
+  const offer = tab[1].value;
+  const developer = getAuthenticatedUser().id;
+  console.log(offer);
+  console.log(developer);
+
+  const options = {
+    method: 'POST',
+    body: JSON.stringify({
+      idOffer: offer,
+      idDeveloper: developer,
+    }),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  const response = await fetch('/api/jobOffers/notInterestedDev', options);
+
+  if (!response.ok) throw new Error(`fetch error : ${response.status} : ${response.statusText}`);
+
+  // eslint-disable-next-line no-console
+  console.log('Newly unmatch with the developer : ', developer);
 }
 
 export default SwipePage;

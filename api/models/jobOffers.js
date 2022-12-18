@@ -31,6 +31,20 @@ const addToIntersted = async (data) => {
   });
 };
 
+const notInterestedDev = async (idDev, idOffer) => {
+  const deleteLike = `DELETE FROM webproject.matches WHERE developer = $1 AND job_offer = $2 `;
+
+                      try {
+                        const result = await client.query(deleteLike, [idDev, idOffer]);
+                        if (result) return result.rows;
+                    
+                        return 1;
+                      } catch (err) {
+                        console.log(err.message);
+                        return undefined;
+                      }
+};
+
 //return all offers from a company from DB with its id
 const getAllJobOffersFromCompany = async (idCompany) => {
   const select = `SELECT j.id_offer, j.title, t.type_offer, j.description, j.upload_date
@@ -53,7 +67,7 @@ const getAllJobOffersFromCompany = async (idCompany) => {
   return undefined;
 };
 
-//return all devs intersted for an offer from DB with its id 
+//return all devs intersted for an offer from DB with its id
 async function getAllDevInterestedForOffer(idOffer) {
   const select = `SELECT d.id_developer, d.lastname, d.firstname, d.mail, d.birth_date, d.tel, t.type_offer
 
@@ -97,19 +111,17 @@ const createJobOffer = (jobOffer) =>
   });
 
 //return all types of offer from DB
-const getAllTypeOffer = async () =>{
+const getAllTypeOffer = async () => {
   const select = `SELECT * FROM webproject.type_offers`;
   try {
     const res = await client.query(select);
 
-    return res.rows
-    
+    return res.rows;
   } catch (error) {
     console.log(error.message);
   }
   return undefined;
-}
-
+};
 
 async function getMatchesDevAndCompany(idOffer) {
   const select = `SELECT d.*
@@ -270,14 +282,12 @@ const getAllLanguages = async () => {
   const select = `SELECT * FROM webproject.languages`;
   try {
     const res = await client.query(select);
-    return res.rows;   
-
+    return res.rows;
   } catch (error) {
     console.log(error.message);
   }
   return undefined;
-}
-
+};
 
 const addLanguageToAnOffer = async (idOffer, idLanguage) => {
   new Promise((resolve, reject) => {
@@ -295,6 +305,7 @@ const addLanguageToAnOffer = async (idOffer, idLanguage) => {
 module.exports = {
   getAllOffers,
   addToIntersted,
+  notInterested: notInterestedDev,
   getAllJobOffersFromCompany,
   getAllDevInterestedForOffer,
   createJobOffer,
