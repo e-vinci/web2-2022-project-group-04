@@ -163,12 +163,12 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-3 rounded-4 bg-muted mx-2 bg-info">
+    <div class="col-lg-3 rounded-4 mx-2 bg-info">
       <div class="d-flex justify-content-center my-5 py-2 bg-info">
       </div>
       
     </div>
-    <div class="col rounded-4 bg-muted mx-2 bg-info">
+    <div class="col rounded-4 bg-muted mx-2 bg-muted">
       <div class="container-sm py-2 px-4 mx-5 mt-4 mb-2 w-50 rounded-3  bg-info">  
           <h3>Informations générales</h3> 
       </div>

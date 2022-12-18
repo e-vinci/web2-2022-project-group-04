@@ -17,6 +17,7 @@ const LoginPage = () => {
      const main = document.querySelector('main');
      const form = document.createElement('form');
      form.className = 'px-5 pb-5';
+     form.id = 'loginForm';
      const mail = document.createElement('input');
      mail.type = 'text';
      mail.id = 'mail';

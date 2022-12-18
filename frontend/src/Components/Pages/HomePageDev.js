@@ -108,7 +108,7 @@ async function renderAllJobOffersAsString(jobOffers) {
     const languageString = getLanguageAsString(language);
     //  console.log('LANGUAGE STRING', languageString);
     allOffers += ` <div class="swiper-slide ">
-    <table class="table table-info">
+    <table class="table table-striped table-hover table-light">
     <thead>
       <th scope="row">${offer.title} chez ${offer.company_name} <br> 
       Publié le ${date.toLocaleDateString()}</th>
@@ -126,7 +126,7 @@ async function renderAllJobOffersAsString(jobOffers) {
       </table>
 
       <form class="iLike">
-      <input type="submit" class="btn btn-success" value="j'aime">
+      <input type="submit" class="btn btn-outline-success btn-lg" value="j'aime">
       <input type="hidden" value = "${offer.id_offer}" class="id_offer">
       </form>
       </div>

@@ -2,7 +2,7 @@
 /*temporaire */
 
 main{
-    background-color: #475cad;
+    background-color: #97d7fa;
 }
 
 a {
@@ -42,10 +42,20 @@ h3 {
 
 /*CompanyPage*/
 .descCompany {
-    background-color: gray;
+    color: black;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(251, 243, 243);
     border-radius:10px;
     padding: 20px;
     
+}
+
+#sendMail{
+    color: black;
+}
+
+#sendMail:hover{
+    color: green;
 }
 
 
@@ -118,7 +128,24 @@ h3 {
 
 
 #registerFormDevelopper{
-    opacity: 0.8;
+    opacity: 1;
+    margin: auto;
+    width: 100vh;
+}
+
+#registerFormCompanies{
+    opacity: 1;
+    margin: auto;
+    width: 130vh;
+
+}
+
+#to{
+    margin-top: 25px;
+}
+
+.form-check{
+    margin-top: 30px;
 }
 
 #containerDevHomePageCompany{
@@ -171,7 +198,7 @@ h3 {
     
   }
   .swiper-slide{
-        background: #475cad;
+        background:#d0d7f4;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -259,14 +286,6 @@ height: 40px;
     font-family:monospace;
 }
 
-.p-5{
-    position: relative;
-
-    width  : 70vh;
-    height : 80vh;
-    margin : 0 auto;
-}
-
 #offerForm{
     position: relative;
 
@@ -281,5 +300,17 @@ height: 40px;
     -webkit-justify-content: center;
     justify-content: center;
     align-items: center;
+}
+
+#loginForm{
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+#CompanyInfo{
+    font-family: 'Courier New', Courier, monospace;
+    color: black;
+    background-color: white;
 }
 

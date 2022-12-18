@@ -61,7 +61,7 @@ async function renderCompanyPage(description, allJobOfferOfCompany) {
 }
 
 async function renderAllJobOfferOfCompany(jobOffers) {
-  let allOffer = `<div class="container my-1"><h1>Vos dernières offres d'emplois:</h1>`;
+  let allOffer = `<div class="container my-1"><h4>Vos dernières offres d'emplois:</h4>`;
 
   // eslint-disable-next-line no-restricted-syntax
   for (const offer of jobOffers) {
@@ -81,7 +81,7 @@ async function renderAllJobOfferOfCompany(jobOffers) {
 
     allOffer += `<div class="container my-4 descCompany"> 
     
-    <h2>Titre : ${offer.title}</h2>
+    <h4>Concernant votre offre : ${offer.title}</h4>
         <h5>Type d'offre : ${offer.type_offer}</h5>
         
       <h4>Description : ${offer.description}</h4>
@@ -94,7 +94,7 @@ async function renderAllJobOfferOfCompany(jobOffers) {
           `
         }
         else{
-          allOffer+=`<h2> Les developpeurs qui vous intéressent : </h2>`
+          allOffer+=`<h4> Les developpeurs qui vous intéressent : </h4>`
           // eslint-disable-next-line no-restricted-syntax
           for (const dev of matchesDev) {
 
@@ -105,7 +105,7 @@ async function renderAllJobOfferOfCompany(jobOffers) {
               <li class="list-group-item list-group-item-dark"> Prénom : ${dev.firstname} </li>
               <li class="list-group-item list-group-item-dark"> Email : ${dev.mail} </li>
               <li class="list-group-item list-group-item-dark"> 
-              <a href="mailto:${dev.mail}?subject=${offer.title}&body=Bonjour,%0D%0A%0D%0ANous avons matches sur DevJob">
+              <a id="sendMail" href="mailto:${dev.mail}?subject=${offer.title}&body=Bonjour,%0D%0A%0D%0ANous avons matches sur DevJob">
               Envoyer Email</a> </li>
             </ul>
             `
@@ -123,8 +123,9 @@ async function renderAllJobOfferOfCompany(jobOffers) {
 function renderDescriptionAsString(description) {
 
   const descriptionString = `
-    <div class = "container descCompany"> 
-    <h1>Votre nom : ${description.company_name}</h1>
+    <div class = "container descCompany" id="CompanyInfo"> 
+    <h4>Vos informations</h4>
+    <h4 id="companyN">Société : ${description.company_name}</h4>
     <h4>Description : ${description.description}</h4>
     <h4>Adresse :${description.adress}</h4>
     <h4>Mail :  ${description.mail}</h4> </div>
