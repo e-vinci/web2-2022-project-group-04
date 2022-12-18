@@ -1,5 +1,4 @@
-
-/*temporaire */
+/* Global */
 
 main{
     background-color: #97d7fa;
@@ -40,7 +39,6 @@ h3 {
     border: none;
 }
 
-/*CompanyPage*/
 .descCompany {
     color: black;
     font-family: Arial, Helvetica, sans-serif;

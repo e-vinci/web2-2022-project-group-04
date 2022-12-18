@@ -161,7 +161,6 @@ async function allOffersAsString(jobOffers) {
 }
 
 async function getAllLikedJobsOfferFromCompanyFromApi(idCompany) {
-  /// jobOffers/allJobOfferFromCompany/1
 
   try {
     const response = await fetch(`/api/jobOffers/likedOffers/${idCompany}`);
@@ -196,8 +195,6 @@ async function addDev(e){
   const tab = click.parentElement.elements;
   const idDev=tab[1].value;
   const idOffer =tab[2].value;
-  console.log(idDev)
-  console.log(idOffer)
 
   const options = {
     method: 'POST',
@@ -214,13 +211,9 @@ async function addDev(e){
   }
   console.log("focntion delete fin  ")
 
-
   window.location.reload()
 } 
   
-  
-
-
 
 
 async function deleteDev(e){
@@ -229,8 +222,6 @@ async function deleteDev(e){
   const tab = click.parentElement.elements;
   const idDev=tab[1].value;
   const idOffer =tab[2].value;
-  console.log(idDev)
-  console.log(idOffer)
 
   const options = {
     method: 'POST',

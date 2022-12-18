@@ -91,7 +91,6 @@ async function getmasteredLanguageByIdDevandGetAllLanguages() {
   }
 
   async function getCompleteMatchesInfosCompanies(){
-    console.log("keek")
 
       let matchesCompanies = await fetch(`/api/jobOffers/getCompaniesMatchInfos/${getAuthenticatedUser().id}`);
 

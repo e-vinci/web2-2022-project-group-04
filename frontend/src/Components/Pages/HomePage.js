@@ -78,7 +78,7 @@ const renderHomePage = () => {
           <p class="lead">02/01010101</p>
           <p class="lead">devjob@vinci.be</p> 
       </div>
-  </footer>`; // penser à mettre adresse mail et numero fonctionnel + mettre ce lien dans les credits pour le background : Image de <a href="https://fr.freepik.com/photos-gratuite/vue-face-homme-costume-concept-hebergement-site-web_26412526.htm#page=2&query=background%20website%20IT&position=32&from_view=search&track=ais">Freepik</a>
+  </footer>`; // mettre ce lien dans les credits pour le background : Image de <a href="https://fr.freepik.com/photos-gratuite/vue-face-homme-costume-concept-hebergement-site-web_26412526.htm#page=2&query=background%20website%20IT&position=32&from_view=search&track=ais">Freepik</a>
 
 
   const part1= document.getElementById('part')

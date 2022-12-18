@@ -55,8 +55,7 @@ async function renderCompanyPage(description, allJobOfferOfCompany) {
   const allJobOfferString = await renderAllJobOfferOfCompany(allJobOfferOfCompany);
   const descriptionString = renderDescriptionAsString(description);
   clearPage();
-  renderPageTitle('Vos données')
-
+  renderPageTitle('Vos données');
   main.innerHTML += descriptionString+ allJobOfferString ;
 }
 
@@ -68,14 +67,12 @@ async function renderAllJobOfferOfCompany(jobOffers) {
     let matchesDev;
     // eslint-disable-next-line no-await-in-loop
     const response = await fetch( `/api/jobOffers/getMatchesDevAndCompnay/${offer.id_offer}` );
-    console.log(offer.id_offer)
     if(!response.ok){
        matchesDev = undefined;
     }
     else{
     // eslint-disable-next-line no-await-in-loop
       matchesDev = await response.json();  
-      console.log(matchesDev)
     }
         const date = new Date(offer.upload_date);
 

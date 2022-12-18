@@ -61,7 +61,6 @@ const renderOfferFormPage = async () => {
     const company = getAuthenticatedUser().id;
     const typeOffer = document.getElementById('TypeOffre').value;
     // eslint-disable-next-line no-console
-    console.log(typeOffer);
 
     const title = document.getElementById('idTitle').value;
     const description = document.getElementById('idDescription').value;
@@ -92,8 +91,6 @@ const renderOfferFormPage = async () => {
     console.log('console log reponse : ', response);
 
     const offer = await response.json();
-
-    console.log(offer);
 
     const optionL= {
       method: 'POST',
@@ -148,7 +145,6 @@ async function getAllLanguages() {
 
     const languages = await response.json();
 
-    console.log('ccccccccccccccccccccccccccc', languages);
     return languages;
   } catch (err) {
     // eslint-disable-next-line no-console
@@ -161,7 +157,6 @@ function allTypeOfferAsString(allTypeOffer) {
   let typeOfferList = ' ';
 
   // eslint-disable-next-line no-console
-  console.log(allTypeOffer);
   allTypeOffer?.forEach((typeOffer) => {
     typeOfferList += `<option value="${typeOffer.id_type_offer}"> ${typeOffer.type_offer} </option>`;
   });
@@ -173,7 +168,6 @@ function allLanguagesAsString(allLanguage) {
   let langageList = ' ';
 
   // eslint-disable-next-line no-console
-  console.log(allLanguage);
   allLanguage?.forEach((l) => {
     langageList += `<option value="${l.id_language}"> ${l.language} </option>`;
   });
