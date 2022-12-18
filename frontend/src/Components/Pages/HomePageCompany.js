@@ -58,6 +58,7 @@ async function allOffersAsString(jobOffers) {
 
     <div class="accordion-item">
     <h2 class="accordion-header" id="flush-headingOne">
+    <h4>Notifications</h4>
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
       data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
         Titre de l'offre : ${offer.title}<br>

@@ -55,13 +55,13 @@ async function renderCompanyPage(description, allJobOfferOfCompany) {
   const allJobOfferString = await renderAllJobOfferOfCompany(allJobOfferOfCompany);
   const descriptionString = renderDescriptionAsString(description);
   clearPage();
-  renderPageTitle('Votre Profil')
+  renderPageTitle('Vos données')
 
   main.innerHTML += descriptionString+ allJobOfferString ;
 }
 
 async function renderAllJobOfferOfCompany(jobOffers) {
-  let allOffer = `<div class="container my-1"><h4>Vos dernières offres d'emplois:</h4>`;
+  let allOffer = `<div class="container my-1"><h4>Mes dernières offres d'emplois:</h4>`;
 
   // eslint-disable-next-line no-restricted-syntax
   for (const offer of jobOffers) {
@@ -124,11 +124,11 @@ function renderDescriptionAsString(description) {
 
   const descriptionString = `
     <div class = "container descCompany" id="CompanyInfo"> 
-    <h4>Vos informations</h4>
-    <h4 id="companyN">Société : ${description.company_name}</h4>
-    <h4>Description : ${description.description}</h4>
-    <h4>Adresse :${description.adress}</h4>
-    <h4>Mail :  ${description.mail}</h4> </div>
+    <h4>informations de la société</h4>
+    <h4 id="companyN">Nom de la société: ${description.company_name}</h4>
+    <h4>Description: ${description.description}</h4>
+    <h4>Adresse: ${description.adress}</h4>
+    <h4>Mail:  ${description.mail}</h4> </div>
     `;
 
   return descriptionString;
