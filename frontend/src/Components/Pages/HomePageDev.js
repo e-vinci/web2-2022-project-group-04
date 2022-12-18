@@ -24,11 +24,22 @@ const SwipePage = async () => {
 
   allLikeButton.forEach((form) => {
     form.addEventListener('submit', onLikedOffer);
+    form.addEventListener('click', () =>{
+      document.getElementById('dislikeMessage').id = 'dislikeMessage';
+      document.getElementById('likeMessage').id = 'getLikeMessage';
+      document.getElementById('getDislikeMessage').id = 'dislikeMessage';
+    })
   });
 
   allDislikeButton.forEach((form) => {
     form.addEventListener('submit', onUnlikedOffer);
+    form.addEventListener('click', () =>{
+      document.getElementById('likeMessage').id = 'likeMessage';
+      document.getElementById('dislikeMessage').id = 'getDislikeMessage';
+      document.getElementById('getLikeMessage').id = 'likeMessage';
+    })
   });
+
 };
 
 async function renderSwipePage(AllOffers) {
@@ -110,18 +121,15 @@ async function renderAllJobOffersAsString(jobOffers) {
     <thead>
       <th scope="row">${offer.title} chez ${offer.company_name} <br> 
       Publié le ${date.toLocaleDateString()}</th>
-      <th scope="row"></th>
-      <th scope="row"></th>
-      
-      
+      <th scope="row"><div id=dislikeMessage>Vous n'êtes pas interressé par cette offre</div></th>
+      <th scope="row"><div id=likeMessage>vous aimez</div></th>
     </thead>
       
       <th scope="row">${offer.type_offer} </th>
       <th scope="row">${offer.description}</th>
       <th scope="row">${languageString} </th> 
       
-    
-      </table>
+    </table>
 
           <div>
             <form class="iLike">
@@ -133,6 +141,7 @@ async function renderAllJobOffersAsString(jobOffers) {
               <input type="hidden" value = "${offer.id_offer}" class="id_offer">
             </form>
           </div>
+          
 </div>
      `;
   }
@@ -216,6 +225,7 @@ async function onLikedOffer(e) {
 
   // eslint-disable-next-line no-console
   console.log('Newly match with the developer : ', developer);
+
 }
 
 async function onUnlikedOffer(e) {
@@ -245,6 +255,8 @@ async function onUnlikedOffer(e) {
 
   // eslint-disable-next-line no-console
   console.log('Newly unmatch with the developer : ', developer);
+
+ 
 }
 
 export default SwipePage;
