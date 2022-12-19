@@ -4,4 +4,4 @@ Notre projet est un site de mise en relation entre développeurs et entreprises 
 
 L’application ne peut pas être exécutée localement sans les secrets.
 
-Le "frontend2" correspond au bon boilerplate, nous l'avons utilisé pour le déploiement en fin de projet.
+Le "frontend-deployement" correspond au bon boilerplate, nous l'avons utilisé pour le déploiement en fin de projet.
