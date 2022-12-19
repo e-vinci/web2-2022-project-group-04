@@ -11,12 +11,11 @@ const LoginPage = () => {
 
   };
   
-
   function renderLoginPage(){
-
      const main = document.querySelector('main');
      const form = document.createElement('form');
-     form.className = 'p-5';
+     form.className = 'px-5 pb-5';
+     form.id = 'loginForm';
      const mail = document.createElement('input');
      mail.type = 'text';
      mail.id = 'mail';
@@ -68,7 +67,7 @@ const LoginPage = () => {
       },
     };
 
-    const response = await fetch('/api/developers/login', options);
+    const response = await fetch(`${process.env.API_BASE_URL}/developers/login`, options);
 
     if (!response.ok){
       renderErrorLogin();
